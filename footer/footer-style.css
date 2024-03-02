@@ -1,0 +1,221 @@
+footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #333;
+  color: #fff;
+  padding: 30px 0;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding: 2%;
+}
+
+/* Columns styling */
+.mt-f-col-1,
+.mt-f-col-2,
+.mt-f-col-3,
+.mt-f-col-4 {
+  flex: 1;
+  max-width: 300px;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+/* Styles for mt-f-col-1 */
+.mt-f-col-1 {
+  text-align: left;
+}
+
+.mt-f-col-1 h4 {
+  color: #fff;
+  font-size: 18px;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.mt-f-col-1 address {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+
+.mt-f-col-1 address span {
+  margin-right: 5px;
+}
+
+.mt-f-col-1 address {
+  color: #ccc;
+  font-size: 14px;
+}
+
+/* Logo styling */
+.footer-logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.footer-logo-container img {
+  max-width: 180px;
+}
+
+/* Company email styling */
+.company-email .con,
+.con {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 22px;
+  font-weight: 700;
+  width: 100%;
+}
+
+/* Social icons styling */
+.social-media-links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  text-align: center;
+}
+
+.social-media-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  padding: 10px;
+  background-color: white;
+  height: 30px;
+  width: 30px;
+  margin: 5px;
+  border-radius: 50%;
+}
+
+.social-media-links a i {
+  font-size: 1.3em;
+  color: #000000;
+}
+
+.social-media-links a:hover {
+  background-color: #000000;
+  transition: 0.5s;
+}
+
+.social-media-links a:hover i {
+  color: #ffffff;
+  transition: 0.5s;
+}
+
+/* About Company and Quick Links styling */
+.about-company h3,
+.quick-links h3 {
+  display: block;
+  font-weight: 300;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  color: #fff;
+}
+
+.about-company ul,
+.quick-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.about-company a,
+.quick-links a {
+  text-decoration: none;
+  color: #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  transition: color 0.3s ease-in-out;
+}
+
+.about-company a:hover,
+.quick-links a:hover {
+  color: #fff;
+}
+
+.footer-container ul li a {
+  font-size: 18px;
+}
+
+.footer-container li .material-icons-outlined:hover {
+  color: aqua;
+}
+
+/* Copyright styling */
+.footer-copyright {
+  margin-top: 30px;
+  text-align: center;
+  color: #ccc;
+  font-size: 14px;
+}
+
+/* Responsive styling for smaller screens */
+@media screen and (max-width: 1024px) {
+  .footer-container {
+    flex-wrap: wrap;
+  }
+
+  .mt-f-col-1,
+  .mt-f-col-2,
+  .mt-f-col-3,
+  .mt-f-col-4 {
+    margin-bottom: 20px;
+    width: 90%;
+  }
+
+  .social-media-links {
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .mt-f-col-1,
+  .mt-f-col-2,
+  .mt-f-col-3,
+  .mt-f-col-4 {
+    padding: 0 10px;
+    text-align: center;
+  }
+
+  .footer-logo-container img {
+    max-width: 150px;
+  }
+
+  .mt-f-col-1 h4 {
+    font-size: 16px;
+  }
+
+  .about-company a,
+  .quick-links a {
+    font-size: 16px;
+  }
+  .social-media-links {
+    justify-content: center;
+  }
+
+  .mt-f-col-1 address {
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .footer-logo-container img {
+    max-width: 120px;
+  }
+}

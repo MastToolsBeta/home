@@ -1,0 +1,146 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    background-color: #1f1f1f;
+    padding: 0 10px;
+    color: #ffffff;
+    border-bottom: 1px solid #404040;
+    z-index: 998;
+  }
+  
+  .hamburger, .close-btn, .search-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 30px;
+  }
+
+  .logo {
+    height: 40px;
+  }
+  
+  .left-sidebar {
+    display: none;
+    flex-direction: column;
+    background-color: #1f1f1f;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 70%;
+    max-width: 300px;
+    padding-top: 0px;
+    z-index: 999;
+    border-right: 2px solid #333;
+    animation: slideIn 0.3s ease-out;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); 
+  }
+  
+  .left-sidebar-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .left-sidebar-logo-img {
+    height: 40px;
+    padding: 1.5px;
+  }
+  
+  .left-sidebar .links-container {
+    height: calc(100% - 150px);
+    overflow-y: auto;
+    border-bottom: 3px solid #333;
+    border-top: 3px solid #333;
+  }
+  
+  .left-sidebar a {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 300;
+    padding: 10px;
+    text-decoration: none;
+    color: white;
+    transition: background-color 0.3s;
+  }
+  
+  .left-sidebar a .material-icons-outlined {
+    margin-right: 10px;
+    color: #ffc400;
+  }
+  
+  .left-sidebar a:hover {
+    background-color: #555;
+  }
+  
+  .left-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .left-sidebar ul li {
+    position: relative;
+  }
+  
+  .tools-category {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: rgb(50, 50, 50);
+    border-left: 5px solid rgb(120, 120, 120);
+    font-weight: bolder;
+    font-size: 20px;
+    color: rgb(200, 200, 200);
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: -40px;
+    font-size: 24px;
+    padding: 5px;
+    border: 2px solid white;
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 0, 0);
+  }
+  
+  /* Keyframes for the slide-in animation */
+  @keyframes slideIn {
+    from {
+      transform: translateX(-250px);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+  
+  /* Keyframes for the slide-out animation */
+  @keyframes slideOut {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-250px);
+    }
+  }
+  
+  .left-sidebar-closed {
+    animation: slideOut 0.3s ease-in;
+  }
+  

@@ -1,0 +1,105 @@
+<div class="header-container">
+  <div class="hamburger material-icons-outlined">menu</div>
+  <img src="../assets/images/header-logo.png" alt="Logo" class="logo" />
+  <div class="search-icon material-icons-outlined">search</div>
+</div>
+
+<div class="left-sidebar">
+  <span class="close-btn" onclick="closeSidebar()">
+    <span class="material-icons-outlined">close</span>
+  </span>
+  <div class="left-sidebar-logo">
+    <img
+      src="../assets/images/header-logo.png"
+      alt="left-sidebar Logo"
+      class="left-sidebar-logo-img"
+    />
+  </div>
+  <div class="links-container">
+    <ul>
+      <li>
+        <a href="#">
+          <span class="material-icons-outlined"> home </span>
+          Home
+        </a>
+      </li>
+      <li>
+        <span href="#" class="tools-category"> Calculators </span>
+        <ul>
+          <li>
+            <a href="#"
+              ><span class="material-icons-outlined">calculate</span> Maths
+              Calculator</a
+            >
+          </li>
+          <li>
+            <a href="#"
+              ><span class="material-icons-outlined">person</span> Age
+              Calculator</a
+            >
+          </li>
+          <li>
+            <a href="#"
+              ><span class="material-icons-outlined">attach_money</span> EMI
+              Calculator</a
+            >
+          </li>
+          <li>
+            <a href="#"
+              ><span class="material-icons-outlined">map</span> Route
+              Calculator</a
+            >
+          </li>
+        </ul>
+      </li>
+      <li>
+        <span class="tools-category"> Text Analysis Tools </span>
+        <ul>
+          <li>
+            <a href="#"
+              ><span class="material-icons-outlined">search</span> Plagiarism
+              Checker</a
+            >
+          </li>
+          <li>
+            <a href="#"
+              ><span class="material-icons-outlined">repeat</span> Article
+              Rewriter</a
+            >
+          </li>
+          <li>
+            <a href="#"
+              ><span class="material-icons-outlined">title</span> Word
+              Counter</a
+            >
+          </li>
+          <li>
+            <a href="#"
+              ><span class="material-icons-outlined">spellcheck</span> Spell
+              Checker</a
+            >
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- <script src="../header/header-script.js"></script> -->
+<script>
+  const hamburger = document.querySelector('.hamburger');
+const sidebar = document.querySelector('.left-sidebar');
+
+hamburger.addEventListener('click', () => {
+  sidebar.style.display = 'flex';
+  sidebar.classList.remove('left-sidebar-closed');
+});
+
+function closeSidebar() {
+  sidebar.classList.add('left-sidebar-closed');
+  setTimeout(() => {
+    sidebar.style.display = 'none';
+  }, 300); // Adjust the delay to match the animation duration
+}
+
+</script>

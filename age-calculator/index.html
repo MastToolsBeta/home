@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Age Calculator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+  </head>
+  <body>
+    <div class="calculator">
+      <h1>Age Calculator</h1>
+
+      <!-- Input fields for Birthdate -->
+      <div class="input-group">
+        <label for="birthDay">Enter Your Birthdate:</label>
+        <input type="number" id="birthDay" placeholder="Day">
+        <input type="number" id="birthMonth" placeholder="Month">
+        <input type="number" id="birthYear" placeholder="Year">
+      </div>
+
+      <!-- Input fields for To Date -->
+      <div class="input-group">
+        <label for="toDay">Enter To Date:</label>
+        <input type="number" id="toDay" placeholder="Day">
+        <input type="number" id="toMonth" placeholder="Month">
+        <input type="number" id="toYear" placeholder="Year">
+      </div>
+
+      <button id="calculate-btn">Calculate Age</button>
+
+      <div id="result" class="result">
+        <p id="ageResult"></p>
+        <p id="bornOnResult"></p>
+        <p id="ageOnResult"></p>
+        <p id="durationResult"></p>
+        <p id="durationInMonthsResult"></p>
+        <p id="durationInDaysResult"></p>
+        <p id="durationInHoursResult"></p>
+        <p id="durationInMinutesResult"></p>
+        <p id="durationInSecondsResult"></p>
+
+        <div id="share-container">
+          <button id="share-btn" class="btn btn-primary">Share on WhatsApp</button>
+        </div>
+      </div>
+    </div>
+    <script src="footer.js" defer></script>
+    <script src="script.js"></script>
+  </body>
+</html>
