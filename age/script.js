@@ -44,7 +44,7 @@ function validateDateInput(input) {
     var day = parseInt(inputValue.substring(0, 2), 10);
     var month = parseInt(inputValue.substring(2, 4), 10);
     var year = parseInt(inputValue.substring(4, 8), 10);
-    
+
     var currentYear = new Date().getFullYear();
 
     if (day > 31 || month > 12 || year > currentYear) {
@@ -84,26 +84,21 @@ function calculateAge() {
 
   // Format the result with line breaks
   var resultString =
-    "Age:<br>" +
+    "Age:\n" +
     Math.floor(ageInYears) + " years " +
     Math.floor(ageInMonths % 12) + " months " +
-    remainingDays + " days<br>" +
+    remainingDays + " days\n" +
     "or " + Math.floor(ageInMonths) + " months " +
-    remainingDays + " days<br>" +
+    remainingDays + " days\n" +
     "or " + Math.floor(ageInWeeks) + " weeks " +
-    remainingDays + " days<br>" +
-    "or " + Math.floor(ageInDays) + " days<br>" +
-    "or " + Math.floor(ageInHours) + " hours<br>" +
-    "or " + Math.floor(ageInMinutes) + " minutes<br>" +
+    remainingDays + " days\n" +
+    "or " + Math.floor(ageInDays) + " days\n" +
+    "or " + Math.floor(ageInHours) + " hours\n" +
+    "or " + Math.floor(ageInMinutes) + " minutes\n" +
     "or " + Math.floor(ageInSeconds) + " seconds";
 
-  // Display the result with a typing effect
-  var resultElement = document.getElementById('result');
-  typeWriter(resultString, resultElement, function() {
-    // Show the share button after typing effect
-    var shareButton = document.getElementById('shareButton');
-    shareButton.style.display = 'block';
-  });
+  // Display the result in a table-like format with typing effect
+  displayResultInTableWithTyping(resultString);
 }
 
 function typeWriter(text, element, callback) {
@@ -112,13 +107,12 @@ function typeWriter(text, element, callback) {
 
   function type() {
     if (i < text.length) {
-      if (text.charAt(i) === '<') {
-        element.innerHTML += text.substring(i, text.indexOf('>', i) + 1);
-        i = text.indexOf('>', i) + 1;
+      if (text.charAt(i) === '\n') {
+        element.innerHTML += '<br>';
       } else {
         element.innerHTML += text.charAt(i);
-        i++;
       }
+      i++;
       setTimeout(type, 30); // Adjust the typing speed (milliseconds)
     } else {
       // Call the callback function after typing is complete
@@ -127,6 +121,35 @@ function typeWriter(text, element, callback) {
   }
 
   type();
+}
+
+function displayResultInTableWithTyping(resultString) {
+  // Split the resultString into an array of lines
+  var lines = resultString.split('\n');
+
+  // Create a table element
+  var resultTable = document.createElement('table');
+
+  // Display the table in the result container with typing effect
+  var resultElement = document.getElementById('result');
+  resultElement.innerHTML = '';
+
+  lines.forEach(function (line, index) {
+    var row = resultTable.insertRow();
+    var cell = row.insertCell();
+    cell.innerHTML = line;
+
+    // Typing effect for each line
+    setTimeout(function () {
+      var clonedTable = resultTable.cloneNode(true);
+      resultElement.innerHTML = '';
+      resultElement.appendChild(clonedTable);
+    }, index * 100); // Adjust the delay between lines (milliseconds)
+  });
+
+  // Show the share button
+  var shareButton = document.getElementById('shareButton');
+  shareButton.style.display = 'block';
 }
 
 function shareResult() {
@@ -147,7 +170,6 @@ function shareResult() {
   // Open the WhatsApp share link in a new tab or window
   window.open(whatsappShareLink, "_blank");
 }
-
 
 function parseDate(dateString) {
   var parts = dateString.split('/');
