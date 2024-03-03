@@ -97,8 +97,33 @@ function calculateAge() {
     "or " + Math.floor(ageInMinutes) + " minutes\n" +
     "or " + Math.floor(ageInSeconds) + " seconds";
 
-  document.getElementById('result').innerText = resultString;
+  // Display the result and show the share button
+  var resultElement = document.getElementById('result');
+  resultElement.innerText = resultString;
+
+  var shareButton = document.getElementById('shareButton');
+  shareButton.style.display = 'block';
 }
+
+function shareResult() {
+  var resultText = document.getElementById('result').innerText;
+
+  // Get the current window URL
+  var currentUrl = window.location.href;
+
+  // Create a shareable message with line breaks for better formatting
+  var shareMessage = "My Age Calculation:\n\n" + resultText + "\n\nPowered by: " + currentUrl;
+
+  // Encode the message for a valid URI
+  var encodedMessage = encodeURIComponent(shareMessage);
+
+  // Create a WhatsApp share link
+  var whatsappShareLink = "https://wa.me/?text=" + encodedMessage;
+
+  // Open the WhatsApp share link in a new tab or window
+  window.open(whatsappShareLink, "_blank");
+}
+
 
 function parseDate(dateString) {
   var parts = dateString.split('/');
