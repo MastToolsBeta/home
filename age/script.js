@@ -82,27 +82,51 @@ function calculateAge() {
   // Calculate remaining days after calculating years and months
   var remainingDays = Math.floor(ageInDays % 30.44);
 
-  // Format the result
+  // Format the result with line breaks
   var resultString =
-    "Age:\n" +
+    "Age:<br>" +
     Math.floor(ageInYears) + " years " +
     Math.floor(ageInMonths % 12) + " months " +
-    remainingDays + " days\n" +
+    remainingDays + " days<br>" +
     "or " + Math.floor(ageInMonths) + " months " +
-    remainingDays + " days\n" +
+    remainingDays + " days<br>" +
     "or " + Math.floor(ageInWeeks) + " weeks " +
-    remainingDays + " days\n" +
-    "or " + Math.floor(ageInDays) + " days\n" +
-    "or " + Math.floor(ageInHours) + " hours\n" +
-    "or " + Math.floor(ageInMinutes) + " minutes\n" +
+    remainingDays + " days<br>" +
+    "or " + Math.floor(ageInDays) + " days<br>" +
+    "or " + Math.floor(ageInHours) + " hours<br>" +
+    "or " + Math.floor(ageInMinutes) + " minutes<br>" +
     "or " + Math.floor(ageInSeconds) + " seconds";
 
-  // Display the result and show the share button
+  // Display the result with a typing effect
   var resultElement = document.getElementById('result');
-  resultElement.innerText = resultString;
+  typeWriter(resultString, resultElement, function() {
+    // Show the share button after typing effect
+    var shareButton = document.getElementById('shareButton');
+    shareButton.style.display = 'block';
+  });
+}
 
-  var shareButton = document.getElementById('shareButton');
-  shareButton.style.display = 'block';
+function typeWriter(text, element, callback) {
+  var i = 0;
+  element.innerHTML = '';
+
+  function type() {
+    if (i < text.length) {
+      if (text.charAt(i) === '<') {
+        element.innerHTML += text.substring(i, text.indexOf('>', i) + 1);
+        i = text.indexOf('>', i) + 1;
+      } else {
+        element.innerHTML += text.charAt(i);
+        i++;
+      }
+      setTimeout(type, 30); // Adjust the typing speed (milliseconds)
+    } else {
+      // Call the callback function after typing is complete
+      callback();
+    }
+  }
+
+  type();
 }
 
 function shareResult() {

@@ -59,6 +59,7 @@
       <section class="calculator">
         <h1>Age Calculator</h1>
         <form id="ageCalculatorForm">
+          <img src="assets/images/insmm.svg" alt="">
           <label for="fromDate">From Date (Birthdate):</label>
           <input type="text" id="fromDate" pattern="\d{1,2}/\d{1,2}/\d{4}" placeholder="dd/mm/yyyy" required />
     
@@ -66,11 +67,15 @@
           <input type="text" id="toDate" pattern="\d{1,2}/\d{1,2}/\d{4}" placeholder="dd/mm/yyyy" />
     
           <button type="button" onclick="calculateAge()">Calculate Age</button>
+          <div id="result" class="result-table">
+          
+          </div>
+          <button id="shareButton" onclick="shareResult()" style="display: none;">Share Result</button>
         </form>
-        <div id="result"></div>
-        <button id="shareButton" onclick="shareResult()" style="display: none;">Share Result</button>
+        
       </section>
     </main>
+    
     
     <footer id="footer">
       <!--Don't add anything here-->
