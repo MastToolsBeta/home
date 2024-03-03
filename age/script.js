@@ -75,19 +75,29 @@ function calculateAge() {
   var ageInMinutes = ageInSeconds / 60;
   var ageInHours = ageInMinutes / 60;
   var ageInDays = ageInHours / 24;
+  var ageInWeeks = ageInDays / 7;
   var ageInMonths = ageInDays / 30.44; // average days in a month
   var ageInYears = ageInMonths / 12;
 
-  var resultString =
-    "You are " +
-    Math.floor(ageInYears) +
-    " years, " +
-    Math.floor(ageInMonths % 12) +
-    " months, and " +
-    Math.floor(ageInDays % 30.44) +
-    " days old.";
+  // Calculate remaining days after calculating years and months
+  var remainingDays = Math.floor(ageInDays % 30.44);
 
-  document.getElementById('result').innerHTML = resultString;
+  // Format the result
+  var resultString =
+    "Age:\n" +
+    Math.floor(ageInYears) + " years " +
+    Math.floor(ageInMonths % 12) + " months " +
+    remainingDays + " days\n" +
+    "or " + Math.floor(ageInMonths) + " months " +
+    remainingDays + " days\n" +
+    "or " + Math.floor(ageInWeeks) + " weeks " +
+    remainingDays + " days\n" +
+    "or " + Math.floor(ageInDays) + " days\n" +
+    "or " + Math.floor(ageInHours) + " hours\n" +
+    "or " + Math.floor(ageInMinutes) + " minutes\n" +
+    "or " + Math.floor(ageInSeconds) + " seconds";
+
+  document.getElementById('result').innerText = resultString;
 }
 
 function parseDate(dateString) {
