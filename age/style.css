@@ -13,7 +13,12 @@ main {
 }
 
 .calculator {
-  border: 2px solid red;
+
+}
+
+.calculator h1 {
+  font-size: 2rem;
+  padding: 20px;
 }
 
 form {
@@ -61,16 +66,17 @@ button:hover {
 }
 
 #result {
-  font-size: 20px;
+  font-size: 25px;
   margin-top: 20px;
   color: #ffffff;
   width: 100%;
   display: flex;
   flex-direction: column;
   text-align: left;
-  align-items: center;
+  align-items: flex-start;
+  padding: 20px;
   margin: 0 auto;
-  border: 2px solid rgb(104, 104, 104);
+  border-bottom: 2px solid rgb(104, 104, 104);
 }
 
 
