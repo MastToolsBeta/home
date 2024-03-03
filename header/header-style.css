@@ -6,6 +6,10 @@
   font-family: Arial, sans-serif;
 }
 
+#header {
+  margin-bottom: 70px;
+}
+
   .header-container {
     display: flex;
     justify-content: space-between;
@@ -17,6 +21,8 @@
     color: #ffffff;
     border-bottom: 1px solid #404040;
     z-index: 998;
+    top: 0;
+    left: 0;
   }
   
   .hamburger, .close-btn, .search-icon {

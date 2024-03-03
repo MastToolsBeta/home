@@ -55,7 +55,33 @@
       <!--Don't add anything here-->
     </header>
     <nav></nav>
-    <main></main>
+    <main>
+      <section class="calculator">
+        <h1>Age Calculator</h1>
+        <form id="ageCalculatorForm">
+          <label for="fromDate">From Date (Birthdate):</label>
+          <input type="text" id="fromDate" pattern="\d{1,2}/\d{1,2}/\d{4}" placeholder="dd/mm/yyyy" required />
+    
+          <label for="toDate">To Date (Optional, default is today):</label>
+          <input type="text" id="toDate" pattern="\d{1,2}/\d{1,2}/\d{4}" placeholder="dd/mm/yyyy" />
+    
+          <button type="button" onclick="calculateAge()">Calculate Age</button>
+        </form>
+        
+        <div id="result" class="result">
+          <p id="ageResult"></p>
+          <p id="bornOnResult"></p>
+          <p id="ageOnResult"></p>
+          <p id="durationResult"></p>
+          <p id="durationInMonthsResult"></p>
+          <p id="durationInDaysResult"></p>
+          <p id="durationInHoursResult"></p>
+          <p id="durationInMinutesResult"></p>
+          <p id="durationInSecondsResult"></p>
+        </div>
+      </section>
+    </main>
+    
     <footer id="footer">
       <!--Don't add anything here-->
     </footer>
