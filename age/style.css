@@ -29,7 +29,7 @@ form {
   margin: 0 auto;
   border: 2px solid rgb(104, 104, 104);
 }
-form img {
+form .h1-img {
   width: 100%;
   margin-bottom: 30px;
 }
@@ -48,22 +48,67 @@ input {
   box-sizing: border-box;
 }
 
-button {
-  background-color: #4caf50;
-  color: #ffffff;
-  padding: 15px 25px;
-  font-size: 18px;
-  cursor: pointer;
-  border: none;
-  border-radius: 5px;
-  width: 300px;
-  margin-bottom: 20px;
+.button {
+  appearance: none;
+  backface-visibility: hidden;
+  background-color: #2f80ed;
+  border-radius: 10px;
+  border-style: none;
+  box-shadow: none;
   box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  height: 50px;
+  letter-spacing: normal;
+  line-height: 1.5;
+  outline: none;
+  overflow: hidden;
+  padding: 14px 30px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transform: translate3d(0, 0, 0);
+  transition: all .3s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: top;
+  white-space: nowrap;
 }
 
-button:hover {
-  background-color: #45a049;
+.button:hover {
+  background-color: #1366d6;
+  box-shadow: rgba(0, 0, 0, .05) 0 5px 30px, rgba(0, 0, 0, .05) 0 1px 4px;
+  opacity: 1;
+  transform: translateY(0);
+  transition-duration: .35s;
 }
+
+.button:hover:after {
+  opacity: .5;
+}
+
+.button:active {
+  box-shadow: rgba(0, 0, 0, .1) 0 3px 6px 0, rgba(0, 0, 0, .1) 0 0 10px 0, rgba(0, 0, 0, .1) 0 1px 4px -1px;
+  transform: translateY(2px);
+  transition-duration: .35s;
+}
+
+.button:active:after {
+  opacity: 1;
+}
+
+@media (min-width: 768px) {
+  .button-65 {
+    padding: 14px 22px;
+    width: 176px;
+  }
+}
+
 
 #result {
   font-size: 25px;
@@ -115,11 +160,30 @@ table tr:nth-child(even) {
 
 
 #shareButton {
-  display: none;
-  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center; 
+  gap: 10px;
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  margin: 10px;
+  animation: shake 0.5s ease infinite;
 }
 
 
+
+#shareButton-img {
+  width: 40px;
+  height: 40px;
+}
+
+#shareButton-txt {
+  background-color: #00bd4b;
+  padding: 5px;
+  border-radius: 5px;
+}
 
 
 /* Responsive Styles */
