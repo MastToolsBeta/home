@@ -1,101 +1,179 @@
-const monthNames = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-];
+document.addEventListener('DOMContentLoaded', function () {
+  // Add event listeners to date input fields
+  var fromDateInput = document.getElementById('fromDate');
+  var toDateInput = document.getElementById('toDate');
 
-function animateText(element, text, delay = 50) {
-  return new Promise((resolve) => {
-    let index = 0;
-    const intervalId = setInterval(() => {
-      element.textContent += text[index];
-      index++;
-      if (index === text.length) {
-        clearInterval(intervalId);
-        setTimeout(resolve, delay);
-      }
-    }, delay);
+  fromDateInput.addEventListener('input', function () {
+    autoFormatDate(fromDateInput);
+    validateDateInput(fromDateInput);
   });
-}
 
-function getResultData() {
-  // Define a function to retrieve the generated data
-  // Replace this with your logic to get the data from the result elements
-  const ageResult = document.getElementById("ageResult").textContent;
-  const bornOnResult = document.getElementById("bornOnResult").textContent;
-  const ageOnResult = document.getElementById("ageOnResult").textContent;
-  const durationResult = document.getElementById("durationResult").textContent;
-  const durationInMonthsResult = document.getElementById("durationInMonthsResult").textContent;
-  const durationInDaysResult = document.getElementById("durationInDaysResult").textContent;
-  const durationInHoursResult = document.getElementById("durationInHoursResult").textContent;
-  const durationInMinutesResult = document.getElementById("durationInMinutesResult").textContent;
-  const durationInSecondsResult = document.getElementById("durationInSecondsResult").textContent;
+  toDateInput.addEventListener('input', function () {
+    autoFormatDate(toDateInput);
+    validateDateInput(toDateInput);
+  });
 
-  // Combine the data as needed
-  const generatedData = `${ageResult}\n${bornOnResult}\n${ageOnResult}\n${durationResult}\n${durationInMonthsResult}\n${durationInDaysResult}\n${durationInHoursResult}\n${durationInMinutesResult}\n${durationInSecondsResult}`;
+  // Set the 'inputmode' attribute to suggest a numeric keyboard on mobile devices
+  fromDateInput.setAttribute('inputmode', 'numeric');
+  toDateInput.setAttribute('inputmode', 'numeric');
 
-  return generatedData;
-}
-
-async function calculateAge() {
-  const birthDate = new Date(document.getElementById("birthdate").value);
-  const today = new Date();
-  const ageInMs = today - birthDate;
-  const ageInYears = Math.floor(ageInMs / (365.25 * 24 * 60 * 60 * 1000));
-
-  const birthDay = birthDate.getDate();
-  const birthMonth = birthDate.getMonth();
-  const birthYear = birthDate.getFullYear();
-  const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
-  // Reset result elements
-  document.getElementById("ageResult").textContent = "";
-  document.getElementById("bornOnResult").textContent = "";
-  document.getElementById("ageOnResult").textContent = "";
-  document.getElementById("durationResult").textContent = "";
-  document.getElementById("durationInMonthsResult").textContent = "";
-  document.getElementById("durationInDaysResult").textContent = "";
-  document.getElementById("durationInHoursResult").textContent = "";
-  document.getElementById("durationInMinutesResult").textContent = "";
-  document.getElementById("durationInSecondsResult").textContent = "";
-
-  // Animate text for each result element
-  await animateText(document.getElementById("ageResult"), `Age = ${ageInYears} years`);
-  await animateText(document.getElementById("bornOnResult"), `Born on: ${dayNames[birthDate.getDay()]}, ${monthNames[birthMonth]} ${birthDay}, ${birthYear}`);
-  await animateText(document.getElementById("ageOnResult"), `Age on: ${dayNames[today.getDay()]}, ${monthNames[today.getMonth()]} ${today.getDate()}, ${today.getFullYear()}`);
-  await animateText(document.getElementById("durationResult"), `= ${ageInYears} years ${today.getMonth() - birthMonth} months ${today.getDate() - birthDay} days`);
-  await animateText(document.getElementById("durationInMonthsResult"), `= ${ageInYears * 12 + (today.getMonth() - birthMonth)} months ${today.getDate() - birthDay} days`);
-  await animateText(document.getElementById("durationInDaysResult"), `= ${Math.floor(ageInMs / (24 * 60 * 60 * 1000))} days`);
-  await animateText(document.getElementById("durationInHoursResult"), `= ${Math.floor(ageInMs / (60 * 60 * 1000)).toLocaleString()} hours`);
-  await animateText(document.getElementById("durationInMinutesResult"), `= ${Math.floor(ageInMs / (60 * 1000)).toLocaleString()} minutes`);
-  await animateText(document.getElementById("durationInSecondsResult"), `= ${Math.floor(ageInMs / 1000).toLocaleString()} seconds`);
-
-  // Display the share button after printing data
-  document.getElementById("share-container").style.display = "block";
-}
-
-const calculateBtn = document.getElementById('calculate-btn');
-const shareBtn = document.getElementById('share-btn');
-const result = document.getElementById('result');
-
-calculateBtn.addEventListener('click', async () => {
-  // Code to calculate the result goes here
-
-  // Show the result
-  result.classList.add('show');
-
-  // Calculate the age with animation
-  await calculateAge();
+  // Auto-fill current date in To Date input on page load
+  var currentDate = new Date();
+  var currentDateString =
+    currentDate.getDate().toString().padStart(2, '0') + '/' +
+    (currentDate.getMonth() + 1).toString().padStart(2, '0') + '/' +
+    currentDate.getFullYear().toString();
+  toDateInput.value = currentDateString;
 });
 
-shareBtn.addEventListener('click', () => {
-  // Get the generated data
-  const generatedData = getResultData();
+function autoFormatDate(input) {
+  var inputValue = input.value.replace(/\D/g, ''); // Remove non-numeric characters
+  if (inputValue.length > 2) {
+    inputValue = inputValue.substring(0, 2) + '/' + inputValue.substring(2);
+  }
+  if (inputValue.length > 5) {
+    inputValue = inputValue.substring(0, 5) + '/' + inputValue.substring(5, 9);
+  }
+  input.value = inputValue;
+}
 
-  // Personalized greeting for WhatsApp message
-  const whatsappMessage = "Hi, this is my age details:\n\n";
+function validateDateInput(input) {
+  var inputValue = input.value.replace(/\D/g, ''); // Remove non-numeric characters
+
+  if (inputValue.length === 8) {
+    var day = parseInt(inputValue.substring(0, 2), 10);
+    var month = parseInt(inputValue.substring(2, 4), 10);
+    var year = parseInt(inputValue.substring(4, 8), 10);
+
+    var currentYear = new Date().getFullYear();
+
+    if (day > 31 || month > 12 || year > currentYear) {
+      alert("Please enter a valid date.");
+      input.value = ''; // Clear the input if the date is invalid
+    }
+  }
+}
+
+function calculateAge() {
+  var fromDate = parseDate(document.getElementById('fromDate').value);
+  var toDateInput = document.getElementById('toDate').value;
+
+  var toDate;
+  if (toDateInput === '') {
+    toDate = new Date(); // Use today's date if "To Date" is not specified
+  } else {
+    toDate = parseDate(toDateInput);
+  }
+
+  if (!fromDate || !toDate || fromDate >= toDate) {
+    alert("Please enter valid dates. 'From Date' should be earlier than 'To Date'.");
+    return;
+  }
+
+  var ageInMilliseconds = toDate - fromDate;
+  var ageInSeconds = ageInMilliseconds / 1000;
+  var ageInMinutes = ageInSeconds / 60;
+  var ageInHours = ageInMinutes / 60;
+  var ageInDays = ageInHours / 24;
+  var ageInWeeks = ageInDays / 7;
+  var ageInMonths = ageInDays / 30.44; // average days in a month
+  var ageInYears = ageInMonths / 12;
+
+  // Calculate remaining days after calculating years and months
+  var remainingDays = Math.floor(ageInDays % 30.44);
+
+  // Format the result with line breaks
+  var resultString =
+    "Age:\n" +
+    Math.floor(ageInYears) + " years " +
+    Math.floor(ageInMonths % 12) + " months " +
+    remainingDays + " days\n" +
+    "or " + Math.floor(ageInMonths) + " months " +
+    remainingDays + " days\n" +
+    "or " + Math.floor(ageInWeeks) + " weeks " +
+    remainingDays + " days\n" +
+    "or " + Math.floor(ageInDays) + " days\n" +
+    "or " + Math.floor(ageInHours) + " hours\n" +
+    "or " + Math.floor(ageInMinutes) + " minutes\n" +
+    "or " + Math.floor(ageInSeconds) + " seconds";
+
+  // Display the result in a table-like format with typing effect
+  displayResultInTableWithTyping(resultString);
+}
+
+function displayResultInTableWithTyping(resultString) {
+  var lines = resultString.split('\n');
+  var resultTable = document.createElement('table');
+  var resultElement = document.getElementById('result');
+  resultElement.innerHTML = '';
+
+  function displayLine(index) {
+    var row = resultTable.insertRow();
+    var cell = row.insertCell();
+    cell.innerHTML = lines[index];
+
+    // Typing effect for each character in the line
+    var currentChar = 0;
+
+    function typeCharacter() {
+      if (currentChar < lines[index].length) {
+        setTimeout(function () {
+          var clonedTable = resultTable.cloneNode(true);
+          resultElement.innerHTML = '';
+          resultElement.appendChild(clonedTable);
+
+          cell.innerHTML = lines[index].substring(0, currentChar + 1);
+          currentChar++;
+          typeCharacter();
+        }, 50); // Adjust the typing speed (milliseconds)
+      } else {
+        // Move to the next line after completing the current line
+        setTimeout(function () {
+          if (index < lines.length - 1) {
+            displayLine(index + 1);
+          } else {
+            // Show the share button when all lines are displayed
+            var shareButton = document.getElementById('shareButton');
+            shareButton.style.display = 'flex';
+          }
+        }, 500); // Adjust the delay before moving to the next line (milliseconds)
+      }
+    }
+
+    typeCharacter();
+  }
+
+  // Start displaying lines
+  displayLine(0);
+}
+
+
+function shareResult() {
+  var resultText = document.getElementById('result').innerText;
+
+  // Get the current window URL
+  var currentUrl = window.location.href;
+
+  // Create a shareable message with line breaks for better formatting
+  var shareMessage = "My Age Calculation:\n\n" + resultText + "\n\nPowered by: " + currentUrl;
+
+  // Encode the message for a valid URI
+  var encodedMessage = encodeURIComponent(shareMessage);
 
   // Create a WhatsApp share link
-  const whatsappLink = `https://wa.me/?text=${encodeURIComponent(whatsappMessage + generatedData + '\n\nYou can calculate your age here: ' + window.location.href)}`;
+  var whatsappShareLink = "https://wa.me/?text=" + encodedMessage;
 
-  // Open the share link in a new tab or window
-  window.open(whatsappLink, '_blank');
-});
+  // Open the WhatsApp share link in a new tab or window
+  window.open(whatsappShareLink, "_blank");
+}
+
+function parseDate(dateString) {
+  var parts = dateString.split('/');
+  if (parts.length === 3) {
+    var day = parseInt(parts[0], 10);
+    var month = parseInt(parts[1], 10) - 1; // months are zero-based
+    var year = parseInt(parts[2], 10);
+    return new Date(year, month, day);
+  }
+  return null;
+}
