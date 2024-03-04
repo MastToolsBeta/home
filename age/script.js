@@ -149,7 +149,7 @@ function displayResultInTableWithTyping(resultString) {
 
   // Show the share button
   var shareButton = document.getElementById('shareButton');
-  shareButton.style.display = 'block';
+  shareButton.style.display = 'flex';
 }
 
 function shareResult() {

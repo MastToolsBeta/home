@@ -160,7 +160,7 @@ table tr:nth-child(even) {
 
 
 #shareButton {
-  display: flex;
+  display: none;
   flex-direction: row;
   align-items: center;
   justify-content: center; 
@@ -169,9 +169,15 @@ table tr:nth-child(even) {
   color: #fff;
   border: none;
   margin: 10px;
-  animation: shake 0.5s ease infinite;
 }
 
+.element-to-animate {
+  animation: slowBounce 2s ease infinite;
+}
+
+.element-to-animate {
+  animation: bounce 1s ease infinite;
+}
 
 
 #shareButton-img {
