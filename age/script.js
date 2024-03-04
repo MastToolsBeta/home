@@ -101,56 +101,52 @@ function calculateAge() {
   displayResultInTableWithTyping(resultString);
 }
 
-function typeWriter(text, element, callback) {
-  var i = 0;
-  element.innerHTML = '';
-
-  function type() {
-    if (i < text.length) {
-      if (text.charAt(i) === '\n') {
-        element.innerHTML += '<br>';
-      } else {
-        element.innerHTML += text.charAt(i);
-      }
-      i++;
-      setTimeout(type, 30); // Adjust the typing speed (milliseconds)
-    } else {
-      // Call the callback function after typing is complete
-      callback();
-    }
-  }
-
-  type();
-}
-
 function displayResultInTableWithTyping(resultString) {
-  // Split the resultString into an array of lines
   var lines = resultString.split('\n');
-
-  // Create a table element
   var resultTable = document.createElement('table');
-
-  // Display the table in the result container with typing effect
   var resultElement = document.getElementById('result');
   resultElement.innerHTML = '';
 
-  lines.forEach(function (line, index) {
+  function displayLine(index) {
     var row = resultTable.insertRow();
     var cell = row.insertCell();
-    cell.innerHTML = line;
+    cell.innerHTML = lines[index];
 
-    // Typing effect for each line
-    setTimeout(function () {
-      var clonedTable = resultTable.cloneNode(true);
-      resultElement.innerHTML = '';
-      resultElement.appendChild(clonedTable);
-    }, index * 100); // Adjust the delay between lines (milliseconds)
-  });
+    // Typing effect for each character in the line
+    var currentChar = 0;
 
-  // Show the share button
-  var shareButton = document.getElementById('shareButton');
-  shareButton.style.display = 'flex';
+    function typeCharacter() {
+      if (currentChar < lines[index].length) {
+        setTimeout(function () {
+          var clonedTable = resultTable.cloneNode(true);
+          resultElement.innerHTML = '';
+          resultElement.appendChild(clonedTable);
+
+          cell.innerHTML = lines[index].substring(0, currentChar + 1);
+          currentChar++;
+          typeCharacter();
+        }, 50); // Adjust the typing speed (milliseconds)
+      } else {
+        // Move to the next line after completing the current line
+        setTimeout(function () {
+          if (index < lines.length - 1) {
+            displayLine(index + 1);
+          } else {
+            // Show the share button when all lines are displayed
+            var shareButton = document.getElementById('shareButton');
+            shareButton.style.display = 'flex';
+          }
+        }, 500); // Adjust the delay before moving to the next line (milliseconds)
+      }
+    }
+
+    typeCharacter();
+  }
+
+  // Start displaying lines
+  displayLine(0);
 }
+
 
 function shareResult() {
   var resultText = document.getElementById('result').innerText;
