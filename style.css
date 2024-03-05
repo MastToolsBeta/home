@@ -1,0 +1,61 @@
+body {
+    background-color: black;
+    color: #ffffff;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 1em;
+}
+
+.tool-box {
+    width: 30%;
+    margin: 1em;
+    padding: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.tool-box img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 0.5em;
+}
+
+.tool-box img {
+    max-width: 200px;
+    height: auto;
+    margin-bottom: 0.5em;
+}
+
+.tool-box button {
+    background-color: #4CAF50;
+    color: white;
+    margin-top: 10px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 1200px) {
+    .tool-box {
+        width: 45%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .tool-box {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .tool-box {
+        width: 90%;
+    }
+}
