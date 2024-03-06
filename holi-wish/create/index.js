@@ -1,7 +1,7 @@
-var audioForName = new Audio("assets/sounds/enter-name.mp3");
-var audioForImage = new Audio("assets/sounds/choose-photo.mp3");
-var audioForMessage = new Audio("assets/sounds/write-message.mp3");
-var audioForError = new Audio("assets/sounds/error.mp3");
+var audioForName = new Audio("../assets/sounds/enter-name.mp3");
+var audioForImage = new Audio("../assets/sounds/choose-photo.mp3");
+var audioForMessage = new Audio("../assets/sounds/write-message.mp3");
+var audioForError = new Audio("../assets/sounds/error.mp3");
 
 var currentlyPlayingAudio = null;
 var friendNameInput = document.getElementById("friend_name");
@@ -75,24 +75,28 @@ function submitForm() {
 
     uploadImage()
         .then(function (imageUrl) {
+            // Trim extra spaces from the friend name
+            var trimmedFriendName = friendNameInput.value.trim();
+            
             var greetingLink = constructGreetingLink(imageUrl);
             shortenUrl(greetingLink)
                 .then(function (shortUrl) {
-                    // Pass the friendName here
-                    showResult(shortUrl, friendNameInput.value);
+                    // Pass the trimmed friendName here
+                    showResult(shortUrl, trimmedFriendName);
                 })
                 .catch(function (error) {
                     console.error("Error shortening URL:", error);
-                    // Pass the friendName even in case of an error
-                    showResult(greetingLink, friendNameInput.value);
+                    // Pass the trimmed friendName even in case of an error
+                    showResult(greetingLink, trimmedFriendName);
                 });
         })
         .catch(function (error) {
             console.error("Error uploading image:", error);
-            // Pass the friendName even in case of an error
-            showResult("Error creating greeting card. Please try again.", friendNameInput.value);
+            // Pass the trimmed friendName even in case of an error
+            showResult("Error creating greeting card. Please try again.", trimmedFriendName);
         });
 }
+
 
 
 function uploadImage() {
