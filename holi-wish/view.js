@@ -52,7 +52,7 @@ function typewriterEffect(elementId, text) {
     element.innerHTML = ''; // Clear existing content
 
     var i = 0;
-    var speed = 50; // Speed of typing (adjust as needed)
+    var speed = 200; // Speed of typing (adjust as needed)
 
     function type() {
         if (i < text.length) {
