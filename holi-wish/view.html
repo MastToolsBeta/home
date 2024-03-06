@@ -1,27 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="view.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="view.css" />
     <title>Greeting Card</title>
     <!-- Add your stylesheets or additional styles here -->
-</head>
-<body>
-
-    <div style="text-align: center; padding: 20px;">
-        <h1>Greeting Card</h1>
-        <!-- Displaying the name -->
-        <p style="font-size: 24px; font-weight: bold;">Greetings for: <span id="name"></span></p>
-        
-        <!-- Displaying the image -->
-        <img src="" alt="Greeting Image" style="max-width: 100%; height: auto; border-radius: 10px; margin-bottom: 20px;">
-        
-        <!-- Displaying the message -->
-        <p style="font-size: 18px;">Message: <span id="message"></span></p>
+  </head>
+  <body>
+    <div class="tap-to-view" id="tap-to-view">
+      <div class="fly-board">
+        <div class="hi-message">
+          Hi, <span id="friend-name"></span><br />
+          इस जादुई गिफ्ट को <br />
+          टच करके देखो ! <br />
+          👇👇👇
+        </div>
+      </div>
+      <div class="gif-img" id="tap-gif">
+        <img
+          src="assets/images/gift-box.gif"
+          alt="Tap to Blast"
+          id="tapImage"
+        />
+      </div>
     </div>
 
-    <!-- Add your scripts or additional functionalities here -->
+    <div class="sky-land">
+    <div id="greeting-card-content">
+      <!-- Displaying the image -->
+      <img src="" alt="Greeting Image" id="greeting-image" />
+
+      <p class="f-name">Happy Holi<br /><span id="greeting-name"></span>!</p>
+
+      <!-- Displaying the message -->
+      <p class="message-board"><span id="greeting-message"></span></p>
+
+      <div class="bottom">
+        <div class="new-card">
+          <a href="create/">नए दोस्तों के लिए बनाएं.</a>
+        </div>
+      </div>
+    </div>
+</div>
+
     <script src="view.js"></script>
-</body>
+  </body>
 </html>
