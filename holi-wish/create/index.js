@@ -171,7 +171,7 @@ function constructGreetingLink(imageUrl) {
     var message = encodeURIComponent(greetingMessageTextarea.value);
 
     // Replace with your actual GitHub Pages URL or other hosting URL
-    var baseURL = "http://beta.masttools.com/holi-wish";
+    var baseURL = "http://beta.masttools.com/holi-wish/view.html";
 
     return `${baseURL}?name=${name}&img=${img}&message=${message}`;
 }
