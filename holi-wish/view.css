@@ -1,0 +1,35 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0; /* Set your desired background color */
+}
+
+div {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff; /* Set your desired background color */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+    border-radius: 10px;
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+h1 {
+    color: #333; /* Set your desired text color */
+}
+
+p {
+    font-size: 18px;
+}
+
+span {
+    font-weight: bold;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}

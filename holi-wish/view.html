@@ -3,76 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Makar Sankranti Greeting</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            background-color: #1a1a1a;
-            color: #fff;
-            margin: 0;
-            padding: 0;
-        }
-
-        #greeting-container {
-            max-width: 600px;
-            margin: 20px auto;
-            background-color: #333;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-        }
-
-        #greeting-image {
-            max-width: 80px;
-            max-height: 80px;
-            border-radius: 50%;
-            margin-bottom: 20px;
-        }
-
-        #greeting-heading {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-
-        #greeting-message {
-            font-size: 18px;
-            line-height: 1.5;
-            margin-bottom: 20px;
-        }
-
-        #footer {
-            color: #ccc;
-            font-size: 14px;
-        }
-    </style>
+    <link rel="stylesheet" href="view.css">
+    <title>Greeting Card</title>
+    <!-- Add your stylesheets or additional styles here -->
 </head>
 <body>
-    <div id="greeting-container">
-        <img id="greeting-image" src="" alt="Greeting Image">
 
-        <h1 id="greeting-heading">Happy Makar Sankranti!</h1>
-
-        <p id="greeting-message"></p>
-
-        <div id="footer">
-            <p>&copy; <?php echo date('Y'); ?> Your Greeting Card Company</p>
-        </div>
+    <div style="text-align: center; padding: 20px;">
+        <h1>Greeting Card</h1>
+        <!-- Displaying the name -->
+        <p style="font-size: 24px; font-weight: bold;">Greetings for: <span id="name"></span></p>
+        
+        <!-- Displaying the image -->
+        <img src="" alt="Greeting Image" style="max-width: 100%; height: auto; border-radius: 10px; margin-bottom: 20px;">
+        
+        <!-- Displaying the message -->
+        <p style="font-size: 18px;">Message: <span id="message"></span></p>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Get parameters from the URL
-            var params = new URLSearchParams(window.location.search);
-            var name = params.get('name') || '';
-            var img = params.get('img') || '';
-            var message = decodeURIComponent(params.get('message') || '');
-
-            // Set values in the HTML
-            document.getElementById('greeting-image').src = img;
-            document.getElementById('greeting-heading').innerText = 'Happy Makar Sankranti, ' + name + '!';
-            document.getElementById('greeting-message').innerText = message;
-        });
-    </script>
+    <!-- Add your scripts or additional functionalities here -->
+    <script src="view.js"></script>
 </body>
 </html>

@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+
 function isFormValid() {
     var isValid = friendNameInput.validity.valid && friendImageInput.validity.valid && greetingMessageTextarea.validity.valid;
     if (!isValid) {
