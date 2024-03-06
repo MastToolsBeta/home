@@ -33,13 +33,17 @@ friendNameInput.addEventListener("click", function() {
     playAudio(audioForName);
 });
 
-friendImageInput.addEventListener("change", function() {
+friendImageInput.addEventListener("click", function() {
+    // Play the audio when the user clicks to choose a file
     playAudio(audioForImage);
 });
+
+// Remove the previous change event listener for friendImageInput
 
 greetingMessageTextarea.addEventListener("focus", function() {
     playAudio(audioForMessage);
 });
+
 
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('greetingForm').addEventListener('submit', function (event) {
