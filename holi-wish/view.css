@@ -98,25 +98,25 @@
     content: '';
     position: absolute;
     top: 50%;
-    width: 160px; /* Increase the wing width four times */
-    height: 160px; /* Increase the wing height four times */
-    z-index: -1; /* Move the wings to the back */
+    width: 160px;
+    height: 160px;
+    z-index: -1;
 }
 
 .hi-message::before {
-    left: -130px; /* Adjusted position for the left wing */
-    margin-top: -80px; /* Adjusted margin to vertically center the wing */
+    left: -130px;
+    margin-top: -80px;
     background: url('assets/images/left-wing.png') center/cover no-repeat;
-    animation: leftWingMotion 1.5s infinite ease-in-out alternate; /* Faster left wing animation */
-    transform: rotate(-45deg); /* Rotate the left wing */
+    animation: leftWingMotion 1.5s infinite ease-in-out alternate;
+    transform: rotate(-45deg);
 }
 
 .hi-message::after {
-    right: -130px; /* Adjusted position for the right wing */
-    margin-top: -80px; /* Adjusted margin to vertically center the wing */
+    right: -130px;
+    margin-top: -80px;
     background: url('assets/images/right-wing.png') center/cover no-repeat;
-    animation: rightWingMotion 1.5s infinite ease-in-out alternate; /* Faster right wing animation */
-    transform: rotate(45deg); /* Rotate the right wing */
+    animation: rightWingMotion 1.5s infinite ease-in-out alternate;
+    transform: rotate(45deg);
 }
 
 @keyframes leftWingMotion {
@@ -124,7 +124,7 @@
         transform: translateY(0) rotate(0);
     }
     50% {
-        transform: translateY(-20px) rotate(10deg); /* Increased motion for left wing */
+        transform: translateY(-20px) rotate(10deg);
     }
 }
 
@@ -133,7 +133,7 @@
         transform: translateY(0) rotate(0);
     }
     50% {
-        transform: translateY(-20px) rotate(-10deg); /* Increased motion for right wing */
+        transform: translateY(-20px) rotate(-10deg);
     }
 }
 
@@ -147,7 +147,7 @@
     display: flex;
     justify-content: center;
     height: 100vh;
-    width: 100vh;
+    width: 100%;
     position: relative;
     z-index: 0;
 }
@@ -161,8 +161,8 @@
     height: 50%;
     background: linear-gradient(to bottom, #5EA7D0, #99D6F3, #80CEF4, #6BBDE3, #87CEEB 50%, #2E8B57 50%);
     clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
-    backdrop-filter: blur(10px); /* Adjust the blur value as needed */
-    z-index: 1; /* Ensure the pseudo-element is above the shadow */
+    backdrop-filter: blur(10px);
+    z-index: 1;
 }
 
 .sky-land::after {
@@ -208,7 +208,7 @@
 }
 
 #greeting-card-content img:hover {
-    transform: scale(1.4);
+    transform: scale(1.2);
 }
 
 
@@ -221,9 +221,10 @@
     font-weight: bold;
     padding: 5px;
     font-size: 40px;
+    font-weight: 900;
     -webkit-text-stroke: 0.5px black;
     animation: scaling 1s infinite alternate ease-in-out;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 @keyframes scaling {
@@ -243,13 +244,13 @@
     position: relative;
     background: #282928;
     font-family: 'Noto Sans', sans-serif;
-    padding: 20px;
+    padding: 15px;
     margin-top: 30px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     text-align: left;
     color: #cfcfcf;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold;
     line-height: 1.6;
     border: 15px solid;
