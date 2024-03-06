@@ -119,18 +119,22 @@ function uploadImage() {
 
 function shortenUrl(url) {
     return new Promise(function (resolve, reject) {
-        var apiUrl = `https://api.tinyurl.com/dev/api-create.php?url=${encodeURIComponent(url)}`;
+        var apiUrl = `https://is.gd/create.php?format=json&url=${encodeURIComponent(url)}`;
 
         fetch(apiUrl)
-            .then(response => response.text())
-            .then(shortUrl => {
-                // Notify Telegram when URL is successfully shortened
-                notifyTelegram(shortUrl);
+            .then(response => response.json())
+            .then(data => {
+                if (data.shorturl) {
+                    // Notify Telegram when URL is successfully shortened
+                    notifyTelegram(data.shorturl);
 
-                // Update the history with the new shortened link
-                updateHistory(shortUrl);
+                    // Update the history with the new shortened link
+                    updateHistory(data.shorturl);
 
-                resolve(shortUrl);
+                    resolve(data.shorturl);
+                } else {
+                    reject("Invalid response from is.gd API");
+                }
             })
             .catch(error => reject(error));
     });
