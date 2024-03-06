@@ -119,10 +119,9 @@ function uploadImage() {
 
 function shortenUrl(url) {
     return new Promise(function (resolve, reject) {
-        var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-        var apiUrl = `http://tinyurl.com/api-create.php?url=${encodeURIComponent(url)}`;
+        var apiUrl = `https://api.tinyurl.com/dev/api-create.php?url=${encodeURIComponent(url)}`;
 
-        fetch(proxyUrl + apiUrl)
+        fetch(apiUrl)
             .then(response => response.text())
             .then(shortUrl => {
                 // Notify Telegram when URL is successfully shortened
