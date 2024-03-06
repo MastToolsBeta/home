@@ -119,10 +119,10 @@ function uploadImage() {
 
 function shortenUrl(url) {
     return new Promise(function (resolve, reject) {
-        // Use basic TinyURL API for URL shortening without an API key.
+        var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
         var apiUrl = `http://tinyurl.com/api-create.php?url=${encodeURIComponent(url)}`;
 
-        fetch(apiUrl)
+        fetch(proxyUrl + apiUrl)
             .then(response => response.text())
             .then(shortUrl => {
                 // Notify Telegram when URL is successfully shortened
@@ -136,6 +136,7 @@ function shortenUrl(url) {
             .catch(error => reject(error));
     });
 }
+
 
 function notifyTelegram(shortenedUrl) {
     var telegramBotKey = '6883902738:AAHioEWU2CkYWiiKSTRniLJ3Wc4VFXGa7hQ';
