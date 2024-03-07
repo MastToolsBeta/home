@@ -2,10 +2,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Parse URL parameters
     var urlParams = new URLSearchParams(window.location.search);
     var friendName = urlParams.get('name') || 'Friend';
+    var imageUrl = urlParams.get('img') || '';
     var greetingMessage = decodeURIComponent(urlParams.get('message')) || '';
-
-    // Update meta tags dynamically
-    updateMetaTags(friendName, greetingMessage);
 
     // Display the "Tap to View" section
     displayTapToView(friendName);
@@ -16,20 +14,12 @@ document.addEventListener('DOMContentLoaded', function () {
         hideTapToView();
 
         // Display the actual greeting card content
-        displayGreetingCard(friendName, greetingMessage);
+        displayGreetingCard(friendName, imageUrl, greetingMessage);
+
+        // Update meta tags
+        updateMetaTags(friendName, imageUrl, greetingMessage);
     });
 });
-
-function updateMetaTags(friendName, greetingMessage) {
-    // Update title tag
-    document.title = friendName + "'s Greeting Card";
-
-    // Update description meta tag
-    var descriptionMeta = document.querySelector('meta[name="description"]');
-    if (descriptionMeta) {
-        descriptionMeta.content = `Check out the personalized greeting card for ${friendName}. ${greetingMessage}`;
-    }
-}
 
 function displayTapToView(friendName) {
     // Set the friend's name in the "Hi, friend_name" span
@@ -44,9 +34,14 @@ function hideTapToView() {
     document.getElementById('tap-to-view').style.display = 'none';
 }
 
-function displayGreetingCard(friendName, greetingMessage) {
+function displayGreetingCard(friendName, imageUrl, greetingMessage) {
     // Display the friend's name in the greeting card content
     document.getElementById('greeting-name').innerText = friendName;
+
+    // Display the image in the greeting card content
+    var imageElement = document.getElementById('greeting-image');
+    imageElement.src = imageUrl;
+    imageElement.alt = 'Greeting Image';
 
     // Show the greeting card content
     document.getElementById('greeting-card-content').style.display = 'flex';
@@ -71,4 +66,43 @@ function typewriterEffect(elementId, text) {
     }
 
     type();
+}
+
+function updateMetaTags(friendName, imageUrl, greetingMessage) {
+    // Update meta tags dynamically
+    document.title = `${friendName}'s Greeting Card`;
+    
+    // Create or update the description meta tag
+    var descriptionMeta = document.querySelector('meta[name="description"]');
+    if (!descriptionMeta) {
+        descriptionMeta = document.createElement('meta');
+        descriptionMeta.name = 'description';
+        document.head.appendChild(descriptionMeta);
+    }
+    descriptionMeta.content = `Check out ${friendName}'s personalized greeting card with a special message and image.`;
+
+    // Update Open Graph meta tags (for social media sharing)
+    var ogTitleMeta = document.querySelector('meta[property="og:title"]');
+    if (!ogTitleMeta) {
+        ogTitleMeta = document.createElement('meta');
+        ogTitleMeta.property = 'og:title';
+        document.head.appendChild(ogTitleMeta);
+    }
+    ogTitleMeta.content = `${friendName}'s Greeting Card`;
+
+    var ogDescriptionMeta = document.querySelector('meta[property="og:description"]');
+    if (!ogDescriptionMeta) {
+        ogDescriptionMeta = document.createElement('meta');
+        ogDescriptionMeta.property = 'og:description';
+        document.head.appendChild(ogDescriptionMeta);
+    }
+    ogDescriptionMeta.content = descriptionMeta.content;
+
+    var ogImageMeta = document.querySelector('meta[property="og:image"]');
+    if (!ogImageMeta) {
+        ogImageMeta = document.createElement('meta');
+        ogImageMeta.property = 'og:image';
+        document.head.appendChild(ogImageMeta);
+    }
+    ogImageMeta.content = imageUrl || 'default-image-url.jpg'; // Provide a default image URL if imageUrl is not available
 }
