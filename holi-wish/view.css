@@ -235,7 +235,8 @@
 
 
   .message-board {
-    min-height: 220px;
+    min-height: 230px;
+    max-height: 300px;
     min-width: 350px;
     max-width: 450px;
     position: relative;
