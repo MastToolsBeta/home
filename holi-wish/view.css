@@ -184,7 +184,7 @@
     text-align: center;
     align-items: center;
     position: relative;
-    z-index: 1;
+    z-index: 2;
     text-align: center;
     color: #fff;
     font-size: 18px;
@@ -334,3 +334,37 @@
         transform: scale(1);
     }
 }
+
+.holi-animation{
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+.svg-box {
+    position: absolute;
+    animation-name: rotateSplash;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+  }
+
+
+
+  @keyframes rotateSplash {
+    0% {
+      transform: scale(0.3);
+    }
+    100% {
+      transform: scale(1.0);
+    }
+  }
+
+  @keyframes bombBlast {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
