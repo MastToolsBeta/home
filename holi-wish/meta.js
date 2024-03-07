@@ -1,47 +1,45 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Parse URL parameters
     var urlParams = new URLSearchParams(window.location.search);
-    var friendName = urlParams.get('name') || 'Friend';
+
+    // Get user card details from URL parameters
+    var friendName = decodeURIComponent(urlParams.get('name')) || '';
+    var friendImage = decodeURIComponent(urlParams.get('img')) || '';
     var greetingMessage = decodeURIComponent(urlParams.get('message')) || '';
 
-    // Set meta tags dynamically
-    setMetaTags(friendName, greetingMessage);
+    // Set Open Graph and other meta tags
+    setMetaTags(friendName, friendImage, greetingMessage);
 });
 
-function setMetaTags(friendName, greetingMessage) {
-    // Set the title tag
-    document.title = `${friendName}'s Greeting Card`;
+function setMetaTags(friendName, friendImage, greetingMessage) {
+    // Set title
+    document.title = friendName + "'s Greeting Card";
 
-    // Set the description meta tag
-    var descriptionMeta = document.querySelector('meta[name="description"]');
-    if (descriptionMeta) {
-        descriptionMeta.content = `${friendName}'s personalized greeting card. ${greetingMessage}`;
-    }
+    // Set Open Graph tags
+    setOpenGraphTags(friendName, friendImage, greetingMessage);
 
-    // Set any other meta tags as needed
-
-    // For example, you can set Open Graph (OG) meta tags for social sharing
-    setOpenGraphMetaTags(friendName, greetingMessage);
+    // Add more meta tags as needed
 }
 
-function setOpenGraphMetaTags(friendName, greetingMessage) {
+function setOpenGraphTags(friendName, friendImage, greetingMessage) {
     // Set Open Graph title
     var ogTitleMeta = document.querySelector('meta[property="og:title"]');
     if (ogTitleMeta) {
-        ogTitleMeta.content = `${friendName}'s Greeting Card`;
+        ogTitleMeta.content = friendName + "'s Greeting Card";
     }
 
-    // Set Open Graph description
+    // Set Open Graph description (use the greeting message for this example)
     var ogDescriptionMeta = document.querySelector('meta[property="og:description"]');
     if (ogDescriptionMeta) {
         ogDescriptionMeta.content = greetingMessage;
     }
 
-    // Set Open Graph image (replace with the actual image URL)
+    // Set Open Graph image
     var ogImageMeta = document.querySelector('meta[property="og:image"]');
     if (ogImageMeta) {
-        ogImageMeta.content = 'https://example.com/path/to/your/image.jpg';
+        ogImageMeta.content = friendImage;
     }
-
-    // Set any other Open Graph meta tags as needed
+    // Add more Open Graph tags as needed
 }
+
+// Add functions to set other meta tags if required
