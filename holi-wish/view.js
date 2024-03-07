@@ -15,9 +15,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Display the actual greeting card content
         displayGreetingCard(friendName, imageUrl, greetingMessage);
-
-        // Update meta tags
-        updateMetaTags(friendName, imageUrl, greetingMessage);
     });
 });
 
@@ -66,43 +63,4 @@ function typewriterEffect(elementId, text) {
     }
 
     type();
-}
-
-function updateMetaTags(friendName, imageUrl, greetingMessage) {
-    // Update meta tags dynamically
-    document.title = `${friendName}'s Greeting Card`;
-    
-    // Create or update the description meta tag
-    var descriptionMeta = document.querySelector('meta[name="description"]');
-    if (!descriptionMeta) {
-        descriptionMeta = document.createElement('meta');
-        descriptionMeta.name = 'description';
-        document.head.appendChild(descriptionMeta);
-    }
-    descriptionMeta.content = `Check out ${friendName}'s personalized greeting card with a special message and image.`;
-
-    // Update Open Graph meta tags (for social media sharing)
-    var ogTitleMeta = document.querySelector('meta[property="og:title"]');
-    if (!ogTitleMeta) {
-        ogTitleMeta = document.createElement('meta');
-        ogTitleMeta.property = 'og:title';
-        document.head.appendChild(ogTitleMeta);
-    }
-    ogTitleMeta.content = `${friendName}'s Greeting Card`;
-
-    var ogDescriptionMeta = document.querySelector('meta[property="og:description"]');
-    if (!ogDescriptionMeta) {
-        ogDescriptionMeta = document.createElement('meta');
-        ogDescriptionMeta.property = 'og:description';
-        document.head.appendChild(ogDescriptionMeta);
-    }
-    ogDescriptionMeta.content = descriptionMeta.content;
-
-    var ogImageMeta = document.querySelector('meta[property="og:image"]');
-    if (!ogImageMeta) {
-        ogImageMeta = document.createElement('meta');
-        ogImageMeta.property = 'og:image';
-        document.head.appendChild(ogImageMeta);
-    }
-    ogImageMeta.content = imageUrl || 'default-image-url.jpg'; // Provide a default image URL if imageUrl is not available
 }
