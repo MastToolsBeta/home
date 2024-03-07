@@ -2,8 +2,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // Parse URL parameters
     var urlParams = new URLSearchParams(window.location.search);
     var friendName = urlParams.get('name') || 'Friend';
-    var imageUrl = urlParams.get('img') || '';
     var greetingMessage = decodeURIComponent(urlParams.get('message')) || '';
+
+    // Update meta tags dynamically
+    updateMetaTags(friendName, greetingMessage);
 
     // Display the "Tap to View" section
     displayTapToView(friendName);
@@ -14,9 +16,20 @@ document.addEventListener('DOMContentLoaded', function () {
         hideTapToView();
 
         // Display the actual greeting card content
-        displayGreetingCard(friendName, imageUrl, greetingMessage);
+        displayGreetingCard(friendName, greetingMessage);
     });
 });
+
+function updateMetaTags(friendName, greetingMessage) {
+    // Update title tag
+    document.title = friendName + "'s Greeting Card";
+
+    // Update description meta tag
+    var descriptionMeta = document.querySelector('meta[name="description"]');
+    if (descriptionMeta) {
+        descriptionMeta.content = `Check out the personalized greeting card for ${friendName}. ${greetingMessage}`;
+    }
+}
 
 function displayTapToView(friendName) {
     // Set the friend's name in the "Hi, friend_name" span
@@ -31,14 +44,9 @@ function hideTapToView() {
     document.getElementById('tap-to-view').style.display = 'none';
 }
 
-function displayGreetingCard(friendName, imageUrl, greetingMessage) {
+function displayGreetingCard(friendName, greetingMessage) {
     // Display the friend's name in the greeting card content
     document.getElementById('greeting-name').innerText = friendName;
-
-    // Display the image in the greeting card content
-    var imageElement = document.getElementById('greeting-image');
-    imageElement.src = imageUrl;
-    imageElement.alt = 'Greeting Image';
 
     // Show the greeting card content
     document.getElementById('greeting-card-content').style.display = 'flex';
