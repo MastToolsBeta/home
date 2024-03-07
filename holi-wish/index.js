@@ -74,7 +74,7 @@ function playAudio(audio) {
 }
 
 function submitForm() {
-    document.querySelector('form').style.display = 'none';
+    document.querySelector('form').style.display = '';
     document.getElementById('processing-animation').style.display = 'block';
     document.querySelector('button[type="submit"]').disabled = true;
 

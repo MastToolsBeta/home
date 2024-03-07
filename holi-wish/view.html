@@ -19,40 +19,9 @@
     <meta property="og:locale" content="en_US" />
     <meta property="og: site iname" content="MastTools" />
 
-    <!--Load header and footer  {start}-->
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.js"
-      integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-      crossorigin="anonymous"
-    ></script>
-
-    <script
-      src="https://kit.fontawesome.com/be8edb3d72.js"
-      crossorigin="anonymous"
-    ></script>
-
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
-    />
-
-    <link rel="stylesheet" href="../header/header-style.css" />
-    <link rel="stylesheet" href="../footer/footer-style.css" />
-
-    <script>
-      $(function () {
-        $("#header").load("../header/header.html");
-        $("footer").load("../footer/footer.html");
-      });
-    </script>
-    <!--Load header and footer  {end}-->
     <link rel="stylesheet" href="view.css" />
   </head>
   <body>
-    <header id="header">
-      <!--Don't add anything here-->
-    </header>
-    <nav></nav>
     <main>
       <div class="tap-to-view" id="tap-to-view">
         <div class="fly-board">
@@ -71,28 +40,27 @@
           />
         </div>
       </div>
-  
+
       <div class="sky-land">
-      <div id="greeting-card-content">
-        <!-- Displaying the image -->
-        <img src="" alt="Greeting Image" id="greeting-image" />
-  
-        <p class="f-name">Happy Holi<br /><span id="greeting-name"></span>!</p>
-  
-        <!-- Displaying the message -->
-        <p class="message-board"><span id="greeting-message"></span></p>
-  
-        <div class="bottom">
-          <div class="new-card">
-            <a href="index.html">नए दोस्तों के लिए बनाएं.</a>
+        <div id="greeting-card-content">
+          <!-- Displaying the image -->
+          <img src="" alt="Greeting Image" id="greeting-image" />
+
+          <p class="f-name">
+            Happy Holi<br /><span id="greeting-name"></span>!
+          </p>
+
+          <!-- Displaying the message -->
+          <p class="message-board"><span id="greeting-message"></span></p>
+
+          <div class="bottom">
+            <div class="new-card">
+              <a href="index.html">नए दोस्तों के लिए बनाएं.</a>
+            </div>
           </div>
         </div>
       </div>
-  </div>
     </main>
-    <footer id="footer">
-      <!--Don't add anything here-->
-    </footer>
     <script src="view.js"></script>
   </body>
 </html>

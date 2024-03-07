@@ -12,8 +12,15 @@
       font-family: Verdana;
       height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: top;
       justify-content: center;
+      overflow: hidden;
+  }
+
+  main {
+    width: 100%;
+    height: auto;
   }
 
 
