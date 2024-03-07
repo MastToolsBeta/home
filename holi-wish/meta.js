@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Parse URL parameters
     var urlParams = new URLSearchParams(window.location.search);
     var friendName = urlParams.get('name') || 'Friend';
-    var imageUrl = urlParams.get('img') || '';
+    var imageUrl = urlParams.get('img') || 'default-image-url.jpg';
     var greetingMessage = decodeURIComponent(urlParams.get('message')) || '';
 
     // Set meta tags based on user card data
@@ -10,27 +10,19 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function setMetaTags(friendName, greetingMessage, imageUrl) {
-    // Set the title tag
-    var title = `${friendName}'s Greeting Card`;
-    document.title = title;
+    // Set the title meta tag
+    setMetaTagContent('title', `${friendName}'s Greeting Card`);
 
     // Set the description meta tag
-    var description = `Check out the personalized greeting card for ${friendName}. ${greetingMessage}`;
-    setMetaTag('description', description);
+    setMetaTagContent('description', `Check out the personalized greeting card for ${friendName}. ${greetingMessage}`);
 
     // Set the image meta tag
-    setMetaTag('og:image', imageUrl);
+    setMetaTagContent('image', imageUrl);
 }
 
-function setMetaTag(property, content) {
-    var metaTag = document.querySelector(`meta[property="${property}"]`);
+function setMetaTagContent(tagId, content) {
+    var metaTag = document.getElementById(tagId);
     if (metaTag) {
         metaTag.content = content;
-    } else {
-        // Create the meta tag if it doesn't exist
-        metaTag = document.createElement('meta');
-        metaTag.setAttribute('property', property);
-        metaTag.content = content;
-        document.head.appendChild(metaTag);
     }
 }
