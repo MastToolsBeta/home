@@ -1,0 +1,268 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+body {
+  background-color: #1a1a1a;
+  color: #fff;
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+main {
+  width: 100%;
+}
+
+form {
+  background-color: #333;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
+}
+
+h1 {
+  color: #33ccff;
+  margin-bottom: 20px;
+}
+
+/* Rest of your existing CSS remains unchanged */
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+input {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 15px;
+  background-color: #444;
+  border: 1px solid #666;
+  border-radius: 5px;
+  color: #fff;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: #33ccff;
+}
+
+input[type="file"] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 15px;
+  background-color: #444;
+  border: 1px solid #666;
+  border-radius: 5px;
+  color: #fff;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+textarea {
+  resize: none;
+  height: 100%; /* Initial height */
+  min-height: 150px; /* Minimum height */
+  max-height: 500px; /* Maximum height */
+  font-size: 20px;
+  font-family: "Arial", sans-serif;
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 15px;
+  background-color: #444;
+  border: 1px solid #666;
+  border-radius: 5px;
+  color: #fff;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    color 0.3s ease;
+}
+#greeting_message {
+  text-align: justify;
+}
+
+.lds-ring {
+  display: inline-block;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+}
+
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #fff;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #fff transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+button {
+  background-color: #33ccff;
+  color: black;
+  padding: 5px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 25px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #1f8dd6;
+}
+
+#result {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 280px;
+  max-width: 400px;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(2, 2, 69, 1) 35%,
+    rgba(0, 48, 120, 1) 100%
+  );
+  border: 3px solid rgb(0, 0, 0);
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  z-index: 999;
+  display: none;
+}
+
+#result h2 {
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+#result p {
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #00ff6a;
+  border-radius: 5px;
+}
+
+#result button {
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+#openLink {
+  background-color: #008ac1;
+  color: #fff;
+}
+
+#copyLink {
+  background-color: #bb8d00;
+  color: #fff;
+}
+
+#shareWhatsApp {
+  background-color: #00d64b;
+  color: #1a1a1a;
+  animation: rubberBand 2.5s infinite;
+}
+
+@keyframes rubberBand {
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(1.1);
+  }
+  40% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(1.07);
+  }
+  80% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+#result,
+#history {
+  text-align: center;
+  margin-top: 20px;
+}
+
+hr {
+  margin-top: 30px;
+}
+
+#historyList {
+  list-style: none;
+  padding: 0;
+}
+
+#historyList li {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid rgb(1, 105, 161);
+  border-radius: 10px;
+  background-color: #000000;
+  text-align: left;
+}
+
+.history-link {
+  color: #0080ff;
+  text-decoration: underline;
+  cursor: pointer;
+}

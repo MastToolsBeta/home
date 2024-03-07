@@ -1,9 +1,10 @@
 * {
     margin: 0;
     padding: 0;
+    scroll-behavior: smooth;
+    outline: none;
     -webkit-tap-highlight-color: transparent;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    box-shadow: none;
   }
   
   body {
