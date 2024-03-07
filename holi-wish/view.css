@@ -7,13 +7,11 @@
   }
   
   body {
-      margin: 0;
       font-size: 16px;
       font-family: Verdana;
-      height: 100vh;
       display: flex;
       flex-direction: column;
-      align-items: top;
+      align-items: flex-start;
       justify-content: center;
   }
 
@@ -32,6 +30,7 @@
     justify-content: center;
     flex-direction: column;
     text-align: center;
+    overflow: hidden;
 }
 
 .fly-board {
@@ -183,8 +182,7 @@
     text-align: center;
     align-items: center;
     position: relative;
-    z-index: 2;
-    text-align: center;
+    z-index: 1;
     color: #fff;
     font-size: 18px;
     font-family: 'Arial', sans-serif;
@@ -334,39 +332,3 @@
     }
 }
 
-.holi-animation {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    height: 100%;
-    width: 100%;
-    z-index: 1;
-}
-.svg-box {
-    position: absolute;
-    animation-name: rotateSplash;
-    animation-duration: 0.5s;
-    animation-iteration-count: 1;
-  }
-
-
-
-  @keyframes rotateSplash {
-    0% {
-      transform: scale(0.3);
-    }
-    100% {
-      transform: scale(1.0);
-    }
-  }
-
-  @keyframes bombBlast {
-    0% {
-      transform: scale(1);
-      opacity: 1;
-    }
-    100% {
-      transform: scale(2);
-      opacity: 0;
-    }
-  }

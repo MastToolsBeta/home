@@ -1,19 +1,13 @@
-
   $(document).ready(function () {
-    // Initial SVG icon bomb blast animation
-    $("#splash").css({
-      "animation": "bombBlast 1s ease-in-out forwards",
-    });
-
-    // Hide the initial SVG icon after the animation duration
+    // Initial SVG icon
     setTimeout(function () {
       $("#splash").hide();
-    }, 1000); // Adjust the time as needed (1000 milliseconds = 1 second)
+    }, 5000); // Adjust the time as needed (5000 milliseconds = 5 seconds)
 
     // Interval for creating and showing splash elements
     setInterval(function () {
       createAndShowSplash(Math.random() * window.innerWidth, Math.random() * window.innerHeight);
-    }, 2000); // Adjust the interval as needed
+    }, 1000); // Adjust the interval as needed
 
     function createAndShowSplash(topgap, leftgap) {
       const copy = $("#splash").clone();
@@ -26,7 +20,7 @@
       copy.css('marginLeft', topgap - size / 3 + 'px');
       copy.css('margin-top', leftgap - size / 3 + 'px');
 
-      copy.appendTo("body");
+      copy.appendTo(".holi-animation");
       copy.show();
 
       // Remove the element after 3 seconds (adjust the time as needed)
@@ -46,3 +40,4 @@
       return "hsl(" + h + "," + s + "%," + l + "%)";
     }
   });
+
