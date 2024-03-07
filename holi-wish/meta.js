@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var friendImage = decodeURIComponent(urlParams.get('img')) || '';
     var greetingMessage = decodeURIComponent(urlParams.get('message')) || '';
 
-    // Set Open Graph and other meta tags
+    // Set meta tags
     setMetaTags(friendName, friendImage, greetingMessage);
 });
 
