@@ -41,5 +41,3 @@ function setOpenGraphTags(friendName, friendImage, greetingMessage) {
     }
     // Add more Open Graph tags as needed
 }
-
-// Add functions to set other meta tags if required
