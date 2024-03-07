@@ -12,18 +12,16 @@
     <meta property="og: site iname" content="MastTools" />
     <script defer src="meta.js"></script>
     <script>
-      document.addEventListener('DOMContentLoaded', function () {
-    // Parse URL parameters
-    var urlParams = new URLSearchParams(window.location.search);
+      // Parse URL parameters
+var urlParams = new URLSearchParams(window.location.search);
 
-    // Get user card details from URL parameters
-    var friendName = decodeURIComponent(urlParams.get('name')) || '';
-    var friendImage = decodeURIComponent(urlParams.get('img')) || '';
-    var greetingMessage = decodeURIComponent(urlParams.get('message')) || '';
+// Get user card details from URL parameters
+var friendName = decodeURIComponent(urlParams.get('name')) || '';
+var friendImage = decodeURIComponent(urlParams.get('img')) || '';
+var greetingMessage = decodeURIComponent(urlParams.get('message')) || '';
 
-    // Set meta tags
-    setMetaTags(friendName, friendImage, greetingMessage);
-});
+// Set meta tags
+setMetaTags(friendName, friendImage, greetingMessage);
 
 function setMetaTags(friendName, friendImage, greetingMessage) {
     // Set title
