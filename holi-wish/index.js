@@ -128,70 +128,45 @@ function uploadImage() {
 
 function shortenUrl(url) {
     return new Promise(function (resolve, reject) {
-        // Choose between is.gd and TinyURL randomly
+        // Choose between is.gd and cutt.ly randomly
         var useIsGd = Math.random() < 0.5;
 
         if (useIsGd) {
             tryIsGd(url, resolve, reject);
         } else {
-            tryTinyUrl(url, resolve, reject);
+            tryCuttly(url, resolve, reject);
         }
     });
 }
 
-// Function to try is.gd for URL shortening
-function tryIsGd(url, resolve, reject) {
-    var isGdApiUrl = `https://is.gd/create.php?format=json&url=${encodeURIComponent(url)}`;
+// Function to try cutt.ly for URL shortening
+function tryCuttly(url, resolve, reject) {
+    var cuttlyApiUrl = `https://cutt.ly/api/api.php?key=YOUR_API_KEY&short=${encodeURIComponent(url)}`;
 
-    fetch(isGdApiUrl)
+    fetch(cuttlyApiUrl)
         .then(response => response.json())
         .then(data => {
-            if (data.shorturl) {
+            if (data.url && data.url.shortLink) {
                 // Notify Telegram when URL is successfully shortened
-                notifyTelegram(data.shorturl);
+                notifyTelegram(data.url.shortLink);
 
                 // Update the history with the new shortened link
-                updateHistory(data.shorturl);
+                updateHistory(data.url.shortLink);
 
-                resolve(data.shorturl);
+                resolve(data.url.shortLink);
             } else {
-                // If is.gd fails, try TinyURL
-                reject("is.gd failed. Trying TinyURL as an alternative...");
-                tryTinyUrl(url, resolve, reject);
+                // If cutt.ly fails, try is.gd
+                reject("cutt.ly failed. Trying is.gd as an alternative...");
+                tryIsGd(url, resolve, reject);
             }
         })
         .catch(error => {
-            // If there's an error with is.gd, try TinyURL
-            reject(`Error with is.gd: ${error}. Trying TinyURL as an alternative...`);
-            tryTinyUrl(url, resolve, reject);
+            // If there's an error with cutt.ly, try is.gd
+            reject(`Error with cutt.ly: ${error}. Trying is.gd as an alternative...`);
+            tryIsGd(url, resolve, reject);
         });
 }
 
-// Function to try TinyURL for URL shortening
-function tryTinyUrl(url, resolve, reject) {
-    var tinyUrlApiUrl = `https://api.tinyurl.com/dev/api-create.php?url=${encodeURIComponent(url)}`;
-
-    fetch(tinyUrlApiUrl)
-        .then(response => response.text())
-        .then(shortUrl => {
-            if (shortUrl.trim() !== "") {
-                // Notify Telegram when URL is successfully shortened
-                notifyTelegram(shortUrl);
-
-                // Update the history with the new shortened link
-                updateHistory(shortUrl);
-
-                resolve(shortUrl);
-            } else {
-                // If TinyURL fails, reject with an error message
-                reject("TinyURL failed.");
-            }
-        })
-        .catch(error => {
-            // If there's an error with TinyURL, reject with an error message
-            reject(`Error with TinyURL: ${error}`);
-        });
-}
 
 
 function notifyTelegram(shortenedUrl) {
