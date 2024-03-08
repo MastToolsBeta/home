@@ -128,10 +128,41 @@ function uploadImage() {
 
 function shortenUrl(url) {
     return new Promise(function (resolve, reject) {
-        // First attempt with is.gd
-        var isGdApiUrl = `https://is.gd/create.php?format=json&url=${encodeURIComponent(url)}`;
+        // List of URL shortening services
+        const services = [
+            {
+                name: "is.gd",
+                apiUrl: `https://is.gd/create.php?format=json&url=${encodeURIComponent(url)}`
+            },
+            {
+                name: "TinyURL",
+                apiUrl: `https://api.tinyurl.com/dev/api-create.php?url=${encodeURIComponent(url)}`
+            },
+            // Add more services if needed
+        ];
 
-        fetch(isGdApiUrl)
+        // Shuffle the services array to randomly select one
+        const shuffledServices = shuffleArray(services);
+
+        // Attempt to shorten the URL with each service until successful or all fail
+        tryServices(shuffledServices, 0, resolve, reject);
+    });
+}
+
+// Function to shuffle an array (Fisher-Yates shuffle algorithm)
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+// Function to try URL shortening services in order
+function tryServices(services, index, resolve, reject) {
+    if (index < services.length) {
+        const service = services[index];
+        fetch(service.apiUrl)
             .then(response => response.json())
             .then(data => {
                 if (data.shorturl) {
@@ -143,43 +174,20 @@ function shortenUrl(url) {
 
                     resolve(data.shorturl);
                 } else {
-                    // If is.gd fails, try TinyURL
-                    reject("is.gd failed. Trying TinyURL as an alternative...");
-                    tryTinyUrl(url, resolve, reject);
+                    // If the service fails, try the next one in the list
+                    reject(`${service.name} failed. Trying the next service...`);
+                    tryServices(services, index + 1, resolve, reject);
                 }
             })
             .catch(error => {
-                // If there's an error with is.gd, try TinyURL
-                reject(`Error with is.gd: ${error}. Trying TinyURL as an alternative...`);
-                tryTinyUrl(url, resolve, reject);
+                // If there's an error with the service, try the next one in the list
+                reject(`Error with ${service.name}: ${error}. Trying the next service...`);
+                tryServices(services, index + 1, resolve, reject);
             });
-    });
-}
-
-// Function to try TinyURL as an alternative URL shortening service
-function tryTinyUrl(url, resolve, reject) {
-    var tinyUrlApiUrl = `https://api.tinyurl.com/dev/api-create.php?url=${encodeURIComponent(url)}`;
-
-    fetch(tinyUrlApiUrl)
-        .then(response => response.text())
-        .then(shortUrl => {
-            if (shortUrl.trim() !== "") {
-                // Notify Telegram when URL is successfully shortened
-                notifyTelegram(shortUrl);
-
-                // Update the history with the new shortened link
-                updateHistory(shortUrl);
-
-                resolve(shortUrl);
-            } else {
-                // If TinyURL also fails, reject with an error message
-                reject("TinyURL failed as well.");
-            }
-        })
-        .catch(error => {
-            // If there's an error with TinyURL, reject with an error message
-            reject(`Error with TinyURL: ${error}`);
-        });
+    } else {
+        // If all services fail, reject with an error message
+        reject("All URL shortening services failed.");
+    }
 }
 
 
