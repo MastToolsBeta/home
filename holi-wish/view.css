@@ -354,20 +354,21 @@
     }
 }
 
-@keyframes bombBlast {
-0% {
-transform: scale(1);
-opacity: 1;
-}
-100% {
-transform: scale(2);
-opacity: 0;
-}
-}
 
 .blast {
     position: absolute;
     background-color: #ff0000;
     border-radius: 50%;
-    animation: bombBlast 0.5s ease-out;
+    animation: bombBlast 0.5s ease-in-out forwards;
 }
+
+@keyframes bombBlast {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
