@@ -128,41 +128,9 @@ function uploadImage() {
 
 function shortenUrl(url) {
     return new Promise(function (resolve, reject) {
-        // List of URL shortening services
-        const services = [
-            {
-                name: "is.gd",
-                apiUrl: `https://is.gd/create.php?format=json&url=${encodeURIComponent(url)}`
-            },
-            {
-                name: "TinyURL",
-                apiUrl: `https://api.tinyurl.com/dev/api-create.php?url=${encodeURIComponent(url)}`
-            },
-            // Add more services if needed
-        ];
+        var apiUrl = `https://is.gd/create.php?format=json&url=${encodeURIComponent(url)}`;
 
-        // Shuffle the services array to randomly select one
-        const shuffledServices = shuffleArray(services);
-
-        // Attempt to shorten the URL with each service until successful or all fail
-        tryServices(shuffledServices, 0, resolve, reject);
-    });
-}
-
-// Function to shuffle an array (Fisher-Yates shuffle algorithm)
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-}
-
-// Function to try URL shortening services in order
-function tryServices(services, index, resolve, reject) {
-    if (index < services.length) {
-        const service = services[index];
-        fetch(service.apiUrl)
+        fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
                 if (data.shorturl) {
@@ -174,22 +142,12 @@ function tryServices(services, index, resolve, reject) {
 
                     resolve(data.shorturl);
                 } else {
-                    // If the service fails, try the next one in the list
-                    reject(`${service.name} failed. Trying the next service...`);
-                    tryServices(services, index + 1, resolve, reject);
+                    reject("Invalid response from is.gd API");
                 }
             })
-            .catch(error => {
-                // If there's an error with the service, try the next one in the list
-                reject(`Error with ${service.name}: ${error}. Trying the next service...`);
-                tryServices(services, index + 1, resolve, reject);
-            });
-    } else {
-        // If all services fail, reject with an error message
-        reject("All URL shortening services failed.");
-    }
+            .catch(error => reject(error));
+    });
 }
-
 
 
 function notifyTelegram(shortenedUrl) {
