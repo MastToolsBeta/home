@@ -11,46 +11,18 @@
             overflow: hidden;
         }
 
-        .color-blast {
+        canvas {
             position: absolute;
         }
 
         .color-blast img {
-            position: absolute;
-            animation: bombBlast 1s ease-in-out forwards;
             display: none;
-        }
-
-        @keyframes fadeOut {
-            0% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-            }
-        }
-
-        @keyframes bombBlast {
-    0% {
-      transform: scale(1);
-      opacity: 1;
-    }
-    100% {
-      transform: scale(2);
-      opacity: 0;
-    }
-  }
-
-        .blast {
-            position: absolute;
-            background-color: #ff0000;
-            border-radius: 50%;
-            animation: bombBlast 0.5s ease-out;
         }
     </style>
 </head>
 <body>
-    <div class="color-blast" id="colorBlast">
+    <canvas id="colorBlastCanvas"></canvas>
+    <div class="color-blast">
         <img src="assets/images/holi-color/blue.jpeg" alt="">
         <img src="assets/images/holi-color/dark-blue.jpeg" alt="">
         <img src="assets/images/holi-color/dark-green.jpeg" alt="">
@@ -71,8 +43,11 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const colorBlast = document.getElementById("colorBlast");
-            const images = colorBlast.getElementsByTagName("img");
+            const canvas = document.getElementById("colorBlastCanvas");
+            const ctx = canvas.getContext("2d");
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
 
             function getRandomPosition() {
                 const screenWidth = window.innerWidth;
@@ -85,15 +60,11 @@
             }
 
             function createBlastEffect(x, y) {
-                const blastElement = document.createElement("div");
-                blastElement.classList.add("blast");
-                blastElement.style.left = x + "px";
-                blastElement.style.top = y + "px";
-                document.body.appendChild(blastElement);
-
-                setTimeout(function () {
-                    document.body.removeChild(blastElement);
-                }, 500);
+                const blastSize = 50; // Adjust the size of the blast effect
+                ctx.beginPath();
+                ctx.arc(x, y, blastSize, 0, 2 * Math.PI);
+                ctx.fillStyle = "#ff0000";
+                ctx.fill();
             }
 
             function popUpAndReposition(image, delay) {
@@ -110,15 +81,18 @@
 
                         // Hide the image after 3 seconds with bomb blast effect
                         setTimeout(function () {
-                            // Create a bomb blast effect at the current image position
+                            // Clear the canvas
+                            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                            // Create a bomb blast effect on the canvas at the current image position
                             createBlastEffect(randomPosition.x, randomPosition.y);
 
                             // Hide the image
                             image.style.display = "none";
 
                             // Call animate again after 3 seconds for the next iteration
-                            setTimeout(animate, 6000);
-                        }, 9000);
+                            setTimeout(animate, 9000);
+                        }, 3000);
                     }
 
                     // Initial call to start the animation loop
@@ -127,6 +101,7 @@
             }
 
             // Trigger the pop-up and reposition for each image with individual delays
+            const images = document.querySelectorAll('.color-blast img');
             for (let i = 0; i < images.length; i++) {
                 // Add a delay for each image based on its index
                 popUpAndReposition(images[i], i * 1000);
