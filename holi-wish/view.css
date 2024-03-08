@@ -182,7 +182,7 @@
     text-align: center;
     align-items: center;
     position: relative;
-    z-index: 1;
+    z-index: 2;
     color: #fff;
     font-size: 18px;
     font-family: 'Arial', sans-serif;
@@ -333,3 +333,41 @@
     }
 }
 
+.color-blast {
+    position: absolute;
+    z-index: 1;
+}
+
+.color-blast img {
+    position: absolute;
+    animation: bombBlast 1s ease-in-out forwards;
+    display: none;
+    background-color: transparent;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes bombBlast {
+0% {
+transform: scale(1);
+opacity: 1;
+}
+100% {
+transform: scale(2);
+opacity: 0;
+}
+}
+
+.blast {
+    position: absolute;
+    background-color: #ff0000;
+    border-radius: 50%;
+    animation: bombBlast 0.5s ease-out;
+}
