@@ -15,6 +15,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Display the actual greeting card content
         displayGreetingCard(friendName, imageUrl, greetingMessage);
+
+        // Play background audio instantly and in a loop
+        playBackgroundAudioLoop('background-audio');
+
+        // Play another audio after 10 seconds
+        setTimeout(function () {
+            playAudio('another-audio');
+        }, 20000);
     });
 });
 
@@ -63,4 +71,15 @@ function typewriterEffect(elementId, text) {
     }
 
     type();
+}
+
+function playBackgroundAudioLoop(audioId) {
+    var audio = document.getElementById(audioId);
+    audio.loop = true; // Set to loop
+    playAudio(audioId); // Play audio
+}
+
+function playAudio(audioId) {
+    var audio = document.getElementById(audioId);
+    audio.play();
 }
