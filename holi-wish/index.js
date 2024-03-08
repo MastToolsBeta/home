@@ -128,45 +128,26 @@ function uploadImage() {
 
 function shortenUrl(url) {
     return new Promise(function (resolve, reject) {
-        // Choose between is.gd and cutt.ly randomly
-        var useIsGd = Math.random() < 0.5;
+        var apiUrl = `https://is.gd/create.php?format=json&url=${encodeURIComponent(url)}`;
 
-        if (useIsGd) {
-            tryIsGd(url, resolve, reject);
-        } else {
-            tryCuttly(url, resolve, reject);
-        }
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data.shorturl) {
+                    // Notify Telegram when URL is successfully shortened
+                    notifyTelegram(data.shorturl);
+
+                    // Update the history with the new shortened link
+                    updateHistory(data.shorturl);
+
+                    resolve(data.shorturl);
+                } else {
+                    reject("Invalid response from is.gd API");
+                }
+            })
+            .catch(error => reject(error));
     });
 }
-
-// Function to try cutt.ly for URL shortening
-function tryCuttly(url, resolve, reject) {
-    var cuttlyApiUrl = `https://cutt.ly/api/api.php?key=YOUR_API_KEY&short=${encodeURIComponent(url)}`;
-
-    fetch(cuttlyApiUrl)
-        .then(response => response.json())
-        .then(data => {
-            if (data.url && data.url.shortLink) {
-                // Notify Telegram when URL is successfully shortened
-                notifyTelegram(data.url.shortLink);
-
-                // Update the history with the new shortened link
-                updateHistory(data.url.shortLink);
-
-                resolve(data.url.shortLink);
-            } else {
-                // If cutt.ly fails, try is.gd
-                reject("cutt.ly failed. Trying is.gd as an alternative...");
-                tryIsGd(url, resolve, reject);
-            }
-        })
-        .catch(error => {
-            // If there's an error with cutt.ly, try is.gd
-            reject(`Error with cutt.ly: ${error}. Trying is.gd as an alternative...`);
-            tryIsGd(url, resolve, reject);
-        });
-}
-
 
 
 function notifyTelegram(shortenedUrl) {
