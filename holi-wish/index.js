@@ -128,25 +128,69 @@ function uploadImage() {
 
 function shortenUrl(url) {
     return new Promise(function (resolve, reject) {
-        var apiUrl = `https://is.gd/create.php?format=json&url=${encodeURIComponent(url)}`;
+        // Choose between is.gd and TinyURL randomly
+        var useIsGd = Math.random() < 0.5;
 
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then(data => {
-                if (data.shorturl) {
-                    // Notify Telegram when URL is successfully shortened
-                    notifyTelegram(data.shorturl);
-
-                    // Update the history with the new shortened link
-                    updateHistory(data.shorturl);
-
-                    resolve(data.shorturl);
-                } else {
-                    reject("Invalid response from is.gd API");
-                }
-            })
-            .catch(error => reject(error));
+        if (useIsGd) {
+            tryIsGd(url, resolve, reject);
+        } else {
+            tryTinyUrl(url, resolve, reject);
+        }
     });
+}
+
+// Function to try is.gd for URL shortening
+function tryIsGd(url, resolve, reject) {
+    var isGdApiUrl = `https://is.gd/create.php?format=json&url=${encodeURIComponent(url)}`;
+
+    fetch(isGdApiUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (data.shorturl) {
+                // Notify Telegram when URL is successfully shortened
+                notifyTelegram(data.shorturl);
+
+                // Update the history with the new shortened link
+                updateHistory(data.shorturl);
+
+                resolve(data.shorturl);
+            } else {
+                // If is.gd fails, try TinyURL
+                reject("is.gd failed. Trying TinyURL as an alternative...");
+                tryTinyUrl(url, resolve, reject);
+            }
+        })
+        .catch(error => {
+            // If there's an error with is.gd, try TinyURL
+            reject(`Error with is.gd: ${error}. Trying TinyURL as an alternative...`);
+            tryTinyUrl(url, resolve, reject);
+        });
+}
+
+// Function to try TinyURL for URL shortening
+function tryTinyUrl(url, resolve, reject) {
+    var tinyUrlApiUrl = `https://api.tinyurl.com/dev/api-create.php?url=${encodeURIComponent(url)}`;
+
+    fetch(tinyUrlApiUrl)
+        .then(response => response.text())
+        .then(shortUrl => {
+            if (shortUrl.trim() !== "") {
+                // Notify Telegram when URL is successfully shortened
+                notifyTelegram(shortUrl);
+
+                // Update the history with the new shortened link
+                updateHistory(shortUrl);
+
+                resolve(shortUrl);
+            } else {
+                // If TinyURL fails, reject with an error message
+                reject("TinyURL failed.");
+            }
+        })
+        .catch(error => {
+            // If there's an error with TinyURL, reject with an error message
+            reject(`Error with TinyURL: ${error}`);
+        });
 }
 
 
