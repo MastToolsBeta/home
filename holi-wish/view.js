@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Play another audio after 10 seconds
         setTimeout(function () {
             playAudio('another-audio');
-        }, 20000);
+        }, 25000);
     });
 });
 

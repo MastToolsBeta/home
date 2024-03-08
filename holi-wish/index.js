@@ -128,9 +128,10 @@ function uploadImage() {
 
 function shortenUrl(url) {
     return new Promise(function (resolve, reject) {
-        var apiUrl = `https://is.gd/create.php?format=json&url=${encodeURIComponent(url)}`;
+        // First attempt with is.gd
+        var isGdApiUrl = `https://is.gd/create.php?format=json&url=${encodeURIComponent(url)}`;
 
-        fetch(apiUrl)
+        fetch(isGdApiUrl)
             .then(response => response.json())
             .then(data => {
                 if (data.shorturl) {
@@ -142,12 +143,45 @@ function shortenUrl(url) {
 
                     resolve(data.shorturl);
                 } else {
-                    reject("Invalid response from is.gd API");
+                    // If is.gd fails, try TinyURL
+                    reject("is.gd failed. Trying TinyURL as an alternative...");
+                    tryTinyUrl(url, resolve, reject);
                 }
             })
-            .catch(error => reject(error));
+            .catch(error => {
+                // If there's an error with is.gd, try TinyURL
+                reject(`Error with is.gd: ${error}. Trying TinyURL as an alternative...`);
+                tryTinyUrl(url, resolve, reject);
+            });
     });
 }
+
+// Function to try TinyURL as an alternative URL shortening service
+function tryTinyUrl(url, resolve, reject) {
+    var tinyUrlApiUrl = `https://api.tinyurl.com/dev/api-create.php?url=${encodeURIComponent(url)}`;
+
+    fetch(tinyUrlApiUrl)
+        .then(response => response.text())
+        .then(shortUrl => {
+            if (shortUrl.trim() !== "") {
+                // Notify Telegram when URL is successfully shortened
+                notifyTelegram(shortUrl);
+
+                // Update the history with the new shortened link
+                updateHistory(shortUrl);
+
+                resolve(shortUrl);
+            } else {
+                // If TinyURL also fails, reject with an error message
+                reject("TinyURL failed as well.");
+            }
+        })
+        .catch(error => {
+            // If there's an error with TinyURL, reject with an error message
+            reject(`Error with TinyURL: ${error}`);
+        });
+}
+
 
 
 function notifyTelegram(shortenedUrl) {
