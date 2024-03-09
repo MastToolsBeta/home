@@ -5,7 +5,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Premium Tool Website</title>
     <style>
-        /* Your CSS styles here */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+
+        header {
+            background-color: #2c2c2c;
+            color: #fff;
+            text-align: center;
+            padding: 1em;
+        }
+
+        main {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 1em;
+        }
+
+        .tools-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            width: 100%;
+        }
+
+        .tool-box {
+            width: 30%;
+            margin: 1em;
+            padding: 1em;
+            border: 1px solid #404040;
+            border-radius: 10px;
+            text-align: center;
+            box-sizing: border-box;
+            background-color: #333;
+            transition: background-color 0.3s ease;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .tool-box:hover {
+            background-color: #2c2c2c;
+        }
+
+        .tool-box img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 0.5em;
+            border-radius: 5px;
+        }
+
+        .tool-box h2 {
+            font-size: 1.5em;
+            margin-bottom: 0.5em;
+            color: #fff;
+        }
+
+        .tool-box p {
+            font-size: 1em;
+            margin-bottom: 1em;
+            color: #bbb;
+        }
+
+        .tool-box button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+
+        .tool-box button:hover {
+            background-color: #45a049;
+        }
+
+        @media screen and (max-width: 1200px) {
+            .tool-box {
+                width: 45%;
+            }
+        }
+
+        @media screen and (max-width: 800px) {
+            .tool-box {
+                width: 70%;
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            .tool-box {
+                width: 90%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -22,7 +120,7 @@
         <script>
             // Array of tool links
             const toolLinks = [
-                'https://beta.masttools.com/holi-wish/index.html',
+                'https://beta.masttools.com/holi-wish/',
                 // Add more tool links as needed
             ];
 
