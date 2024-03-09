@@ -1,0 +1,19 @@
+#installButton {
+    display: none;
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    border-radius: 50px;
+    width: 40px;
+    height: 40px; 
+    background-image: url('../../assets/images/pwa-install.png');
+    background-size: cover;
+    cursor: pointer;
+    border: none; 
+    outline: none; 
+}
+  
+  #installButton:hover {
+    opacity: 0.8;
+  }
+  

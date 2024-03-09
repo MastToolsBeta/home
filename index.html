@@ -20,13 +20,21 @@
     />
     <meta
       property="og:image"
-      content="assets/images/masttools.com-logo-main.jpeg"
+      content="src/img/masttools.com-logo-main.jpeg"
     />
     <link rel="icon" href="/favicon.ico" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta property="og:locale" content="en_US" />
     <meta property="og: site iname" content="MastTools" />
+
+         <!-- PWA opn -->
+         <link rel="stylesheet" href="src/css/install-btn.css">
+         <meta name="apple-mobile-web-app-capable" content="yes">
+     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+     <meta name="theme-color" content="#000000">
+     <link rel="manifest" href="manifest.json">
+     <!-- PWA clz -->
 
     <!--Load header and footer  {start}-->
     <script
@@ -55,7 +63,7 @@
       });
     </script>
     <!--Load header and footer  {end}-->
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="src/css/style.css" />
   </head>
   <body>
     <header id="header">
@@ -69,6 +77,10 @@
     <footer id="footer">
       <!--Don't add anything here-->
     </footer>
-    <script src="script.js"></script>
+    <!-- PWA opn -->
+<script src="src/js/register-service-worker.js"></script>
+<script src="src/js/install-btn.js"></script>
+<!-- PWA clz -->
+    <script src="src/js/script.js"></script>
   </body>
 </html>

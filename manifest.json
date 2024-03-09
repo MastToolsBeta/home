@@ -1,0 +1,23 @@
+{
+  "name": "MastTools.com - #1 online tools web Apps",
+  "short_name": "MastTools.com",
+  "description": "Explore a world of efficient online tools on MastTools.com. discover a range of utilities and powerful online tools.",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#1f1f1f",
+  "theme_color": "#050505",
+
+  "icons": [
+    {
+      "src": "src/img/logo192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "src/img/logo192.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
