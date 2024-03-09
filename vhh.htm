@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Tool Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+
+        main {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 1em;
+        }
+
+        .tools-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            width: 100%;
+        }
+
+        .tool-box {
+            width: 30%;
+            margin: 1em;
+            padding: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .tool-box img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 0.5em;
+        }
+
+        .tool-box button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        @media screen and (max-width: 1200px) {
+            .tool-box {
+                width: 45%;
+            }
+        }
+
+        @media screen and (max-width: 800px) {
+            .tool-box {
+                width: 70%;
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            .tool-box {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Your Tool Website</h1>
+    </header>
+
+    <main>
+        <div class="tools-list" id="toolsList">
+            <!-- Tool boxes will be dynamically added here using JavaScript -->
+        </div>
+        
+        <script>
+            // Array of tool links
+            const toolLinks = [
+                'https://beta.masttools.com/holi-wish/index.html',
+                // Add more tool links as needed
+            ];
+
+            // Function to fetch and create tool boxes
+            const createToolBoxes = async () => {
+                const toolsList = document.getElementById('toolsList');
+
+                for (const link of toolLinks) {
+                    try {
+                        const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(link)}`);
+                        const { contents } = await response.json();
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(contents, 'text/html');
+
+                        const title = doc.querySelector('meta[property="og:title"]').getAttribute('content');
+                        const description = doc.querySelector('meta[property="og:description"]').getAttribute('content');
+                        const imageUrl = doc.querySelector('meta[property="og:image"]').getAttribute('content');
+
+                        // Create tool box element
+                        const toolBox = document.createElement('div');
+                        toolBox.className = 'tool-box';
+                        toolBox.innerHTML = `
+                            <img src="${imageUrl}" alt="${title}">
+                            <h2>${title}</h2>
+                            <p>${description}</p>
+                            <button onclick="window.location.href='${link}'">Open Tool</button>
+                        `;
+
+                        // Append tool box to the toolsList container
+                        toolsList.appendChild(toolBox);
+                    } catch (error) {
+                        console.error(`Error fetching content for ${link}:`, error);
+                    }
+                }
+            };
+
+            // Call the function to create tool boxes
+            createToolBoxes();
+        </script>
+    </main>
+
+</body>
+</html>
