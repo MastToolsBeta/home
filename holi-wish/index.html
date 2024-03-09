@@ -4,16 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Create happy holi - greeting card</title>
-    <meta name="description" content="Design personalized digital holi greeting cards effortlessly with our user-friendly tool. add heartfelt messages, and share the joy with friends. Start spreading smiles today!">
+    <meta
+      name="description"
+      content="Design personalized digital holi greeting cards effortlessly with our user-friendly tool. add heartfelt messages, and share the joy with friends. Start spreading smiles today!"
+    />
 
     <meta name="author" content="MastTools.com" />
 
     <!-- Open Graph Protocol -->
-    <meta property="og:title" content="Create Joyful Memories with Our Digital Holi Greeting Card Tool" />
+    <meta
+      property="og:title"
+      content="Create Joyful Memories with Our Digital Holi Greeting Card Tool"
+    />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.masttools.com" />
-    <meta property="og:description" content="Design vibrant and personalized Holi greeting cards effortlessly with our user-friendly tool. Add heartfelt messages, choose from a variety of templates, and share the joy of the festival with friends and family. Start creating memorable moments today!" />
+    <meta
+      property="og:description"
+      content="Design vibrant and personalized Holi greeting cards effortlessly with our user-friendly tool. Add heartfelt messages, choose from a variety of templates, and share the joy of the festival with friends and family. Start creating memorable moments today!"
+    />
 
     <meta property="og:image" content="assets/images/og-image.jpeg" />
     <link rel="icon" href="/favicon.ico" />
@@ -51,16 +60,18 @@
     <!--Load header and footer  {end}-->
     <link rel="stylesheet" href="src/css/index.css" />
     <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-D7LM86EK7S"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-  gtag('js', new Date());
-  gtag('config', 'G-D7LM86EK7S');
-</script>
-
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-D7LM86EK7S"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-D7LM86EK7S");
+    </script>
   </head>
   <body>
     <header id="header">
@@ -68,36 +79,64 @@
     </header>
     <nav></nav>
     <main>
+      <div class="tool-area">
+        <div class="tool">
         <form id="greetingForm">
-            <h1>Create <span style="color: rgb(255, 198, 9);">Happy Holi</span> Greeting Card.</h1>
-    
-            <label for="friend_name">दोस्त का नाम।</label>
-            <input type="text" id="friend_name" name="friend_name" required placeholder="अपने मित्र का नाम यहाँ डालें...">
-    
-            <label for="friend_image">दोस्त का फोटो चुनें।</label>
-            <input type="file" id="friend_image" name="friend_image" required accept="image/*">
-    
-            <label for="greeting_message">दोस्त के लिए संदेश लिखें।</label>
-            <textarea id="greeting_message" name="greeting_message" required placeholder="यहाँ आपका शुभकामना सन्देश लिखें..."></textarea>
-    
+          <h1>
+            Create
+            <span style="color: rgb(255, 198, 9)">Happy Holi</span> Greeting
+            Card.
+          </h1>
+
+          <label for="friend_name">दोस्त का नाम।</label>
+          <input
+            type="text"
+            id="friend_name"
+            name="friend_name"
+            required
+            placeholder="अपने मित्र का नाम यहाँ डालें..."
+          />
+
+          <label for="friend_image">दोस्त का फोटो चुनें।</label>
+          <input
+            type="file"
+            id="friend_image"
+            name="friend_image"
+            required
+            accept="image/*"
+          />
+
+          <label for="greeting_message">दोस्त के लिए संदेश लिखें।</label>
+          <textarea
+            id="greeting_message"
+            name="greeting_message"
+            required
+            placeholder="यहाँ आपका शुभकामना सन्देश लिखें..."
+          ></textarea>
+          <div class="btns">
+            <a href="#"
+              ><button id="see-demo">
+                <img src="assets/images/see.png" alt="" />Demo
+              </button></a
+            >
             <button type="submit">Create Card</button>
-            <hr>
-            <div id="history">
-              <h2>Your Cards History</h2>
-              <ul id="historyList"></ul>
           </div>
         </form>
-    
-        <div id="processing-animation" class="lds-ring" style="display: none;">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+      </div>
+        <div id="history">
+          <h2>Your Cards History</h2>
+          <ul id="historyList"></ul>
         </div>
-    
-        <div id="result" style="display: none;">
-          
-        </div>
+      </div>
+
+      <div id="processing-animation" class="lds-ring" style="display: none">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+
+      <div id="result" style="display: none"></div>
     </main>
     <footer id="footer">
       <!--Don't add anything here-->

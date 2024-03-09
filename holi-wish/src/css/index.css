@@ -82,9 +82,9 @@ input[type="file"] {
 
 textarea {
   resize: none;
-  height: 100%; /* Initial height */
-  min-height: 150px; /* Minimum height */
-  max-height: 500px; /* Maximum height */
+  height: 100%;
+  min-height: 150px;
+  max-height: 500px;
   font-size: 20px;
   font-family: "Arial", sans-serif;
   width: calc(100% - 20px);
@@ -140,6 +140,27 @@ textarea {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.btns {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+}
+
+.btns a {
+  text-decoration: none;
+}
+
+#see-demo {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background-color: #8a8a8a;
+}
+
+#see-demo img {
+  height: 30px;
 }
 
 button {
@@ -237,27 +258,31 @@ button:hover {
   }
 }
 
-#result,
-#history {
+#result {
   text-align: center;
   margin-top: 20px;
 }
 
-hr {
-  margin-top: 30px;
+#history {
+  text-align: center;
+  border: 5px solid #002334;
+}
+
+#history h2 {
+  padding:20px;
+  background-color: #002334;
 }
 
 #historyList {
   list-style: none;
-  padding: 0;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 #historyList li {
-  margin-bottom: 15px;
   padding: 10px;
-  border: 1px solid rgb(1, 105, 161);
-  border-radius: 10px;
-  background-color: #000000;
+  border: 3px solid #000000;
+  background-color: #333;
   text-align: left;
 }
 
@@ -265,4 +290,19 @@ hr {
   color: #0080ff;
   text-decoration: underline;
   cursor: pointer;
+}
+
+@media screen and (min-width: 700px) {
+  .tool-area {
+    display: flex;
+    justify-content: space-around;
+  }
+  #history {
+    max-width: 50vh;
+    max-height: 60vh;
+    overflow: auto;
+  }
+  #historyList {
+    max-height: 100%;
+  }
 }
