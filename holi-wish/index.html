@@ -81,54 +81,51 @@
     <main>
       <div class="tool-area">
         <div class="tool">
-        <form id="greetingForm">
-          <h1>
-            Create
-            <span style="color: rgb(255, 198, 9)">Happy Holi</span> Greeting
-            Card.
-          </h1>
+          <form id="greetingForm">
+            <h1>
+              Create
+              <span style="color: rgb(255, 198, 9)">Happy Holi</span> Greeting
+              Card.
+            </h1>
 
-          <label for="friend_name">दोस्त का नाम।</label>
-          <input
-            type="text"
-            id="friend_name"
-            name="friend_name"
-            required
-            placeholder="अपने मित्र का नाम यहाँ डालें..."
-          />
+            <label for="friend_name">दोस्त का नाम।</label>
+            <input
+              type="text"
+              id="friend_name"
+              name="friend_name"
+              required
+              placeholder="अपने मित्र का नाम यहाँ डालें..."
+            />
 
-          <label for="friend_image">दोस्त का फोटो चुनें।</label>
-          <input
-            type="file"
-            id="friend_image"
-            name="friend_image"
-            required
-            accept="image/*"
-          />
+            <label for="friend_image">दोस्त का फोटो चुनें।</label>
+            <input
+              type="file"
+              id="friend_image"
+              name="friend_image"
+              required
+              accept="image/*"
+            />
 
-          <label for="greeting_message">दोस्त के लिए संदेश लिखें।</label>
-          <textarea
-            id="greeting_message"
-            name="greeting_message"
-            required
-            placeholder="यहाँ आपका शुभकामना सन्देश लिखें..."
-          ></textarea>
-          <div class="btns">
-            <a href="#"
-              ><button id="see-demo">
+            <label for="greeting_message">दोस्त के लिए संदेश लिखें।</label>
+            <textarea
+              id="greeting_message"
+              name="greeting_message"
+              required
+              placeholder="यहाँ आपका शुभकामना सन्देश लिखें..."
+            ></textarea>
+            <div class="btns">
+              <a id="see-demo" href="https://is.gd/aA6uzj">
                 <img src="assets/images/see.png" alt="" />Demo
-              </button></a
-            >
-            <button type="submit">Create Card</button>
-          </div>
-        </form>
-      </div>
+              </a>
+              <button type="submit">Create Card</button>
+            </div>
+          </form>
+        </div>
         <div id="history">
           <h2>Your Cards History</h2>
           <ul id="historyList"></ul>
         </div>
       </div>
-
       <div id="processing-animation" class="lds-ring" style="display: none">
         <div></div>
         <div></div>

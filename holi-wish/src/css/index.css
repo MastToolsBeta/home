@@ -163,7 +163,7 @@ textarea {
   height: 30px;
 }
 
-button {
+button, .btns a {
   background-color: #33ccff;
   color: black;
   padding: 5px 20px;
