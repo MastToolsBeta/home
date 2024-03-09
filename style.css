@@ -1,6 +1,8 @@
 body {
-    background-color: black;
-    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+    background-color: #1a1a1a;
+    color: #fff;
 }
 
 main {
@@ -10,36 +12,63 @@ main {
     padding: 1em;
 }
 
+.tools-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+}
+
 .tool-box {
     width: 30%;
     margin: 1em;
     padding: 1em;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: 1px solid #404040;
+    border-radius: 10px;
     text-align: center;
     box-sizing: border-box;
+    background-color: #333;
+    transition: background-color 0.3s ease;
+    overflow: hidden;
+    position: relative;
+}
+
+.tool-box:hover {
+    background-color: #2c2c2c;
 }
 
 .tool-box img {
-    max-width: 100%;
+    max-width: 50%;
     height: auto;
     margin-bottom: 0.5em;
+    border-radius: 10px;
 }
 
-.tool-box img {
-    max-width: 200px;
-    height: auto;
+.tool-box h2 {
+    font-size: 1.5em;
     margin-bottom: 0.5em;
+    color: #fff;
+}
+
+.tool-box p {
+    font-size: 1em;
+    margin-bottom: 1em;
+    color: #bbb;
 }
 
 .tool-box button {
     background-color: #4CAF50;
     color: white;
-    margin-top: 10px;
     padding: 8px 16px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.tool-box button:hover {
+    background-color: #45a049;
 }
 
 @media screen and (max-width: 1200px) {
