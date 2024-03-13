@@ -33,7 +33,7 @@
             >
           </li>
           <li>
-            <a href="#"
+            <a href="http://beta.masttools.com/age-calculator/"
               ><span class="material-icons-outlined">person</span> Age
               Calculator</a
             >
@@ -80,6 +80,14 @@
             >
           </li>
         </ul>
+        <span class="tools-category"> Greeting Cards Tools </span>
+        <ul>
+          <li>
+            <a href="http://beta.masttools.com/holi-wish/"
+              ><span class="material-icons-outlined">mail</span> Holi Cards</a
+            >
+          </li>
+        </ul>
       </li>
     </ul>
   </div>
@@ -87,19 +95,18 @@
 
 <!-- <script src="../header/header-script.js"></script> -->
 <script>
-  const hamburger = document.querySelector('.hamburger');
-const sidebar = document.querySelector('.left-sidebar');
+  const hamburger = document.querySelector(".hamburger");
+  const sidebar = document.querySelector(".left-sidebar");
 
-hamburger.addEventListener('click', () => {
-  sidebar.style.display = 'flex';
-  sidebar.classList.remove('left-sidebar-closed');
-});
+  hamburger.addEventListener("click", () => {
+    sidebar.style.display = "flex";
+    sidebar.classList.remove("left-sidebar-closed");
+  });
 
-function closeSidebar() {
-  sidebar.classList.add('left-sidebar-closed');
-  setTimeout(() => {
-    sidebar.style.display = 'none';
-  }, 300); // Adjust the delay to match the animation duration
-}
-
+  function closeSidebar() {
+    sidebar.classList.add("left-sidebar-closed");
+    setTimeout(() => {
+      sidebar.style.display = "none";
+    }, 300); // Adjust the delay to match the animation duration
+  }
 </script>
