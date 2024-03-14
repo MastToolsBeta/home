@@ -34,7 +34,7 @@
     <div id="preview"></div>
 </div>
 <script>
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } }) // This line specifies the front camera
     .then(function(stream) {
         var video = document.getElementById('video');
         video.srcObject = stream;
