@@ -28,6 +28,7 @@
             object-fit: cover;
         }
         .delete-button {
+            display: none;
             position: absolute;
             top: 5px;
             right: 5px;
@@ -38,23 +39,12 @@
             cursor: pointer;
             padding: 5px;
         }
+        .image-container:hover .delete-button,
+        .image-container.clicked .delete-button {
+            display: block;
+        }
         .delete-button:hover {
             background-color: rgba(255, 0, 0, 0.7);
-            color: #fff;
-        }
-        .download-button {
-            position: absolute;
-            bottom: 5px;
-            right: 5px;
-            background-color: rgba(255, 255, 255, 0.5);
-            color: #000;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            padding: 5px;
-        }
-        .download-button:hover {
-            background-color: rgba(0, 255, 0, 0.7);
             color: #fff;
         }
         #fileInput {
@@ -126,15 +116,6 @@
                     });
                     imageContainer.appendChild(deleteButton);
 
-                    // Create download button
-                    const downloadButton = document.createElement('button');
-                    downloadButton.textContent = 'Download';
-                    downloadButton.classList.add('download-button');
-                    downloadButton.addEventListener('click', function() {
-                        downloadImage(imageUrl);
-                    });
-                    imageContainer.appendChild(downloadButton);
-
                     gallery.appendChild(imageContainer);
                 });
             }
@@ -176,15 +157,6 @@
                     });
                     imageContainer.appendChild(deleteButton);
 
-                    // Create download button
-                    const downloadButton = document.createElement('button');
-                    downloadButton.textContent = 'Download';
-                    downloadButton.classList.add('download-button');
-                    downloadButton.addEventListener('click', function() {
-                        downloadImage(imageUrl);
-                    });
-                    imageContainer.appendChild(downloadButton);
-
                     // Prepend the new image container to the gallery
                     gallery.insertBefore(imageContainer, gallery.firstChild);
 
@@ -203,17 +175,6 @@
             const images = JSON.parse(localStorage.getItem('images')) || [];
             const filteredImages = images.filter(img => img !== imageUrl);
             localStorage.setItem('images', JSON.stringify(filteredImages));
-        }
-
-        // Function to download image
-        function downloadImage(imageUrl) {
-            const a = document.createElement('a');
-            a.href = imageUrl;
-            a.download = 'image.jpg';
-            a.target = '_blank';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
         }
 
         // Load images from localStorage when the page loads
