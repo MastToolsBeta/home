@@ -54,7 +54,7 @@
             padding: 5px;
         }
         .download-button:hover {
-            background-color: rgba(0, 128, 0, 0.7);
+            background-color: rgba(0, 255, 0, 0.7);
             color: #fff;
         }
         #fileInput {
@@ -128,7 +128,7 @@
 
                     // Create download button
                     const downloadButton = document.createElement('button');
-                    downloadButton.textContent = '⬇';
+                    downloadButton.textContent = 'Download';
                     downloadButton.classList.add('download-button');
                     downloadButton.addEventListener('click', function() {
                         downloadImage(imageUrl);
@@ -178,7 +178,7 @@
 
                     // Create download button
                     const downloadButton = document.createElement('button');
-                    downloadButton.textContent = '⬇';
+                    downloadButton.textContent = 'Download';
                     downloadButton.classList.add('download-button');
                     downloadButton.addEventListener('click', function() {
                         downloadImage(imageUrl);
@@ -209,8 +209,11 @@
         function downloadImage(imageUrl) {
             const a = document.createElement('a');
             a.href = imageUrl;
-            a.download = 'image';
+            a.download = 'image.jpg';
+            a.target = '_blank';
+            document.body.appendChild(a);
             a.click();
+            document.body.removeChild(a);
         }
 
         // Load images from localStorage when the page loads
