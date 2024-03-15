@@ -27,8 +27,7 @@
             max-height: 200px;
             object-fit: cover;
         }
-        .delete-button,
-        .share-button {
+        .delete-button {
             position: absolute;
             top: 5px;
             right: 5px;
@@ -39,35 +38,24 @@
             cursor: pointer;
             padding: 5px;
         }
-        .delete-button:hover,
-        .share-button:hover {
+        .delete-button:hover {
             background-color: rgba(255, 0, 0, 0.7);
             color: #fff;
         }
-        .share-dialog {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #333;
-            padding: 20px;
-            border-radius: 5px;
-            z-index: 1000;
-        }
-        .share-dialog.active {
-            display: block;
-        }
-        .share-dialog button {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: #fff;
+        .download-button {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #000;
             border: none;
-            border-radius: 3px;
+            border-radius: 50%;
             cursor: pointer;
+            padding: 5px;
         }
-        .share-dialog button:hover {
-            background-color: #0056b3;
+        .download-button:hover {
+            background-color: rgba(0, 128, 0, 0.7);
+            color: #fff;
         }
         #fileInput {
             display: none;
@@ -106,12 +94,6 @@
 
     <div id="gallery"></div>
 
-    <div class="share-dialog" id="shareDialog">
-        <button id="shareToFacebookButton">Share to Facebook</button>
-        <button id="shareToTwitterButton">Share to Twitter</button>
-        <button id="closeButton">Close</button>
-    </div>
-
     <script>
         // Function to save uploaded image URL to localStorage
         function saveImageUrlToLocalStorage(imageUrl) {
@@ -144,14 +126,14 @@
                     });
                     imageContainer.appendChild(deleteButton);
 
-                    // Create share button
-                    const shareButton = document.createElement('button');
-                    shareButton.textContent = 'Share';
-                    shareButton.classList.add('share-button');
-                    shareButton.addEventListener('click', function() {
-                        showShareDialog(imageUrl);
+                    // Create download button
+                    const downloadButton = document.createElement('button');
+                    downloadButton.textContent = '⬇';
+                    downloadButton.classList.add('download-button');
+                    downloadButton.addEventListener('click', function() {
+                        downloadImage(imageUrl);
                     });
-                    imageContainer.appendChild(shareButton);
+                    imageContainer.appendChild(downloadButton);
 
                     gallery.appendChild(imageContainer);
                 });
@@ -194,14 +176,14 @@
                     });
                     imageContainer.appendChild(deleteButton);
 
-                    // Create share button
-                    const shareButton = document.createElement('button');
-                    shareButton.textContent = 'Share';
-                    shareButton.classList.add('share-button');
-                    shareButton.addEventListener('click', function() {
-                        showShareDialog(imageUrl);
+                    // Create download button
+                    const downloadButton = document.createElement('button');
+                    downloadButton.textContent = '⬇';
+                    downloadButton.classList.add('download-button');
+                    downloadButton.addEventListener('click', function() {
+                        downloadImage(imageUrl);
                     });
-                    imageContainer.appendChild(shareButton);
+                    imageContainer.appendChild(downloadButton);
 
                     // Prepend the new image container to the gallery
                     gallery.insertBefore(imageContainer, gallery.firstChild);
@@ -223,48 +205,12 @@
             localStorage.setItem('images', JSON.stringify(filteredImages));
         }
 
-        // Function to show the share dialog
-        function showShareDialog(imageUrl) {
-            const shareDialog = document.getElementById('shareDialog');
-            shareDialog.classList.add('active');
-            document.getElementById('shareToFacebookButton').addEventListener('click', function() {
-                shareToFacebook(imageUrl);
-            });
-            document.getElementById('shareToTwitterButton').addEventListener('click', function() {
-                shareToTwitter(imageUrl);
-            });
-        }
-
-        // Function to close the share dialog
-        function closeShareDialog() {
-            const shareDialog = document.getElementById('shareDialog');
-            shareDialog.classList.remove('active');
-        }
-
-        // Function to share image to Facebook
-        function shareToFacebook(imageUrl) {
-            if (navigator.share) {
-                navigator.share({
-                    url: imageUrl,
-                })
-                .then(() => console.log('Shared to Facebook'))
-                .catch((error) => console.error('Error sharing to Facebook:', error));
-            } else {
-                alert('Web Share API not supported on this browser.');
-            }
-        }
-
-        // Function to share image to Twitter
-        function shareToTwitter(imageUrl) {
-            if (navigator.share) {
-                navigator.share({
-                    url: imageUrl,
-                })
-                .then(() => console.log('Shared to Twitter'))
-                .catch((error) => console.error('Error sharing to Twitter:', error));
-            } else {
-                alert('Web Share API not supported on this browser.');
-            }
+        // Function to download image
+        function downloadImage(imageUrl) {
+            const a = document.createElement('a');
+            a.href = imageUrl;
+            a.download = 'image';
+            a.click();
         }
 
         // Load images from localStorage when the page loads
@@ -289,9 +235,6 @@
             }
             lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
         }, false);
-
-        // Event listener for close button in share dialog
-        document.getElementById('closeButton').addEventListener('click', closeShareDialog);
     </script>
 </body>
 </html>
