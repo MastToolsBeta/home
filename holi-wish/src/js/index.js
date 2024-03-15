@@ -110,7 +110,7 @@ function uploadImage() {
         formData.append('image', friendImageInput.files[0]);
 
         // Use imgbb API for simplicity. Replace with your own image upload logic.
-        fetch('https://api.imgbb.com/1/upload?key=bc0128afc43bdda4d55e79c3781728ac', {
+        fetch('https://api.imgbb.com/1/upload?key=cb18ceb77734bc133ae0cb04ec665605', {
             method: 'POST',
             body: formData,
         })
