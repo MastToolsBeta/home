@@ -1,0 +1,107 @@
+/* styles.css */
+
+body {
+    background-color: #1e1e1e; /* Dark background color */
+    color: #fff; /* Light text color */
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+#gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+
+.image-container {
+    margin: 10px;
+    position: relative;
+    flex: 1 0 calc(25% - 20px); /* Divide space equally and set max-width */
+    max-width: calc(25% - 20px); /* Set max-width */
+}
+
+.image-container img {
+    width: 100%; /* Ensure images fill container width */
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.delete-button {
+    display: none;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #000;
+    border: none;
+    border-radius: 5%;
+    cursor: pointer;
+    padding: 5px 10px;
+    font-weight: 900;
+    font-size: larger;
+}
+
+.image-container:hover .delete-button,
+.image-container.clicked .delete-button {
+    display: block;
+}
+
+.delete-button:hover {
+    background-color: rgba(255, 0, 0, 0.7);
+    color: #fff;
+}
+
+#fileInput {
+    display: none;
+}
+
+#uploadButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    background-color: #0094e4;
+    border: 2px solid black;
+    cursor: pointer;
+    z-index: 999;
+}
+
+#uploadButton:hover {
+    background-color: #0056b3;
+}
+
+.hide-on-scroll-up {
+    display: block;
+    animation: hideScrollUp 0.5s forwards;
+}
+
+@keyframes hideScrollUp {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .image-container {
+        flex-basis: 100%; /* Full width for smaller screens */
+        max-width: 100%; /* Set max-width */
+    }
+    .image-container img {
+        max-height: 100vh; /* Set max height to fill the viewport */
+    }
+}
+
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+    .image-container {
+        flex: 1 0 calc(33.33% - 20px); /* Divide space equally and set max-width */
+        max-width: calc(33.33% - 20px); /* Set max-width */
+    }
+}
