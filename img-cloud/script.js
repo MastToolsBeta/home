@@ -56,7 +56,7 @@ async function uploadImage(file) {
     const formData = new FormData();
     formData.append('image', file);
 
-    const apiKey = 'cb18ceb77734bc133ae0cb04ec665605'; // Your ImgBB API key
+    const apiKey = 'bc0128afc43bdda4d55e79c3781728ac'; // Your ImgBB API key
 
     try {
         // Show loading spinner
