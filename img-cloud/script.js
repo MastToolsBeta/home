@@ -8,8 +8,10 @@ function saveImageUrlToLocalStorage(imageUrl) {
 // Function to load images from localStorage
 function loadImagesFromLocalStorage() {
     const images = JSON.parse(localStorage.getItem('images'));
-    if (images) {
-        const gallery = document.getElementById('gallery');
+    const gallery = document.getElementById('gallery');
+
+    // Check if images are found in local storage
+    if (images && images.length > 0) {
         images.forEach(imageUrl => {
             const imageContainer = document.createElement('div');
             imageContainer.classList.add('image-container');
@@ -31,8 +33,23 @@ function loadImagesFromLocalStorage() {
 
             gallery.appendChild(imageContainer);
         });
+    } else {
+        // If no images found, display a message to the user
+        const message = document.createElement('div');
+        message.classList.add('message-container'); // Add the class here
+        message.innerHTML = `
+            <p>You can securely upload and store images here.</p>
+            <ul>
+                <li>No Ads</li>
+                <li>Direct Linking</li>
+                <li>Unlimited Space</li>
+                <li>32 MB file size per image</li>
+            </ul>
+        `;
+        gallery.appendChild(message);
     }
 }
+
 
 // Function to handle image upload
 async function uploadImage(file) {
