@@ -42,6 +42,10 @@ async function uploadImage(file) {
     const apiKey = 'cb18ceb77734bc133ae0cb04ec665605'; // Your ImgBB API key
 
     try {
+        // Show loading spinner
+        const spinner = document.getElementById('spinner');
+        spinner.style.display = 'flex';
+
         const response = await fetch('https://api.imgbb.com/1/upload?key=' + apiKey, {
             method: 'POST',
             body: formData
@@ -49,6 +53,10 @@ async function uploadImage(file) {
 
         const data = await response.json();
         console.log(data); // Use data to display or process the uploaded image
+
+        // Hide loading spinner
+        spinner.style.display = 'none';
+
         if (data.data && data.data.url) {
             const imageUrl = data.data.url;
             const gallery = document.getElementById('gallery');
