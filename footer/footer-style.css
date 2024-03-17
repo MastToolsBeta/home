@@ -219,4 +219,14 @@ footer {
   .footer-logo-container img {
     max-width: 120px;
   }
+
+  .social-media-links a {
+    height: 40px;
+    width: 40px;
+    margin: 5px;
+  }
+  
+  .social-media-links a i {
+    font-size: 1.7em;
+  }
 }
