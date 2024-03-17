@@ -1,7 +1,7 @@
-var audioForName = new Audio("assets/sounds/enter-name.mp3");
-var audioForImage = new Audio("assets/sounds/choose-photo.mp3");
-var audioForMessage = new Audio("assets/sounds/write-message.mp3");
-var audioForError = new Audio("assets/sounds/error.mp3");
+var audioForName = new Audio("src/sounds/enter-name.mp3");
+var audioForImage = new Audio("src/sounds/choose-photo.mp3");
+var audioForMessage = new Audio("src/sounds/write-message.mp3");
+var audioForError = new Audio("src/sounds/error.mp3");
 
 var currentlyPlayingAudio = null;
 var friendNameInput = document.getElementById("friend_name");

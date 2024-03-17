@@ -1,6 +1,6 @@
 {
     "name": "image Cloud",
-    "short_name": "img-cloud",
+    "short_name": "image Cloud",
     "description": "You can securely upload and store Unlimited images here!",
     "start_url": "index.html",
     "display": "standalone",

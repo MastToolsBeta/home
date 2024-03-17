@@ -104,7 +104,7 @@
 .hi-message::before {
     left: -130px;
     margin-top: -80px;
-    background: url('../../assets/images/left-wing.png') center/cover no-repeat;
+    background: url('../../src/img/left-wing.png') center/cover no-repeat;
     animation: leftWingMotion 1.5s infinite ease-in-out alternate;
     transform: rotate(-45deg);
 }
@@ -112,7 +112,7 @@
 .hi-message::after {
     right: -130px;
     margin-top: -80px;
-    background: url('../../assets/images/right-wing.png') center/cover no-repeat;
+    background: url('../../src/img/right-wing.png') center/cover no-repeat;
     animation: rightWingMotion 1.5s infinite ease-in-out alternate;
     transform: rotate(45deg);
 }
