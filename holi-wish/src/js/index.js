@@ -75,7 +75,7 @@ function playAudio(audio) {
 
 function submitForm() {
     document.querySelector('form').style.display = '';
-    document.getElementById('processing-animation').style.display = 'block';
+    document.getElementById('processing-animation').style.display = 'flex';
     document.querySelector('button[type="submit"]').disabled = true;
 
     uploadImage()
@@ -239,11 +239,13 @@ function showResult(greetingLink, friendName) {
 
     // Set the inner HTML of the result div
     resultDiv.innerHTML = `
+        <div class="result-box">
         <h2>Congratulations!<br>${friendName}'s Greeting Card is ready</h2>
         <p id="greetingLink">${greetingLink}</p>
         <button id="openLink">Open Link</button>
         <button id="copyLink">Copy Link</button>
         <button id="shareWhatsApp">Share on WhatsApp</button>
+        </div>
     `;
 
     // Attach event listeners to the buttons (you can keep your existing event listeners here)
