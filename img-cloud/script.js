@@ -119,11 +119,14 @@ function deleteImageUrlFromLocalStorage(imageUrl) {
 // Load images from localStorage when the page loads
 window.onload = loadImagesFromLocalStorage;
 
-// Automatically trigger image upload when a file is selected
+// Automatically trigger image upload when files are selected
 document.getElementById('fileInput').addEventListener('change', function(event) {
     const files = event.target.files;
     if (files.length > 0) {
-        uploadImage(files[0]);
+        // Loop through all selected files and upload each one
+        for (const file of files) {
+            uploadImage(file);
+        }
     }
 });
 

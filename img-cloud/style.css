@@ -18,13 +18,15 @@ body {
 .image-container {
     margin: 10px;
     position: relative;
-    flex: 1 0 calc(25% - 20px); /* Divide space equally and set max-width */
-    max-width: calc(25% - 20px); /* Set max-width */
+    flex: 1 0 calc(25% - 20px);
+    max-width: calc(25% - 20px);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
+
 .image-container img {
-    width: 100%; /* Ensure images fill container width */
-    max-height: 200px;
+    width: 100%;
+    height: auto;
     object-fit: cover;
     border-radius: 5px;
 }
