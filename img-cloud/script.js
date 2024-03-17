@@ -12,7 +12,8 @@ function loadImagesFromLocalStorage() {
 
     // Check if images are found in local storage
     if (images && images.length > 0) {
-        images.forEach(imageUrl => {
+        // Reverse the order of images to display the last one on top
+        images.reverse().forEach(imageUrl => {
             const imageContainer = document.createElement('div');
             imageContainer.classList.add('image-container');
             const imgElement = document.createElement('img');
@@ -36,9 +37,9 @@ function loadImagesFromLocalStorage() {
     } else {
         // If no images found, display a message to the user
         const message = document.createElement('div');
-        message.classList.add('message-container'); // Add the class here
+        message.classList.add('message-container');
         message.innerHTML = `
-            <p>You can securely upload and store images here.</p>
+            <p>No images found. You can securely upload and store images here.</p>
             <ul>
                 <li>No Ads</li>
                 <li>Direct Linking</li>
