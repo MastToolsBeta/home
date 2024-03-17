@@ -1,7 +1,7 @@
 {
   "name": "Share Image",
   "short_name": "Share Image",
-  "description": "Welcome to Unlimited Image Sharing web app where you can share unlimited images easily!",
+  "description": "Welcome to Image Sharing web app where you can share unlimited images easily!",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#1f1f1f",
