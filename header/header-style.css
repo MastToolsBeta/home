@@ -46,6 +46,7 @@
     position: fixed;
     top: 0;
     left: 0;
+    bottom: 0;
     height: 100%;
     width: 70%;
     max-width: 300px;
@@ -54,6 +55,7 @@
     border-right: 2px solid #333;
     animation: slideIn 0.3s ease-out;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); 
+    font-family: -apple-system, "system-ui", "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   }
   
   .left-sidebar-logo {
@@ -78,7 +80,7 @@
     display: flex;
     align-items: center;
     font-size: 16px;
-    font-weight: 300;
+    font-weight: 400;
     padding: 10px;
     text-decoration: none;
     color: #E5EDF2;
