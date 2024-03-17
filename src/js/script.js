@@ -2,6 +2,7 @@
  const toolLinks = [
     'https://beta.masttools.com/holi-wish/',
     'https://beta.masttools.com/age-calculator/',
+    'https://beta.masttools.com/img-cloud/',
 ];
 
 // Function to fetch and create tool boxes

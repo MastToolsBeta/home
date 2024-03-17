@@ -39,7 +39,7 @@ function loadImagesFromLocalStorage() {
         const message = document.createElement('div');
         message.classList.add('message-container');
         message.innerHTML = `
-            <p>No images found. You can securely upload and store images here.</p>
+            <p>You can securely upload and store images here.</p>
             <ul>
                 <li>No Ads</li>
                 <li>Direct Linking</li>
@@ -57,7 +57,7 @@ async function uploadImage(file) {
     const formData = new FormData();
     formData.append('image', file);
 
-    const apiKey = 'bc0128afc43bdda4d55e79c3781728ac'; // Your ImgBB API key
+    const apiKey = 'cb18ceb77734bc133ae0cb04ec665605'; // Your ImgBB API key
 
     try {
         // Show loading spinner
