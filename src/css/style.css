@@ -57,7 +57,7 @@ main {
 }
 
 .tool-box button {
-    background-color: #4CAF50;
+    background-color: #1F6EEB;
     color: white;
     padding: 8px 16px;
     border: none;
@@ -68,7 +68,7 @@ main {
 }
 
 .tool-box button:hover {
-    background-color: #45a049;
+    background-color: #0b69ff;
 }
 
 @media screen and (max-width: 1200px) {
