@@ -16,7 +16,7 @@
     align-items: center;
     position: fixed;
     width: 100%;
-    background-color: #1f1f1f;
+    background-color: #02040A;
     padding: 0 10px;
     color: #ffffff;
     border-bottom: 1px solid #404040;
@@ -42,7 +42,7 @@
   .left-sidebar {
     display: none;
     flex-direction: column;
-    background-color: #1f1f1f;
+    background-color: #0E1117;
     position: fixed;
     top: 0;
     left: 0;
@@ -81,17 +81,17 @@
     font-weight: 300;
     padding: 10px;
     text-decoration: none;
-    color: white;
+    color: #E5EDF2;
     transition: background-color 0.3s;
   }
   
   .left-sidebar a .material-icons-outlined {
     margin-right: 10px;
-    color: #ffc400;
+    color: #848D97;
   }
   
   .left-sidebar a:hover {
-    background-color: #555;
+    background-color: #2e343e;
   }
   
   .left-sidebar ul {
@@ -108,11 +108,11 @@
     display: flex;
     align-items: center;
     padding: 10px;
-    background-color: rgb(50, 50, 50);
-    border-left: 5px solid rgb(120, 120, 120);
+    background-color: #1A1F23;
+    border-left: 5px solid #1F6EEB;
     font-weight: bolder;
     font-size: 20px;
-    color: rgb(200, 200, 200);
+    color: #E5EDF2;
   }
 
   .close-btn {
