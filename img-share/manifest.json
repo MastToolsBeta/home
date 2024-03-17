@@ -1,7 +1,7 @@
 {
-  "name": "Mast Tools",
-  "short_name": "Mast Tools",
-  "description": "Explore a world of efficient online tools on MastTools.com. discover a range of utilities and powerful online tools.",
+  "name": "Share Image",
+  "short_name": "Share Image",
+  "description": "Welcome to Unlimited Image Sharing web app where you can share unlimited images easily!",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#1f1f1f",
