@@ -56,8 +56,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 const imageUrl = data.data.url;
                 const viewUrl = `example.com/view.html?img=${imageUrl}`;
                 status.innerHTML = `Images uploaded successfully!`;
-                
-                // Attempt to share if supported
+
+                // Check if the Web Share API is supported
                 if (navigator.share) {
                     const shareData = {
                         title: 'Check out this image!',
@@ -68,8 +68,15 @@ document.addEventListener("DOMContentLoaded", function () {
                         .then(() => console.log('Shared successfully'))
                         .catch((error) => console.error('Error sharing:', error));
                 } else {
-                    console.log('Web Share API not supported');
-                    alert('Web Share API is not supported in this browser.');
+                    // Provide link for copying
+                    const copyLink = document.createElement('input');
+                    copyLink.setAttribute('type', 'text');
+                    copyLink.setAttribute('value', viewUrl);
+                    document.body.appendChild(copyLink);
+                    copyLink.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(copyLink);
+                    alert('Image link copied to clipboard:\n' + viewUrl);
                 }
             } else {
                 status.innerHTML = 'Failed to upload images.';
