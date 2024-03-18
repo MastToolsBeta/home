@@ -62,7 +62,22 @@ document.addEventListener("DOMContentLoaded", function () {
             if (data && data.data && data.data.url) {
                 const imageUrl = data.data.url;
                 const viewUrl = `example.com/view.html?img=${imageUrl}`;
-                status.innerHTML = `Images uploaded successfully! View them <a href="${viewUrl}" target="_blank">here</a>.`;
+                status.innerHTML = `Images uploaded successfully!`;
+
+                // Generate shareable URL
+                const shareUrl = encodeURIComponent(viewUrl);
+
+                // Try to open web share dialog
+                if (navigator.share) {
+                    await navigator.share({
+                        title: 'Share Images',
+                        text: message,
+                        url: viewUrl
+                    });
+                } else {
+                    // If web share not supported, open WhatsApp with the generated URL
+                    window.location.href = `whatsapp://send?text=${message} ${shareUrl}`;
+                }
             } else {
                 status.innerHTML = 'Failed to upload images.';
             }
