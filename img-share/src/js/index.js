@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const formData = new FormData();
         for (let i = 0; i < files.length; i++) {
-            formData.append('images[]', files[i]);
+            formData.append('image', files[i]);
         }
 
         try {
@@ -52,10 +52,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const data = await response.json();
 
-            if (data && data.data && data.data.image) {
-                const imageUrl = data.data.image.url;
+            if (data && data.data && data.data.url) {
+                const imageUrl = data.data.url;
                 const viewUrl = `example.com/view.html?img=${imageUrl}`;
-                status.innerHTML = `Images uploaded successfully! View them <a href="${viewUrl}" target="_blank">here</a>.`;
+                status.innerHTML = `Images uploaded successfully!`;
+                
+                // Open Web Share API dialog
+                if (navigator.share) {
+                    const shareData = {
+                        title: 'Check out this image!',
+                        text: 'Shared from my website.',
+                        url: viewUrl,
+                    };
+                    navigator.share(shareData)
+                        .then(() => console.log('Shared successfully'))
+                        .catch((error) => console.error('Error sharing:', error));
+                } else {
+                    console.log('Web Share API not supported');
+                }
             } else {
                 status.innerHTML = 'Failed to upload images.';
             }
