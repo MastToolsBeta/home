@@ -13,10 +13,9 @@ document.addEventListener("DOMContentLoaded", function () {
     function handleFileSelect(event) {
         const files = event.target.files;
         if (files.length > 0) {
-            uploadedImages = [];
+            uploadedImages = Array.from(files); // Convert FileList to Array
             imagePreview.innerHTML = '';
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
+            uploadedImages.forEach(file => {
                 const reader = new FileReader();
                 reader.onload = function (e) {
                     const img = document.createElement('img');
@@ -27,8 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     imagePreview.appendChild(img);
                 };
                 reader.readAsDataURL(file);
-                uploadedImages.push(file);
-            }
+            });
         } else {
             imagePreview.innerHTML = '<span>Choose files</span>';
         }
@@ -42,51 +40,48 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        const formData = new FormData();
-        for (let i = 0; i < uploadedImages.length; i++) {
-            formData.append('image', uploadedImages[i]);
-        }
-
-        // Add optional message to the FormData
-        const message = messageInput.value.trim();
-        if (message !== '') {
-            formData.append('message', message);
-        }
-
         try {
-            const response = await fetch('https://api.imgbb.com/1/upload?key=bc0128afc43bdda4d55e79c3781728ac', {
-                method: 'POST',
-                body: formData,
-            });
+            const imageUrls = [];
+            for (let i = 0; i < uploadedImages.length; i++) {
+                const formData = new FormData();
+                formData.append('image', uploadedImages[i]);
 
-            const data = await response.json();
+                const response = await fetch('https://api.imgbb.com/1/upload?key=bc0128afc43bdda4d55e79c3781728ac', {
+                    method: 'POST',
+                    body: formData,
+                });
 
-            if (data && data.data && data.data.url) {
-                const imageUrls = uploadedImages.map((image, index) => data.data.image.url);
-                const fullUrl = `http://beta.masttools.com/img-share/view.html?img=${imageUrls.join(',')}`;
+                const data = await response.json();
 
-                // Shorten URL using TinyURL's HTTPS version
-                const responseTinyUrl = await fetch(`https://tinyurl.com/api-create.php?url=${fullUrl}`);
-                const tinyUrl = await responseTinyUrl.text();
-
-                status.innerHTML = `Images uploaded successfully!`;
-
-                // Generate shareable URL
-                const shareUrl = encodeURIComponent(tinyUrl);
-
-                // Try to open web share dialog
-                if (navigator.share) {
-                    await navigator.share({
-                        title: 'Share Images',
-                        text: message,
-                        url: tinyUrl
-                    });
+                if (data && data.data && data.data.url) {
+                    imageUrls.push(data.data.url);
                 } else {
-                    // If web share not supported, open WhatsApp with the generated URL
-                    window.location.href = `whatsapp://send?text=${message} ${shareUrl}`;
+                    throw new Error('Failed to upload image');
                 }
+            }
+
+            const fullUrl = `http://beta.masttools.com/img-share/view.html?img=${imageUrls.join(',')}`;
+
+            // Shorten URL using TinyURL's HTTPS version
+            const responseTinyUrl = await fetch(`https://tinyurl.com/api-create.php?url=${fullUrl}`);
+            const tinyUrl = await responseTinyUrl.text();
+
+            status.innerHTML = `Images uploaded successfully!`;
+
+            // Add optional message to the share URL
+            const message = messageInput.value.trim();
+            const shareUrl = message ? `${tinyUrl}&text=${encodeURIComponent(message)}` : tinyUrl;
+
+            // Try to open web share dialog
+            if (navigator.share) {
+                await navigator.share({
+                    title: 'Share Images',
+                    text: message,
+                    url: tinyUrl
+                });
             } else {
-                status.innerHTML = 'Failed to upload images.';
+                // If web share not supported, open WhatsApp with the generated URL
+                window.location.href = `whatsapp://send?text=${shareUrl}`;
             }
         } catch (error) {
             console.error('Error uploading images:', error);
