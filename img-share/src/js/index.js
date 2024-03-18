@@ -8,13 +8,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     fileInput.addEventListener('change', handleFileSelect);
 
-    let uploadedImageUrls = [];
+    let uploadedImages = [];
 
     function handleFileSelect(event) {
         const files = event.target.files;
         if (files.length > 0) {
+            uploadedImages = [];
             imagePreview.innerHTML = '';
-            uploadedImageUrls = []; // Reset uploaded image URLs
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
                 const reader = new FileReader();
@@ -25,11 +25,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     img.style.maxWidth = '100px';
                     img.style.maxHeight = '100px';
                     imagePreview.appendChild(img);
-
-                    // Store uploaded image URLs
-                    uploadedImageUrls.push(e.target.result);
                 };
                 reader.readAsDataURL(file);
+                uploadedImages.push(file);
             }
         } else {
             imagePreview.innerHTML = '<span>Choose files</span>';
@@ -39,16 +37,14 @@ document.addEventListener("DOMContentLoaded", function () {
     uploadButton.addEventListener('click', uploadImages);
 
     async function uploadImages() {
-        const files = fileInput.files;
-
-        if (files.length === 0) {
+        if (uploadedImages.length === 0) {
             alert('Please select images to upload.');
             return;
         }
 
         const formData = new FormData();
-        for (let i = 0; i < files.length; i++) {
-            formData.append('image', files[i]);
+        for (let i = 0; i < uploadedImages.length; i++) {
+            formData.append('image', uploadedImages[i]);
         }
 
         // Add optional message to the FormData
@@ -65,9 +61,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const data = await response.json();
 
-            if (data && data.data && data.data.image) {
-                const imageUrls = uploadedImageUrls.join(','); // Concatenate uploaded image URLs with comma separator
-                const viewUrl = `example.com/view.html?img=${imageUrls}`;
+            if (data && data.data && data.data.url) {
+                const imageUrls = uploadedImages.map((image, index) => data.data.image.url);
+                const viewUrl = `http://masttools.com/img-share/view.html?img=${imageUrls.join(',')}`;
                 status.innerHTML = `Images uploaded successfully!`;
 
                 // Generate shareable URL
