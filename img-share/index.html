@@ -82,17 +82,19 @@
     </header>
     <nav></nav>
     <main>
-      <div id="uploadForm">
-        <h2>Upload Images</h2>
-        <label for="fileInput" class="custom-file-upload" id="customFileUpload">
-            <div id="imagePreview" class="image-preview">
-                <span>Choose files</span>
-            </div>
-        </label>
-        <input type="file" id="fileInput" multiple>
-        <textarea id="message" placeholder="Optional message"></textarea>
-        <button id="uploadButton">Upload</button>
-        <p id="status"></p>
+      <div class="container">
+        <div class="upload-form">
+            <h2>Upload Images</h2>
+            <label for="fileInput" class="custom-file-upload" id="customFileUpload">
+                <div class="image-preview" id="imagePreview">
+                    <span>Choose files</span>
+                </div>
+            </label>
+            <input type="file" id="fileInput" multiple>
+            <textarea id="message" placeholder="Optional message"></textarea>
+            <button id="uploadButton">Upload</button>
+            <p id="status"></p>
+        </div>
     </div>
   </main>
     <footer id="footer">

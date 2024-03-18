@@ -63,18 +63,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (data && data.data && data.data.url) {
                 const imageUrls = uploadedImages.map((image, index) => data.data.image.url);
-                const viewUrl = `http://masttools.com/img-share/view.html?img=${imageUrls.join(',')}`;
+                const fullUrl = `http://beta.masttools.com/img-share/view.html?img=${imageUrls.join(',')}`;
+
+                // Shorten URL using TinyURL's HTTPS version
+                const responseTinyUrl = await fetch(`https://tinyurl.com/api-create.php?url=${fullUrl}`);
+                const tinyUrl = await responseTinyUrl.text();
+
                 status.innerHTML = `Images uploaded successfully!`;
 
                 // Generate shareable URL
-                const shareUrl = encodeURIComponent(viewUrl);
+                const shareUrl = encodeURIComponent(tinyUrl);
 
                 // Try to open web share dialog
                 if (navigator.share) {
                     await navigator.share({
                         title: 'Share Images',
                         text: message,
-                        url: viewUrl
+                        url: tinyUrl
                     });
                 } else {
                     // If web share not supported, open WhatsApp with the generated URL
