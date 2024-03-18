@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const fileInput = document.getElementById('fileInput');
     const customFileUpload = document.getElementById('customFileUpload');
     const imagePreview = document.getElementById('imagePreview');
+    const messageInput = document.getElementById('message');
     const status = document.getElementById('status');
     const uploadButton = document.getElementById('uploadButton');
 
@@ -44,6 +45,12 @@ document.addEventListener("DOMContentLoaded", function () {
             formData.append('image', files[i]);
         }
 
+        // Add optional message to the FormData
+        const message = messageInput.value.trim();
+        if (message !== '') {
+            formData.append('message', message);
+        }
+
         try {
             const response = await fetch('https://api.imgbb.com/1/upload?key=bc0128afc43bdda4d55e79c3781728ac', {
                 method: 'POST',
@@ -55,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (data && data.data && data.data.url) {
                 const imageUrl = data.data.url;
                 const viewUrl = `example.com/view.html?img=${imageUrl}`;
-                status.innerHTML = `Images uploaded successfully! You can view and share it <a href="${viewUrl}" target="_blank">here</a>.`;
+                status.innerHTML = `Images uploaded successfully! View them <a href="${viewUrl}" target="_blank">here</a>.`;
             } else {
                 status.innerHTML = 'Failed to upload images.';
             }
