@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const imagePreview = document.getElementById('imagePreview');
     const status = document.getElementById('status');
     const uploadButton = document.getElementById('uploadButton');
-    const shareButton = document.getElementById('shareButton');
 
     fileInput.addEventListener('change', handleFileSelect);
 
@@ -56,11 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (data && data.data && data.data.url) {
                 const imageUrl = data.data.url;
                 const viewUrl = `example.com/view.html?img=${imageUrl}`;
-                status.innerHTML = `Images uploaded successfully!`;
-                
-                // Show the share button
-                shareButton.style.display = 'inline';
-                shareButton.dataset.shareUrl = viewUrl;
+                status.innerHTML = `Images uploaded successfully! You can view and share it <a href="${viewUrl}" target="_blank">here</a>.`;
             } else {
                 status.innerHTML = 'Failed to upload images.';
             }
@@ -69,19 +64,4 @@ document.addEventListener("DOMContentLoaded", function () {
             status.innerHTML = 'An error occurred while uploading the images.';
         }
     }
-
-    shareButton.addEventListener('click', function() {
-        const shareUrl = this.dataset.shareUrl;
-        if (navigator.share) {
-            navigator.share({
-                title: 'Check out this image!',
-                text: 'Shared from my website.',
-                url: shareUrl,
-            })
-            .then(() => console.log('Shared successfully'))
-            .catch((error) => console.error('Error sharing:', error));
-        } else {
-            console.log('Web Share API not supported');
-        }
-    });
 });
