@@ -1,54 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>View Images</title>
-<style>
-    body {
-        background-color: #222;
-        color: #fff;
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-    }
-
-    .image-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 20px;
-        padding: 20px;
-    }
-
-    .image-container img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Images</title>
+    <link rel="stylesheet" href="src/css/view.css">
 </head>
 <body>
-<div class="image-container" id="imageContainer"></div>
+    <div class="container">
+        <div class="header">
+            <h1>View Images</h1>
+        </div>
+        <div class="image-container" id="imageContainer"></div>
+    </div>
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const imageContainer = document.getElementById('imageContainer');
-
-    // Get the value of the img parameter from the URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const imgParam = urlParams.get('img');
-
-    // Split the imgParam into an array of image URLs
-    const imgUrls = imgParam ? imgParam.split(',') : [];
-
-    // Display images in the image container
-    imgUrls.forEach(imgUrl => {
-        const img = document.createElement('img');
-        img.src = decodeURIComponent(imgUrl);
-        imageContainer.appendChild(img);
-    });
-});
-</script>
+    <script src="src/js/view.js"></script>
 </body>
 </html>
