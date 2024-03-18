@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const messageInput = document.getElementById('message');
     const status = document.getElementById('status');
     const uploadButton = document.getElementById('uploadButton');
+    const spinner = document.getElementById('spinner');
+    const imageCount = document.getElementById('imageCount');
 
     fileInput.addEventListener('change', handleFileSelect);
 
@@ -27,8 +29,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 };
                 reader.readAsDataURL(file);
             });
+            imageCount.textContent = `0/${uploadedImages.length} uploaded`;
         } else {
             imagePreview.innerHTML = '<span>Choose files</span>';
+            imageCount.textContent = '';
         }
     }
 
@@ -39,6 +43,9 @@ document.addEventListener("DOMContentLoaded", function () {
             alert('Please select images to upload.');
             return;
         }
+
+        spinner.style.display = 'flex';
+        uploadButton.disabled = true;
 
         try {
             const imageUrls = [];
@@ -55,12 +62,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 if (data && data.data && data.data.url) {
                     imageUrls.push(data.data.url);
+                    // Update image count
+                    imageCount.textContent = `${i + 1}/${uploadedImages.length} uploaded`;
                 } else {
                     throw new Error('Failed to upload image');
                 }
             }
 
-            const fullUrl = `http://beta.masttools.com/img-share/view.html?img=${imageUrls.join(',')}`;
+            // Hide spinner and image count after successful upload
+            spinner.style.display = 'none';
+            imageCount.textContent = '';
+
+            const fullUrl = `http://masttools.com/img-share/view.html?img=${imageUrls.join(',')}`;
 
             // Shorten URL using TinyURL's HTTPS version
             const responseTinyUrl = await fetch(`https://tinyurl.com/api-create.php?url=${fullUrl}`);
@@ -70,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Add optional message to the share URL
             const message = messageInput.value.trim();
-            const shareUrl = message ? `${tinyUrl}&text=${encodeURIComponent(message)}` : tinyUrl;
+            const shareUrl = message ? `See image 👉 ${tinyUrl}&text=${encodeURIComponent(message)}` : tinyUrl;
 
             // Try to open web share dialog
             if (navigator.share) {
@@ -86,6 +99,9 @@ document.addEventListener("DOMContentLoaded", function () {
         } catch (error) {
             console.error('Error uploading images:', error);
             status.innerHTML = 'An error occurred while uploading the images.';
+            // Hide spinner and enable upload button in case of error
+            spinner.style.display = 'none';
+            uploadButton.disabled = false;
         }
     }
 });
