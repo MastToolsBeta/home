@@ -84,15 +84,18 @@
     <main>
       <div class="container">
         <div class="upload-form">
-            <h2>Upload Images</h2>
+            <h2>Share Images</h2>
             <label for="fileInput" class="custom-file-upload" id="customFileUpload">
                 <div class="image-preview" id="imagePreview">
-                    <span>Choose files</span>
+                    <span>
+                      <span class="plus material-icons-outlined">
+                        add
+                        </span><br> Click to brouse or drag images here to start sharing</span>
                 </div>
             </label>
-            <input type="file" id="fileInput" multiple>
-            <textarea id="message" placeholder="Optional message"></textarea>
-            <button id="uploadButton">Upload</button>
+            <input type="file" id="fileInput" multiple accept="image">
+            <textarea id="message" placeholder="Add a Note (Optional)"></textarea>
+            <button id="uploadButton">SHARE IMAGE</button>
             <p id="status"></p>
             <div id="spinner" class="lds-ring">
               <div></div>
