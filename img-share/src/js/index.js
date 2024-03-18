@@ -8,10 +8,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     fileInput.addEventListener('change', handleFileSelect);
 
+    let uploadedImageUrls = [];
+
     function handleFileSelect(event) {
         const files = event.target.files;
         if (files.length > 0) {
             imagePreview.innerHTML = '';
+            uploadedImageUrls = []; // Reset uploaded image URLs
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
                 const reader = new FileReader();
@@ -22,6 +25,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     img.style.maxWidth = '100px';
                     img.style.maxHeight = '100px';
                     imagePreview.appendChild(img);
+
+                    // Store uploaded image URLs
+                    uploadedImageUrls.push(e.target.result);
                 };
                 reader.readAsDataURL(file);
             }
@@ -59,9 +65,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const data = await response.json();
 
-            if (data && data.data && data.data.url) {
-                const imageUrl = data.data.url;
-                const viewUrl = `example.com/view.html?img=${imageUrl}`;
+            if (data && data.data && data.data.image) {
+                const imageUrls = uploadedImageUrls.join(','); // Concatenate uploaded image URLs with comma separator
+                const viewUrl = `example.com/view.html?img=${imageUrls}`;
                 status.innerHTML = `Images uploaded successfully!`;
 
                 // Generate shareable URL
