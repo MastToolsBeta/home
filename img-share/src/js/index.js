@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
       spinner.style.display = "none";
       imageCount.textContent = "";
 
-      const fullUrl = `http://masttools.com/img-share/view.html?img=${imageUrls.join(
+      const fullUrl = `http://beta.masttools.com/img-share/view.html?img=${imageUrls.join(
         ","
       )}`;
 
