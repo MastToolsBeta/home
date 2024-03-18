@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         } catch (error) {
             console.error('Error uploading images:', error);
-            status.innerHTML = 'An error occurred while uploading theb images.';
+            status.innerHTML = 'An error occurred while uploading the images.';
         }
     }
 });
