@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Display images in the image container
     imgUrls.forEach(imgUrl => {
         const img = document.createElement('img');
-        img.src = imgUrl;
+        img.src = decodeURIComponent(imgUrl);
         imageContainer.appendChild(img);
     });
 });
