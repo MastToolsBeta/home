@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MastTools - Home</title>
+    <meta
+      name="description"
+      content="Explore a world of efficient online tools on MastTools.com. discover a range of utilities designed for convenience and productivity. Join us in the joy of seamless and powerful online tools."
+    />
+    <meta name="author" content="MastTools.com" />
+
+    <!-- Open Graph Protocol -->
+    <meta property="og:title" content="MastTools - Home" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.masttools.com" />
+    <meta
+      property="og:description"
+      content="Explore a world of efficient online tools on MastTools.com.  discover a range of utilities designed for convenience and productivity. Join us in the joy of seamless and powerful online tools."
+    />
+    <meta
+      property="og:image"
+      content="src/img/masttools.com-logo-main.jpeg"
+    />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og: site iname" content="MastTools" />
+
+              <!-- PWA opn -->
+     <link rel="stylesheet" href="src/css/install-btn.css">
+     <meta name="apple-mobile-web-app-capable" content="yes">
+ <meta name="apple-mobile-web-app-status-bar-style" content="black">
+ <meta name="theme-color" content="#000000">
+ <link rel="manifest" href="manifest.json">
+ <!-- PWA clz -->
+
+    <!--Load header and footer  {start}-->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.js"
+      integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://kit.fontawesome.com/be8edb3d72.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+    />
+
+    <link rel="stylesheet" href="../header/header-style.css" />
+    <link rel="stylesheet" href="../footer/footer-style.css" />
+
+    <script>
+      $(function () {
+        $("#header").load("../header/header.html");
+        $("footer").load("../footer/footer.html");
+      });
+    </script>
+    <!--Load header and footer  {end}-->
+    <link rel="stylesheet" href="src/css/style.css" />
+  </head>
+  <body>
+    <header id="header">
+      <!--Don't add anything here-->
+    </header>
+    <nav></nav>
+    <main>
+      <div class="tools-list" id="toolsList"></div>
+    </main>
+
+    <footer id="footer">
+      <!--Don't add anything here-->
+    </footer>
+<!-- PWA opn -->
+<script src="src/js/register-service-worker.js"></script>
+<!-- PWA clz -->
+    <script src="src/js/script.js"></script>
+  </body>
+</html>
