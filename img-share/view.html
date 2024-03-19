@@ -7,13 +7,20 @@
     <link rel="stylesheet" href="src/css/view.css">
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>View Images</h1>
-        </div>
-        <div class="image-container" id="imageContainer"></div>
+    <div id="gallery" class="image-container"></div>
+    
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="modal-body"></div>
+      </div>
     </div>
-
+    <hr>
+    <div class="share-image">
+        <a href="index.html">Share Image</a>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="src/js/view.js"></script>
 </body>
 </html>
