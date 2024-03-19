@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const compressedImageBlob = await compressImage(uploadedImages[i]);
                 formData.append('image', compressedImageBlob);
 
-                const response = await fetch('https://api.imgbb.com/1/upload?key=bc0128afc43bdda4d55e79c3781728ac', {
+                const response = await fetch('https://api.imgbb.com/1/upload?key=cb18ceb77734bc133ae0cb04ec665605', {
                     method: 'POST',
                     body: formData,
                 });
