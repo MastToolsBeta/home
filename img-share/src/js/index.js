@@ -84,9 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Add optional message to the share URL
             const message = `${messageInput.value.trim()} See image 👉 `;
-            const shareUrl = message
-                ? `${tinyUrl}&text=${encodeURIComponent(message)}`
-                : tinyUrl;
+            const shareUrl = `whatsapp://send?text=${encodeURIComponent(message + tinyUrl)}`;
 
             // Try to open web share dialog
             if (navigator.share) {
@@ -97,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             } else {
                 // If web share not supported, open WhatsApp with the generated URL
-                window.location.href = `whatsapp://send?text=${shareUrl}`;
+                window.location.href = shareUrl;
             }
         } catch (error) {
             console.error('Error uploading images:', error);
