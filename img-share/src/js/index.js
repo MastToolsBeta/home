@@ -105,9 +105,9 @@ document.addEventListener("DOMContentLoaded", function () {
   
         // Add optional message to the share URL
         const message = `${messageInput.value.trim()} See image 👉 `;
-        const shareUrl = message
-          ? `${tinyUrl}&text=${encodeURIComponent(message)}`
-          : tinyUrl;
+const shareMessage = message ? `${encodeURIComponent(message)}` : '';
+const shareUrl = `${tinyUrl}&text=${shareMessage}${encodeURIComponent(tinyUrl)}`;
+
   
         // Try to open web share dialog
         if (navigator.share) {
