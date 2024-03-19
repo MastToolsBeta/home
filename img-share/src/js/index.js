@@ -49,13 +49,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         try {
             const imageUrls = [];
-            let retryImages = uploadedImages.slice(); // Make a copy of the original array to retry failed uploads
-            let retryLimit = 3; // Set a limit for the number of retries
-
-            while (retryImages.length > 0 && retryLimit > 0) {
-                const currentImage = retryImages.shift(); // Get the first image from the retry array
+            for (let i = 0; i < uploadedImages.length; i++) {
                 const formData = new FormData();
-                formData.append('image', currentImage);
+                formData.append('image', uploadedImages[i]);
 
                 const response = await fetch('https://api.imgbb.com/1/upload?key=bc0128afc43bdda4d55e79c3781728ac', {
                     method: 'POST',
@@ -67,43 +63,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (data && data.data && data.data.url) {
                     imageUrls.push(data.data.url);
                     // Update image count
-                    imageCount.textContent = `${imageUrls.length}/${uploadedImages.length} uploaded`;
+                    imageCount.textContent = `${i + 1}/${uploadedImages.length} uploaded`;
                 } else {
-                    console.error('Failed to upload image:', data.error.message);
-                    retryImages.push(currentImage); // Add the failed image back to the retry array
-                    retryLimit--; // Decrement the retry limit
+                    throw new Error('Failed to upload image');
                 }
             }
 
-            // Hide spinner after successful upload
-            spinner.style.display = 'none';
-
-            if (retryImages.length > 0) {
-                throw new Error(`Failed to upload ${retryImages.length} image(s).`);
-            }
-
-            const fullUrl = `http://beta.masttools.com/img-share/view.html?img=${imageUrls.join(',')}`;
-
-            // Retry shortening URL
-            const shortenedUrl = await shortenUrl(fullUrl);
-
-            status.innerHTML = `Images uploaded successfully!`;
-
-            // Add optional message to the share URL
-            const message = `${messageInput.value.trim()} See image 👉 `;
-            const shareUrl = message ? `${shortenedUrl}&text=${encodeURIComponent(message)}` : shortenedUrl;
-
-            // Try to open web share dialog
-            if (navigator.share) {
-                await navigator.share({
-                    title: 'Share Images',
-                    text: message,
-                    url: shortenedUrl,
-                });
-            } else {
-                // If web share not supported, open WhatsApp with the generated URL
-                window.location.href = `whatsapp://send?text=${shareUrl}`;
-            }
+            // All images uploaded successfully, build and share URL
+            await buildAndShareUrl(imageUrls);
         } catch (error) {
             console.error('Error uploading images:', error);
             status.innerHTML = 'An error occurred while uploading the images.';
@@ -113,17 +80,37 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    async function shortenUrl(url) {
-        let retries = 3;
-        while (retries > 0) {
-            try {
-                const response = await fetch(`https://tinyurl.com/api-create.php?url=${url}`);
-                return await response.text();
-            } catch (error) {
-                console.error('Error shortening URL:', error);
-                retries--;
+    async function buildAndShareUrl(imageUrls) {
+        try {
+            const fullUrl = `http://beta.masttools.com/img-share/view.html?img=${imageUrls.join(',')}`;
+
+            // Shorten URL using TinyURL's HTTPS version
+            const responseTinyUrl = await fetch(`https://tinyurl.com/api-create.php?url=${fullUrl}`);
+            const tinyUrl = await responseTinyUrl.text();
+
+            status.innerHTML = `Images uploaded successfully!`;
+
+            // Add optional message to the share URL
+            const message = `${messageInput.value.trim()} See image 👉 `;
+            const shareUrl = message ? `${tinyUrl}&text=${encodeURIComponent(message)}` : tinyUrl;
+
+            // Try to open web share dialog
+            if (navigator.share) {
+                await navigator.share({
+                    title: 'Share Images',
+                    text: message,
+                    url: tinyUrl,
+                });
+            } else {
+                // If web share not supported, open WhatsApp with the generated URL
+                window.location.href = `whatsapp://send?text=${shareUrl}`;
             }
+        } catch (error) {
+            console.error('Error building and sharing URL:', error);
+            status.innerHTML = 'An error occurred while building and sharing the URL.';
+            // Hide spinner and enable upload button in case of error
+            spinner.style.display = 'none';
+            uploadButton.disabled = false;
         }
-        throw new Error('Failed to shorten URL.');
     }
 });
