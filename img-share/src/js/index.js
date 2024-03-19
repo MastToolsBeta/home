@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (retryCounter < 3) {
               retryCounter++;
               response = await fetch(
-                "https://api.imgbb.com/1/upload?key=bc0128afc43bdda4d55e79c3781728ac",
+                "https://api.imgbb.com/1/upload?key=cb18ceb77734bc133ae0cb04ec665605",
                 {
                   method: "POST",
                   body: formData,
