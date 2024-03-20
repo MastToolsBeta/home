@@ -25,7 +25,7 @@ const createToolBoxes = async () => {
             const toolBox = document.createElement('div');
             toolBox.className = 'tool-box';
             toolBox.innerHTML = `
-                <img src="${link}/${imageUrl}" alt="${title}">
+                <img src="${link}/${imageUrl}" alt="${title}" loading="lazy">
                 <h2>${title}</h2>
                 <p>${description}</p>
                 <button onclick="window.location.href='${link}'">Open Tool</button>
