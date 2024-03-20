@@ -19,7 +19,7 @@ const createToolBoxes = async () => {
             // Extract information from the manifest
             const title = manifest.short_name || 'Untitled Tool';
             const description = manifest.description || 'No description available';
-            const imageUrl = manifest.icons ? manifest.icons[0].src : 'src/img.android-chrome-192x192.png';
+            const imageUrl = manifest.icons ? manifest.icons[0].src : '../img/android-chrome-192x192.png';
 
             // Create tool box element
             const toolBox = document.createElement('div');

@@ -15,7 +15,7 @@ self.addEventListener('install', (event) => {
     caches.open('MastTools.com-cache').then((cache) => {
       return cache.addAll([
         '../../index.html',
-        '../img/logo192.png'
+        '../img/android-chrome-512x512.png'
       ]);
     })
   );
