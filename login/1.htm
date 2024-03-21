@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restricted Page</title>
+</head>
+<body>
+  <h1>Welcome to the Restricted Page</h1>
+  <div id="user-info">
+    <h2>User Information</h2>
+    <p><strong>Name:</strong> <span id="user-name"></span></p>
+    <p><strong>Email:</strong> <span id="user-email"></span></p>
+    <img id="user-photo" src="" alt="User Photo">
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-auth-compat.js"></script>
+  <script>
+// Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyBKGWJFI7VbRPiDYHh-EqFmqrmkuUgroIM",
+    authDomain: "ethereal-orb-417905.firebaseapp.com",
+    projectId: "ethereal-orb-417905",
+    storageBucket: "ethereal-orb-417905.appspot.com",
+    messagingSenderId: "251665918227",
+    appId: "1:251665918227:web:932227708b6c1d809e12e6"
+  };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Function to check if user is authenticated
+    function checkAuthState() {
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          // User is authenticated, display user info
+          displayUserInfo(user);
+        } else {
+          // User is not authenticated, redirect to login page
+          console.log('User is not authenticated, redirecting to login page');
+          window.location.href = 'index.html';
+        }
+      });
+    }
+
+    // Function to display user information
+    function displayUserInfo(user) {
+      const userName = user.displayName;
+      const userEmail = user.email;
+      const userPhotoUrl = user.photoURL;
+
+      document.getElementById('user-name').textContent = userName;
+      document.getElementById('user-email').textContent = userEmail;
+      document.getElementById('user-photo').src = userPhotoUrl;
+    }
+
+    // Check authentication state on page load
+    checkAuthState();
+  </script>
+</body>
+</html>
