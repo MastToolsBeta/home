@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPA Login/Signup</title>
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+  <div class="container">
+    <div class="form-container">
+      <form id="login-form" class="form">
+        <h2>Login</h2>
+        <input type="email" id="login-email" placeholder="Email" required>
+        <input type="password" id="login-password" placeholder="Password" required>
+        <button type="submit">Login</button>
+        <p class="message">Not registered? <a href="#" onclick="showSignupForm()">Create an account</a></p>
+        <p class="message">Or login with: <button type="button" onclick="loginWithGoogle()">Google</button></p>
+      </form>
+      <form id="signup-form" class="form" style="display:none;">
+        <h2>Sign Up</h2>
+        <input type="email" id="signup-email" placeholder="Email" required>
+        <input type="password" id="signup-password" placeholder="Password" required>
+        <button type="submit">Sign Up</button>
+        <p class="message">Already registered? <a href="#" onclick="showLoginForm()">Sign in</a></p>
+        <p class="message">Or sign up with: <button type="button" onclick="loginWithGoogle()">Google</button></p>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-auth-compat.js"></script>
+  <script src="login.js"></script>
+</body>
+</html>
