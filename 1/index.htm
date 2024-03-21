@@ -1,43 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Sign-In</title>
-    <!-- Include Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.1.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.1.1/firebase-auth.js"></script>
-    <script>
-       // Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyBKGWJFI7VbRPiDYHh-EqFmqrmkuUgroIM",
-  authDomain: "ethereal-orb-417905.firebaseapp.com",
-  projectId: "ethereal-orb-417905",
-  storageBucket: "ethereal-orb-417905.appspot.com",
-  messagingSenderId: "251665918227",
-  appId: "1:251665918227:web:932227708b6c1d809e12e6"
-};
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Sign-in</title>
+  <!-- Firebase JavaScript SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-auth.js"></script>
+  <!-- Firebase configuration -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBKGWJFI7VbRPiDYHh-EqFmqrmkuUgroIM",
+      authDomain: "ethereal-orb-417905.firebaseapp.com",
+      projectId: "ethereal-orb-417905",
+      storageBucket: "ethereal-orb-417905.appspot.com",
+      messagingSenderId: "251665918227",
+      appId: "1:251665918227:web:932227708b6c1d809e12e6"
+    };
 
-        // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-    </script>
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
 </head>
 <body>
-    <h1>Google Sign-In Page</h1>
-    <button onclick="signIn()">Sign in with Google</button>
+  <h1>Google Sign-in Example</h1>
+  <div id="firebaseui-auth-container"></div>
+  <div id="user-info"></div>
 
-    <script>
-        function signIn() {
-            const provider = new firebase.auth.GoogleAuthProvider();
-            firebase.auth().signInWithPopup(provider)
-                .then((result) => {
-                    console.log(result);
-                    // Redirect or perform actions after successful sign-in
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        }
-    </script>
+  <!-- Firebase UI JavaScript -->
+  <script src="https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-auth.js"></script>
+  <script>
+    // Firebase UI configuration
+    const uiConfig = {
+      signInSuccessUrl: '/',
+      signInOptions: [
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID
+      ]
+    };
+
+    // Initialize the FirebaseUI Widget
+    const ui = new firebaseui.auth.AuthUI(firebase.auth());
+
+    // The start method will wait until the DOM is loaded.
+    ui.start('#firebaseui-auth-container', uiConfig);
+
+    // Listen to auth state changes
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        // User is signed in, display user information
+        document.getElementById('user-info').innerHTML = `
+          <p>Welcome, ${user.displayName}!</p>
+          <p>Email: ${user.email}</p>
+          <img src="${user.photoURL}" alt="Profile Picture">
+          <button onclick="signOut()">Sign out</button>
+        `;
+      } else {
+        // User is signed out
+        document.getElementById('user-info').innerHTML = '';
+      }
+    });
+
+    // Sign out function
+    function signOut() {
+      firebase.auth().signOut();
+    }
+  </script>
 </body>
 </html>
