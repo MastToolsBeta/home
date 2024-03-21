@@ -1,0 +1,23 @@
+{
+  "name": "Login",
+  "short_name": "Login",
+  "description": "Login to thes site",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#1f1f1f",
+  "theme_color": "#050505",
+
+  "icons": [
+    {
+      "src": "src/img/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "src/img/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
