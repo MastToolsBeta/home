@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Sign-In Demo</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f2f2f2;
+  }
+  
+  .container {
+    text-align: center;
+  }
+  
+  h1 {
+    margin-bottom: 20px;
+  }
+  
+  .g-signin2 {
+    margin-bottom: 20px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Sign in with Google</h1>
+  <!-- Add your Client ID to the data-clientid attribute -->
+  <div class="g-signin2" data-onsuccess="onSignIn" data-clientid="251665918227-e6pkrtk66c8htg1f09ffgc5gktnl117o.apps.googleusercontent.com"></div>
+</div>
+
+<script>
+  function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    console.log('ID: ' + profile.getId()); // Do something with the user ID
+    console.log('Name: ' + profile.getName()); // Do something with the user's name
+    console.log('Image URL: ' + profile.getImageUrl()); // Do something with the user's profile picture
+    console.log('Email: ' + profile.getEmail()); // Do something with the user's email
+  }
+</script>
+
+<!-- Include the Google Sign-In JavaScript library -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</body>
+</html>
