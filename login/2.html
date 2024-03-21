@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dark UI Header</title>
+  <style>
+body {
+  background-color: #121212;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.logo {
+  height: 40px;
+}
+
+.avatar {
+  position: relative;
+  cursor: pointer;
+}
+
+.avatar-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.avatar-dropdown {
+  position: absolute;
+  top: calc(100% + 5px);
+  right: 0;
+  background-color: #333;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  display: none;
+  min-width: 200px;
+  z-index: 1;
+}
+
+.avatar-dropdown.show {
+  display: block;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.user-info img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+
+.logout-btn {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 5px 10px;
+  transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+  </style>
+</head>
+<body>
+    <div class="header-container">
+        <div class="hamburger material-icons-outlined">menu</div>
+        <a href="http://beta.masttools.com/"><img src="../src/img/header-logo.png" alt="Logo" class="logo" /></a>
+        <div class="avatar" id="avatar">
+          <img src="avatar-placeholder.jpg" alt="Avatar" class="avatar-img">
+          <div class="avatar-dropdown" id="avatar-dropdown">
+            <div class="user-info" id="user-info">
+              <!-- User information will be displayed here -->
+            </div>
+            <hr>
+            <button class="logout-btn" id="logout-btn">Logout</button>
+          </div>
+        </div>
+      </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-auth-compat.js"></script>
+  <script>
+    // Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyBKGWJFI7VbRPiDYHh-EqFmqrmkuUgroIM",
+        authDomain: "ethereal-orb-417905.firebaseapp.com",
+        projectId: "ethereal-orb-417905",
+        storageBucket: "ethereal-orb-417905.appspot.com",
+        messagingSenderId: "251665918227",
+        appId: "1:251665918227:web:932227708b6c1d809e12e6"
+      };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Function to show avatar dropdown on click
+    const avatar = document.getElementById('avatar');
+    const avatarDropdown = document.getElementById('avatar-dropdown');
+
+    avatar.addEventListener('click', () => {
+      avatarDropdown.classList.toggle('show');
+    });
+
+    // Function to update user information
+    const userInfo = document.getElementById('user-info');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        // User is signed in
+        const displayName = user.displayName;
+        const email = user.email;
+        const photoURL = user.photoURL;
+
+        // Update user information
+        userInfo.innerHTML = `
+    <div><img src="${photoURL}" alt="Avatar" class="avatar-img"></div>
+          <div>${displayName}</div>
+          <div>${email}</div>
+        `;
+
+        // Update avatar image
+        const avatarImg = document.querySelector('.avatar-img');
+        avatarImg.src = photoURL || 'avatar-placeholder.jpg';
+
+        // Show logout button
+        logoutBtn.style.display = 'block';
+      } else {
+        // User is signed out
+        userInfo.innerHTML = '';
+        // Hide logout button
+        logoutBtn.style.display = 'none';
+      }
+    });
+
+    // Logout
+    logoutBtn.addEventListener('click', () => {
+      firebase.auth().signOut();
+    });
+  </script>
+</body>
+</html>

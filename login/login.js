@@ -11,25 +11,25 @@ const firebaseConfig = {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   
-  // Function to show signup form and hide login and reset password forms
+  // Function to show signup form and hide login form
   function showSignupForm() {
     document.getElementById('login-form').style.display = 'none';
-    document.getElementById('reset-password-form').style.display = 'none';
     document.getElementById('signup-form').style.display = 'block';
+    document.getElementById('password-reset-form').style.display = 'none';
   }
   
-  // Function to show login form and hide signup and reset password forms
+  // Function to show login form and hide signup form
   function showLoginForm() {
     document.getElementById('login-form').style.display = 'block';
-    document.getElementById('reset-password-form').style.display = 'none';
     document.getElementById('signup-form').style.display = 'none';
+    document.getElementById('password-reset-form').style.display = 'none';
   }
   
-  // Function to show password reset form and hide login and signup forms
+  // Function to show password reset form
   function showPasswordResetForm() {
     document.getElementById('login-form').style.display = 'none';
     document.getElementById('signup-form').style.display = 'none';
-    document.getElementById('reset-password-form').style.display = 'block';
+    document.getElementById('password-reset-form').style.display = 'block';
   }
   
   // Function to handle successful login
@@ -60,6 +60,22 @@ const firebaseConfig = {
         // Handle login error
         console.error('Login error:', error.message);
         alert('Login error: ' + error.message);
+      });
+  });
+  
+  // Handle form submission for password reset
+  document.getElementById('password-reset-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const email = document.getElementById('reset-email').value;
+  
+    firebase.auth().sendPasswordResetEmail(email)
+      .then(() => {
+        console.log('Password reset email sent');
+        alert('Password reset email sent. Please check your email inbox.');
+      })
+      .catch(error => {
+        console.error('Error sending password reset email:', error.message);
+        alert('Error sending password reset email: ' + error.message);
       });
   });
   
@@ -103,26 +119,25 @@ const firebaseConfig = {
       });
   });
   
-  // Handle form submission for password reset
-  document.getElementById('reset-password-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const email = document.getElementById('reset-email').value;
-  
-    firebase.auth().sendPasswordResetEmail(email)
-      .then(() => {
-        console.log('Password reset email sent');
-        alert('Password reset email sent. Please check your email inbox.');
-        showLoginForm(); // Show login form after sending reset email
-      })
-      .catch(error => {
-        console.error('Error sending password reset email:', error.message);
-        alert('Error sending password reset email: ' + error.message);
-      });
-  });
-  
   // Login with Google
   function loginWithGoogle() {
-    // Your Google login code here
-    // ...
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider)
+      .then(result => {
+        // Check if the email is verified
+        if (result.user.emailVerified) {
+          // Handle successful Google login
+          console.log('Logged in with Google successfully:', result.user);
+          handleLoginSuccess(); // Redirect after successful login
+        } else {
+          console.log('Email not verified');
+          alert('Your email is not verified. Please check your email inbox and verify your email address.');
+          document.getElementById('resend-verification').style.display = 'block';
+        }
+      })
+      .catch(error => {
+        // Handle Google login error
+        console.error('Google login error:', error.message);
+      });
   }
   

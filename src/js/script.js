@@ -4,7 +4,6 @@
     'age-calculator',
     'img-cloud',
     'img-share',
-    'login',
 ];
 
 // Function to fetch and create tool boxes
