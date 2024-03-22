@@ -37,6 +37,21 @@ body {
     margin-bottom: 20px;
 }
 
+.name-inputs {
+    display: flex; /* Use flexbox */
+    gap: 10px; /* Adjust the gap between inputs */
+  }
+  
+  .input-container {
+    flex: 1; /* Make each input container flex-grow */
+  }
+  
+  .input-container label,
+  .input-container input {
+    width: 100%; /* Make labels and inputs fill their containers */
+  }
+  
+
 .form input[type="email"],
 .form input[type="password"],
 .form input[type="text"] {
@@ -141,6 +156,13 @@ body {
     font-size: 14px;
     margin-top: 10px;
 }
+
+.success-message {
+    color: green; /* Set color to green */
+    font-size: 14px; /* Adjust font size if needed */
+    margin-top: 10px; /* Add some top margin */
+}
+
 
 .password-strength {
     margin-bottom: 10px;
