@@ -51,6 +51,13 @@ function updateErrorMessage(formId, errorMessage) {
     const errorMessageElement = document.getElementById(formId + '-error-message');
     errorMessageElement.innerText = errorMessage;
     errorMessageElement.style.display = errorMessage ? 'block' : 'none';
+    
+    if (errorMessage) {
+        setTimeout(() => {
+            errorMessageElement.innerText = '';
+            errorMessageElement.style.display = 'none';
+        }, 10000);
+    }
 }
 
 // Function to update success message on the page
@@ -58,14 +65,27 @@ function updateSuccessMessage(formId, successMessage) {
     const successMessageElement = document.getElementById(formId + '-success-message');
     successMessageElement.innerText = successMessage;
     successMessageElement.style.display = successMessage ? 'block' : 'none';
+    
+    if (successMessage) {
+        setTimeout(() => {
+            successMessageElement.innerText = '';
+            successMessageElement.style.display = 'none';
+        }, 10000);
+    }
 }
 
-  // Function to handle successful login
-  function handleLoginSuccess() {
-    // Redirect to dashboard or previous page
-    window.location.href = "/index.html"; // Change "dashboard.html" to your desired page
-  }
-  
+// Function to handle successful login
+function handleLoginSuccess() {
+    // Check if there is a referrer URL in the browser's history
+    if (document.referrer !== '' && document.referrer !== window.location.href) {
+        // Redirect to the previous page
+        window.history.back();
+    } else {
+        // If there is no referrer URL or it's the same as the current page, redirect to "/index.html"
+        window.location.href = "/index.html";
+    }
+}
+
   // Handle form submission for login
   document.getElementById('login-form').addEventListener('submit', function(event) {
     event.preventDefault();
