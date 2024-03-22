@@ -152,3 +152,88 @@
     animation: slideOut 0.3s ease-in;
   }
   
+  /* user dp */
+
+  .avatar {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .avatar-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  
+  .avatar-dropdown {
+    position: absolute;
+    top: calc(100% + 5px);
+    right: 0;
+    background-color: #333;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    display: none;
+    min-width: 200px;
+  }
+  
+  .avatar-dropdown.show {
+    display: block;
+  }
+  
+  .user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  
+  .user-info img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+  }
+
+  .user-info .displayName {
+    font-weight: 500;
+    font-size: 1.5em;
+  }
+
+  .user-info .email {
+    color: #9b9b9b;
+  }
+  
+  
+  .logout-btn {
+    background-color: rgb(83, 57, 57);
+    border: none;
+    border-radius: 8px;
+    color: #ff0000;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 5px 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .logout-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  
+  .login-btn {
+    background-color: rgb(57, 83, 61);
+    border: none;
+    border-radius: 8px;
+    color: #00ff2a;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 5px 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .login-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  /* user dp end */
