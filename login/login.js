@@ -9,7 +9,6 @@ const firebaseConfig = {
   };
 
 
-
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
@@ -55,12 +54,47 @@ function updateErrorMessage(formId, errorMessage) {
 
 // Function to update success message on the page
 function updateSuccessMessage(formId, successMessage) {
-    const successElement = document.getElementById(formId + '-success-message');
-    if (successElement) {
-        successElement.innerText = successMessage;
-        successElement.style.color = 'green'; // Set color to green
-    }
+    document.getElementById(formId + '-success-message').innerText = successMessage;
 }
+
+// Function to handle successful login
+function handleLoginSuccess() {
+    // Redirect to dashboard or previous page
+    window.location.href = "/index.html"; // Change "dashboard.html" to your desired page
+}
+
+// Handle form submission for login
+document.getElementById('login-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+
+    firebase.auth().signInWithEmailAndPassword(email, password)
+        .then(userCredential => {
+            // Check if the email is verified
+            if (userCredential.user.emailVerified) {
+                // Handle successful login
+                console.log('Logged in successfully:', userCredential.user);
+                handleLoginSuccess(); // Redirect after successful login
+            } else {
+                console.log('Email not verified');
+                updateErrorMessage('login', 'Your email is not verified. Please check your email inbox and verify your email address.');
+            }
+        })
+        .catch(error => {
+            // Handle login error
+            console.error('Login error:', error.code);
+            if (error.code === 'auth/invalid-email') {
+                updateErrorMessage('login', 'Invalid email address.');
+            } else if (error.code === 'auth/user-disabled') {
+                updateErrorMessage('login', 'Your account has been disabled.');
+            } else if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+                updateErrorMessage('login', 'Invalid email or password.');
+            } else {
+                updateErrorMessage('login', 'Login failed. Please try again later.');
+            }
+        });
+});
 
 // Handle form submission for password reset
 document.getElementById('password-reset-form').addEventListener('submit', function(event) {
@@ -99,7 +133,7 @@ document.getElementById('signup-form').addEventListener('submit', function(event
     }
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(userCredential => {
+        .        then(userCredential => {
             // Update user profile with first and last names
             userCredential.user.updateProfile({
                 displayName: `${firstName} ${lastName}`
@@ -111,7 +145,7 @@ document.getElementById('signup-form').addEventListener('submit', function(event
                     .then(() => {
                         // Email sent
                         console.log('Email verification sent:', userCredential.user.email);
-                        updateSuccessMessage('signup', 'Account created successfully. Email verification sent. Please check your email inbox to verify your email address.');
+                        updateSuccessMessage('signup', 'Account created successfully. Please check your email inbox to verify your email address.');
                     })
                     .catch(error => {
                         console.error('Email verification error:', error.code);
@@ -136,7 +170,7 @@ document.getElementById('signup-form').addEventListener('submit', function(event
                 updateErrorMessage('signup', 'Signup failed. Please try again later.');
             }
         });
-}); 
+});
 
 // Login with Google
 function loginWithGoogle() {
@@ -165,8 +199,3 @@ function loginWithGoogle() {
         });
 }
 
-// Function to handle successful login
-function handleLoginSuccess() {
-    // Redirect to dashboard or previous page
-    window.location.href = "/index.html"; // Change "dashboard.html" to your desired page
-}
