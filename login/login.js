@@ -11,6 +11,20 @@ const firebaseConfig = {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   
+  // Function to update password strength meter
+  function updatePasswordStrength(password, strengthElement) {
+    const strength = calculatePasswordStrength(password);
+    strengthElement.innerHTML = 'Password Strength: ' + strength;
+    strengthElement.className = 'password-strength strength-' + strength;
+  }
+  
+  // Function to calculate password strength
+  function calculatePasswordStrength(password) {
+    // Example logic to calculate password strength
+    const strength = password.length >= 8 ? 'strong' : password.length >= 6 ? 'medium' : 'weak';
+    return strength;
+  }
+  
   // Function to show signup form and hide login form
   function showSignupForm() {
     document.getElementById('login-form').style.display = 'none';
@@ -30,6 +44,11 @@ const firebaseConfig = {
     document.getElementById('login-form').style.display = 'none';
     document.getElementById('signup-form').style.display = 'none';
     document.getElementById('password-reset-form').style.display = 'block';
+  }
+  
+  // Function to update error message on the page
+  function updateErrorMessage(formId, errorMessage) {
+    document.getElementById(formId + '-error-message').innerText = errorMessage;
   }
   
   // Function to handle successful login
@@ -53,13 +72,21 @@ const firebaseConfig = {
           handleLoginSuccess(); // Redirect after successful login
         } else {
           console.log('Email not verified');
-          alert('Your email is not verified. Please check your email inbox and verify your email address.');
+          updateErrorMessage('login', 'Your email is not verified. Please check your email inbox and verify your email address.');
         }
       })
       .catch(error => {
         // Handle login error
-        console.error('Login error:', error.message);
-        alert('Login error: ' + error.message);
+        console.error('Login error:', error.code);
+        if (error.code === 'auth/invalid-email') {
+          updateErrorMessage('login', 'Invalid email address.');
+        } else if (error.code === 'auth/user-disabled') {
+          updateErrorMessage('login', 'Your account has been disabled.');
+        } else if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+          updateErrorMessage('login', 'Invalid email or password.');
+        } else {
+          updateErrorMessage('login', 'Login failed. Please try again later.');
+        }
       });
   });
   
@@ -71,11 +98,17 @@ const firebaseConfig = {
     firebase.auth().sendPasswordResetEmail(email)
       .then(() => {
         console.log('Password reset email sent');
-        alert('Password reset email sent. Please check your email inbox.');
+        updateErrorMessage('reset', 'Password reset email sent. Please check your email inbox.');
       })
       .catch(error => {
-        console.error('Error sending password reset email:', error.message);
-        alert('Error sending password reset email: ' + error.message);
+        console.error('Error sending password reset email:', error.code);
+        if (error.code === 'auth/invalid-email') {
+          updateErrorMessage('reset', 'Invalid email address.');
+        } else if (error.code === 'auth/user-not-found') {
+          updateErrorMessage('reset', 'No user found with this email address.');
+        } else {
+          updateErrorMessage('reset', 'Error sending password reset email. Please try again later.');
+        }
       });
   });
   
@@ -86,6 +119,12 @@ const firebaseConfig = {
     const password = document.getElementById('signup-password').value;
     const firstName = document.getElementById('signup-firstname').value;
     const lastName = document.getElementById('signup-lastname').value;
+  
+    // Validate input fields
+    if (!email || !password || !firstName || !lastName) {
+      updateErrorMessage('signup', 'All fields are required.');
+      return;
+    }
   
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(userCredential => {
@@ -100,44 +139,57 @@ const firebaseConfig = {
             .then(() => {
               // Email sent
               console.log('Email verification sent:', userCredential.user.email);
-              alert('Email verification sent. Please check your email inbox to verify your email address.');
+              updateErrorMessage('signup', 'Email verification sent. Please check your email inbox to verify your email address.');
             })
             .catch(error => {
-              console.error('Email verification error:', error.message);
-              alert('Email verification failed. Please try again later.');
+              console.error('Email verification error:', error.code);
+              updateErrorMessage('signup', 'Email verification failed. Please try again later.');
             });
         }).catch(error => {
           // Handle profile update error
-          console.error('Profile update error:', error.message);
-          alert('Profile update failed. Please try again later.');
+          console.error('Profile update error:', error.code);
+          updateErrorMessage('signup', 'Profile update failed. Please try again later.');
         });
       })
       .catch(error => {
         // Handle signup error
-        console.error('Signup error:', error.message);
-        alert('Signup error: ' + error.message);
+        console.error('Signup error:', error.code);
+        if (error.code === 'auth/email-already-in-use') {
+          updateErrorMessage('signup', 'The email address is already in use by another account.');
+        } else if (error.code === 'auth/weak-password') {
+          updateErrorMessage('signup', 'The password is too weak.');
+        } else if (error.code === 'auth/invalid-email') {
+          updateErrorMessage('signup', 'Invalid email address.');
+        } else {
+          updateErrorMessage('signup', 'Signup failed. Please try again later.');
+        }
       });
-  });
-  
-  // Login with Google
-  function loginWithGoogle() {
+  }); 
+
+// Login with Google
+function loginWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(provider)
-      .then(result => {
-        // Check if the email is verified
-        if (result.user.emailVerified) {
-          // Handle successful Google login
-          console.log('Logged in with Google successfully:', result.user);
-          handleLoginSuccess(); // Redirect after successful login
-        } else {
-          console.log('Email not verified');
-          alert('Your email is not verified. Please check your email inbox and verify your email address.');
-          document.getElementById('resend-verification').style.display = 'block';
-        }
-      })
-      .catch(error => {
-        // Handle Google login error
-        console.error('Google login error:', error.message);
-      });
-  }
-  
+        .then(result => {
+            // Check if the email is verified
+            if (result.user.emailVerified) {
+                // Handle successful Google login
+                console.log('Logged in with Google successfully:', result.user);
+                handleLoginSuccess(); // Redirect after successful login
+            } else {
+                console.log('Email not verified');
+                updateErrorMessage('login', 'Your email is not verified. Please check your email inbox and verify your email address.');
+                document.getElementById('resend-verification').style.display = 'block';
+            }
+        })
+        .catch(error => {
+            // Handle Google login error
+            console.error('Google login error:', error.code);
+            if (error.code === 'auth/popup-closed-by-user') {
+                updateErrorMessage('login', 'Google sign-in popup was closed.');
+            } else {
+                updateErrorMessage('login', 'Google login failed. Please try again later.');
+            }
+        });
+}
+
