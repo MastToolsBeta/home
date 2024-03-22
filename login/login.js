@@ -7,7 +7,7 @@ const firebaseConfig = {
     messagingSenderId: "251665918227",
     appId: "1:251665918227:web:932227708b6c1d809e12e6"
   };
-  
+
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   
@@ -46,16 +46,20 @@ const firebaseConfig = {
     document.getElementById('password-reset-form').style.display = 'block';
   }
   
-  // Function to update error message on the page
-  function updateErrorMessage(formId, errorMessage) {
-    document.getElementById(formId + '-error-message').innerText = errorMessage;
-  }
-  
-  // Function to update success message on the page
-  function updateSuccessMessage(formId, successMessage) {
-    document.getElementById(formId + '-success-message').innerText = successMessage;
-  }
-  
+// Function to update error message on the page
+function updateErrorMessage(formId, errorMessage) {
+    const errorMessageElement = document.getElementById(formId + '-error-message');
+    errorMessageElement.innerText = errorMessage;
+    errorMessageElement.style.display = errorMessage ? 'block' : 'none';
+}
+
+// Function to update success message on the page
+function updateSuccessMessage(formId, successMessage) {
+    const successMessageElement = document.getElementById(formId + '-success-message');
+    successMessageElement.innerText = successMessage;
+    successMessageElement.style.display = successMessage ? 'block' : 'none';
+}
+
   // Function to handle successful login
   function handleLoginSuccess() {
     // Redirect to dashboard or previous page
