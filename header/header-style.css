@@ -25,7 +25,7 @@
     left: 0;
   }
   
-  .hamburger, .close-btn, .search-icon {
+  .hamburger, .close-btn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -156,12 +156,17 @@
 
   .avatar {
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    padding: 10px;
     cursor: pointer;
   }
   
   .avatar-img {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
   }
   
@@ -170,6 +175,7 @@
     top: calc(100% + 5px);
     right: 0;
     background-color: #333;
+    border: 2px solid rgb(0, 0, 0);
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 10px;
