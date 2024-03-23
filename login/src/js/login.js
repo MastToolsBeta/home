@@ -194,6 +194,8 @@ function handleLoginSuccess() {
           }
         });
     }); 
+
+    
   
   // Login with Google
   function loginWithGoogle() {
@@ -221,4 +223,5 @@ function handleLoginSuccess() {
               }
           });
   }
+  
   

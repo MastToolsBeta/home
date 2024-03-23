@@ -67,7 +67,16 @@
     }
   });
   
-  // Logout
-  logoutBtn.addEventListener('click', () => {
+// Logout
+logoutBtn.addEventListener('click', () => {
+  // Get the user's display name
+  const userName = firebase.auth().currentUser.displayName;
+  
+  // Ask for confirmation before logging out
+  const confirmLogout = window.confirm(`Hey ${userName}, are you sure you want to logout?`);
+  
+  if (confirmLogout) {
     firebase.auth().signOut();
-  });
+  }
+});
+

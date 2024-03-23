@@ -1,3 +1,12 @@
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+    font-family: -apple-system, "system-ui", "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  }
+  
+
 body {
     background-color: #121212;
     color: #fff;
@@ -55,7 +64,7 @@ body {
 .form input[type="email"],
 .form input[type="password"],
 .form input[type="text"] {
-    width: calc(100% - 20px);
+    width: 100%;
     padding: 10px;
     margin-bottom: 15px;
     border: none;
@@ -74,6 +83,7 @@ body {
 .form button[type="submit"] {
     width: 100%;
     padding: 10px;
+    margin-top: 10px;
     border: none;
     border-radius: 5px;
     background-color: #007bff;
@@ -100,7 +110,7 @@ body {
   
   .or-text {
     margin: 0 10px;
-    color: #666;
+    color: #d2d2d2;
     font-size: 16px;
   }
   
@@ -134,10 +144,11 @@ body {
 
 .form p.message {
     text-align: center;
+    margin-top: 20px;
 }
 
 .form p.message a, .form p.reset-pass a {
-    color: #007bff;
+    color: #00a6ff;
     text-decoration: none;
 }
 
@@ -170,17 +181,48 @@ body {
 }
 
 .checkbox-label {
-    display: flex;
-    align-items: center;
+    display: inline-block;
+    font-size: 16px;
+    color: #d1d1d1;
+    margin-top: 4px;
     margin-bottom: 10px;
-    margin-top: 3px;
-    color: #e4e4e4;
-}
-
-.checkbox-label input[type="checkbox"] {
-    margin-right: 5px;
-}
-
+  }
+  
+  .checkbox-label span {
+    display: inline-block;
+    vertical-align: middle;
+    max-height: 20px;
+  }
+  
+  .checkbox-label input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    margin-right: 8px;
+    cursor: pointer;
+  }
+  
+  .checkbox-label input[type="checkbox"]:checked {
+    background-color: #007bff;
+  }
+  
+  .checkbox-label input[type="checkbox"]:checked::before {
+    content: '\2713';
+    display: block;
+    text-align: center;
+    line-height: 16px;
+    color: #fff;
+  }
+  
+  .checkbox-label span:last-child {
+    vertical-align: middle;
+  }
+  
+  
 /* Media Queries for responsiveness */
 @media only screen and (max-width: 600px) {
     .container {
