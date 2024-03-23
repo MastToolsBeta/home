@@ -1,13 +1,13 @@
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBKGWJFI7VbRPiDYHh-EqFmqrmkuUgroIM",
-  authDomain: "ethereal-orb-417905.firebaseapp.com",
-  projectId: "ethereal-orb-417905",
-  storageBucket: "ethereal-orb-417905.appspot.com",
-  messagingSenderId: "251665918227",
-  appId: "1:251665918227:web:932227708b6c1d809e12e6"
+  apiKey: "AIzaSyAGmPoiWlXh3kDHyXemJjlo4tiszkBLO4Y",
+  authDomain: "fir-8d3c9.firebaseapp.com",
+  projectId: "fir-8d3c9",
+  storageBucket: "fir-8d3c9.appspot.com",
+  messagingSenderId: "293806943864",
+  appId: "1:293806943864:web:46a4d0d697a16aad0e878d"
 };
-  
+
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   
