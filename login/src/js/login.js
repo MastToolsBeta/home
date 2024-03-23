@@ -1,13 +1,13 @@
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAGmPoiWlXh3kDHyXemJjlo4tiszkBLO4Y",
-  authDomain: "fir-8d3c9.firebaseapp.com",
-  projectId: "fir-8d3c9",
-  storageBucket: "fir-8d3c9.appspot.com",
-  messagingSenderId: "293806943864",
-  appId: "1:293806943864:web:46a4d0d697a16aad0e878d"
+  apiKey: "AIzaSyB9jRj79Vp47lgDaC1cUEDv07YLjUgLui4",
+  authDomain: "masttools.firebaseapp.com",
+  projectId: "masttools",
+  storageBucket: "masttools.appspot.com",
+  messagingSenderId: "218522216033",
+  appId: "1:218522216033:web:316dd6e67356fa6e236c20",
+  measurementId: "G-46P5B9MBZ3"
 };
-
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   

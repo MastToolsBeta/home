@@ -30,6 +30,7 @@ body {
 .logo-container img {
     max-width: 60%;
     height: auto;
+    opacity: 30%;
 }
 
 .form-container {
@@ -43,7 +44,7 @@ body {
 
 .form h2 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 }
 
 .name-inputs {
@@ -57,7 +58,7 @@ body {
   
   .input-container label,
   .input-container input {
-    width: 100%; /* Make labels and inputs fill their containers */
+    width: 100%;
   }
   
 
